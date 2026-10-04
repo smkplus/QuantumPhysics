@@ -495,7 +495,7 @@
     .qs-nm{ grid-area:n; margin-top:6px; }
     .qs-en{ grid-area:e; }
   }
-  .qs-detail{ margin-top:16px; border:1px solid rgba(var(--c-rgb),.5); border-radius:14px; background:#0c0c14; padding:14px; }
+  .qs-detail{ margin:10px 0 4px; scroll-margin-top:70px; border:1px solid rgba(var(--c-rgb),.5); border-radius:14px; background:#0c0c14; padding:14px; }
   .qs-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
   .qs-top .qd{ width:54px; height:54px; font-size:28px; margin:0; flex:0 0 auto; }
   .qs-top h4{ margin:0; font-size:20px; font-weight:800; color:rgb(var(--c-rgb)); }
@@ -661,12 +661,12 @@
       <summary>📚 دانستنی: بسته‌ها چقدر بزرگ‌اند؟ <small>(برای کنجکاوها)</small><span class="chev">▾</span></summary>
       <div class="lvm-body">
         <div class="eq-line" style="color:var(--collapse)">E = h · f</div>
-        <div class="note-box"><b>h</b> ثابتِ پلانک است: ≈ <span class="mono" dir="ltr">6.626×10⁻³⁴ J·s</span> ≈ <span class="mono" dir="ltr">4.136×10⁻¹⁵ eV·s</span>. هرچه فرکانس بالاتر، فوتون پرانرژی‌تر.</div>
-        <div class="note-box"><b>رادیوی FM</b> (≈ ۱۰۰ MHz): ≈ <span class="mono" dir="ltr">4×10⁻⁷ eV</span> — پله‌هایش آن‌قدر ریز است که موج کاملاً پیوسته به نظر می‌رسد.</div>
+        <div class="note-box"><b>h</b> ثابتِ پلانک است: ≈ <span dir="ltr">۶٫۶۲۶×۱۰<sup>−۳۴</sup> J·s</span> ≈ <span dir="ltr">۴٫۱۳۶×۱۰<sup>−۱۵</sup> eV·s</span>. هرچه فرکانس بالاتر، فوتون پرانرژی‌تر.</div>
+        <div class="note-box"><b>رادیوی FM</b> (≈ ۱۰۰ MHz): ≈ <span dir="ltr">۴×۱۰<sup>−۷</sup> eV</span> — پله‌هایش آن‌قدر ریز است که موج کاملاً پیوسته به نظر می‌رسد.</div>
         <div class="note-box"><b>نور قرمز</b> (≈ ۴۳۰ THz): ≈ ۱٫۸ eV · <b>نور بنفش</b> (≈ ۷۵۰ THz): ≈ ۳٫۱ eV.</div>
         <div class="note-box"><b>فرابنفش</b> (≈ ۱۰۰۰ THz): ≈ ۴٫۱ eV — پله‌ای به اندازه‌ی کافی بلند که می‌تواند پیوندهای شیمیایی پوست را بشکند (آفتاب‌سوختگی).</div>
-        <div class="note-box"><b>پرتو ایکس</b> (≈ <span class="mono" dir="ltr">10¹⁸ Hz</span>): ≈ ۴ keV — هر فوتونش آن‌قدر انرژی دارد که از بافتِ نرم رد شود.</div>
-        <div class="note-box"><b>چرا پله‌ها را حس نمی‌کنیم؟</b> یک لامپ ۱۰۰ واتی در هر ثانیه از مرتبه‌ی <span class="mono" dir="ltr">10¹⁹</span> فوتونِ مرئی می‌فرستد و خورشید از مرتبه‌ی <span class="mono" dir="ltr">10⁴⁵</span>. با این‌همه بسته، پله‌های ریز در هم گم می‌شوند و نور پیوسته به نظر می‌رسد.</div>
+        <div class="note-box"><b>پرتو ایکس</b> (≈ <span dir="ltr">۱۰<sup>۱۸</sup> Hz</span>): ≈ ۴ keV — هر فوتونش آن‌قدر انرژی دارد که از بافتِ نرم رد شود.</div>
+        <div class="note-box"><b>چرا پله‌ها را حس نمی‌کنیم؟</b> یک لامپ ۱۰۰ واتی در هر ثانیه از مرتبه‌ی <span dir="ltr">۱۰<sup>۱۹</sup></span> فوتونِ مرئی می‌فرستد و خورشید از مرتبه‌ی <span dir="ltr">۱۰<sup>۴۵</sup></span>. با این‌همه بسته، پله‌های ریز در هم گم می‌شوند و نور پیوسته به نظر می‌رسد.</div>
       </div>
     </details>
   </section>
@@ -826,7 +826,7 @@
             <div><math><msub><mi>B</mi><mi>ν</mi></msub></math> <b style="color:var(--ink)">شدتِ تابش</b> در فرکانس <math><mi>ν</mi></math> · <math><mi>T</mi></math> <b style="color:var(--ink)">دمای جسم</b> (کلوین) · <math><mi>c</mi></math> <b style="color:var(--ink)">سرعت نور</b></div>
             <div><math><mi>h</mi></math> <b style="color:var(--ink)">ثابت پلانک</b>: ارتفاعِ منحنی و (با k) جای قله را تعیین می‌کند · <math><mi>k</mi></math> <b style="color:var(--ink)">ثابت بولتزمن</b>: انرژیِ گرمایی هر دما (kT)</div>
             <div><math><mi>b</mi></math> <b style="color:var(--ink)">ثابت جابه‌جاییِ وین</b> (<math><msub><mi>λ</mi><mtext>max</mtext></msub><mi>T</mi></math>، اندازه‌گیری‌شده ≈ ۲٫۸۹۸×۱۰<sup>−۳</sup> m·K) · <math><mi>σ</mi></math> <b style="color:var(--ink)">ثابت استفان–بولتزمن</b> (انرژیِ کلِ تابش، ≈ ۵٫۶۷×۱۰<sup>−۸</sup>)</div>
-            <div>با همین دو عدد: <b style="color:var(--ink)" class="mono">k ≈ 1.38×10⁻²³ ، h ≈ 6.62×10⁻³⁴</b>. پلانک با داده‌های ۱۹۰۰ به <b class="mono" style="color:var(--ink)">h ≈ 6.55×10⁻³⁴</b> رسید؛ فقط حدود ۱٪ با مقدار امروز فاصله دارد.</div>
+            <div>با همین دو عدد: <b style="color:var(--ink)" dir="ltr">k ≈ ۱٫۳۸×۱۰<sup>−۲۳</sup> ، h ≈ ۶٫۶۲×۱۰<sup>−۳۴</sup></b>. پلانک با داده‌های ۱۹۰۰ به <b style="color:var(--ink)" dir="ltr">h ≈ ۶٫۵۵×۱۰<sup>−۳۴</sup></b> رسید؛ فقط حدود ۱٪ با مقدار امروز فاصله دارد.</div>
           </div>
         </div>
       </details>
@@ -1144,8 +1144,8 @@
       <div class="demo qs" id="qsDemo">
         <p class="concept-desc" style="margin-bottom:6px">همه‌ی ذره‌های بنیادیِ شناخته‌شده در یک نگاه (مدل استاندارد). روی هر کارت بزن تا ویژگی‌هایش را ببینی.</p>
         <div class="qs-legend">روی هر کارت از بالا به پایین: <b>جرم</b> · <b>بار</b> · <b>اسپین</b></div>
-        <div id="qsGroups"></div>
         <div class="qs-detail" id="qsDetail"></div>
+        <div id="qsGroups"></div>
         <div class="note-box">مادّه از «فرمیون‌ها» (اسپین ½: کوارک‌ها و لپتون‌ها) ساخته شده و نیروها با «بوزون‌ها» (اسپین ۱) منتقل می‌شوند: ۶ کوارک + ۶ لپتون + ۴ بوزون حامل نیرو + هیگز = ۱۷ ذره. گرانش در این جدول نیست. هر کوارک و لپتون یک پادذره هم دارد. مادّه‌ی معمولی فقط از u، d و الکترون ساخته شده.</div>
       </div>
     </div>
@@ -4125,7 +4125,7 @@
       $('spRead').innerHTML = h;
     }
     function setMode(m){
-      mode = m; $('spCams').style.display = m === 'A' ? '' : 'none'; $('spDim').style.display = m === 'B' || m === 'C' ? '' : 'none'; if(m !== 'A'){ tYaw = .55; tPitch = .32; } document.querySelectorAll('#spinDemo [data-m]').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+      mode = m; $('spCams').style.display = m === 'A' ? '' : 'none'; $('spDim').style.display = m === 'B' || m === 'C' ? '' : 'none'; if(m !== 'A'){ tYaw = m === 'C' ? 0 : .55; tPitch = .32; } document.querySelectorAll('#spinDemo [data-m]').forEach(b => b.classList.toggle('on', b.dataset.m === m));
       for(const k in ctl) ctl[k].style.display = k === m ? '' : 'none';
       $('spHint').textContent = m === 'C' ? 'بکش بالا و پایین ↕' : 'بکش تا بچرخد ↔'; $('spHint').style.display = ''; $('spInfo').textContent = m === 'O' ? OINFO[stg] : INFO[m]; readouts();
     }
@@ -6338,7 +6338,7 @@ function createCatScene(canvas, H){
   function mk(g,d){
     var rgb=d[10]||g.rgb, k=d[0], b=document.createElement('button'); b.type='button'; b.className='qs-card'; b.style.setProperty('--c-rgb',rgb);
     b.innerHTML='<div class="qs-vals"><div>'+d[3]+'</div><div>'+d[4]+'</div><div>'+d[5]+'</div></div><span class="qd'+(k.length>3?' sm':'')+'">'+k+'</span><div class="qs-nm">'+d[1]+'</div><div class="qs-en">'+d[2]+'</div>';
-    b.addEventListener('click',function(){ show(d); });
+    b.addEventListener('click',function(){ show(d); det.scrollIntoView({behavior:'smooth',block:'nearest'}); });
     cards[d[2]]=b; return b;
   }
   G.forEach(function(g){
