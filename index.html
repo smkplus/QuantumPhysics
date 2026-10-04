@@ -506,6 +506,32 @@
   .chapter-head h2{ margin:0; font-size:clamp(17px,4.4vw,20px); font-weight:800; }
   .chapter-head p{ margin:2px 0 0; font-size:12.5px; color:var(--muted); line-height:1.7; }
   .chapter > .chapter-head + section.concept{ border-top:0; margin-top:0; padding-top:26px; }
+
+  /* collapsible chapters */
+  details.chapter > summary.chapter-head{ cursor:pointer; list-style:none; user-select:none; -webkit-tap-highlight-color:transparent; transition:border-color .2s ease, transform .15s ease; }
+  details.chapter > summary.chapter-head::-webkit-details-marker{ display:none; }
+  details.chapter > summary.chapter-head:hover{ border-color:rgba(var(--ch),.6); }
+  details.chapter > summary.chapter-head:active{ transform:scale(.99); }
+  details.chapter > summary.chapter-head > div{ flex:1 1 auto; }
+  .ch-chev{ flex:0 0 auto; font-size:20px; color:rgb(var(--ch)); transition:transform .25s ease; }
+  details.chapter:not([open]) .ch-chev{ transform:rotate(90deg); }
+  details.chapter[open] > summary.chapter-head{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  details.chapter + details.chapter{ margin-top:18px; }
+
+  /* orbital "danestani" */
+  #orbMore{ margin-top:18px; }
+  #orbMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #orbMore>summary::-webkit-details-marker{ display:none; }
+  #orbMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.45); }
+  #orbMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #orbMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #orbMore[open]>summary .chev{ transform:rotate(180deg); }
+  #orbMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #orbMore>.orbm-body{ padding-top:16px; }
+
+  /* sub-options that belong to the "what is spin" tab */
+  #spinDemo .sp-sub{ margin:-2px 0 14px; padding:12px 10px 10px; border:1px solid rgba(98,214,255,.28); border-radius:12px; background:rgba(98,214,255,.05); }
+  #spinDemo .sp-sub > .row:last-child{ margin-top:2px; }
 </style>
 </head>
 <body>
@@ -531,8 +557,8 @@
 <main>
 
   <!-- HISTORY -->
-  <div class="chapter" id="ch-1" style="--ch:98,214,255">
-<div class="chapter-head"><span class="no">۱</span><div><h2>ریشه‌ها: چرا کوانتوم لازم شد؟</h2><p>از یک مسئله‌ی گرمایی تا انرژیِ پله‌پله</p></div></div>
+  <details class="chapter" id="ch-1" style="--ch:98,214,255" open>
+<summary class="chapter-head"><span class="no">۱</span><div><h2>ریشه‌ها: چرا کوانتوم لازم شد؟</h2><p>از یک مسئله‌ی گرمایی تا انرژیِ پله‌پله</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
 <section class="concept" id="sec-history">
     <div class="concept-head"><h2>🕰️ خط زمانی مکانیک کوانتوم</h2></div>
@@ -744,10 +770,10 @@
     </details>
   </section>
 
-</div>
+</details>
 
-<div class="chapter" id="ch-2" style="--ch:199,146,234">
-<div class="chapter-head"><span class="no">۲</span><div><h2>ذره یا موج؟ قواعدِ بازی</h2><p>دو اصلِ بنیادینِ رفتارِ ذره‌ها</p></div></div>
+<details class="chapter" id="ch-2" style="--ch:199,146,234">
+<summary class="chapter-head"><span class="no">۲</span><div><h2>ذره یا موج؟ قواعدِ بازی</h2><p>دو اصلِ بنیادینِ رفتارِ ذره‌ها</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
 <section class="concept" id="sec-duality">
     <div class="concept-head"><h2>🎯 ذره یا موج؟</h2></div>
@@ -825,10 +851,10 @@
     </div>
   </section>
 
-</div>
+</details>
 
-<div class="chapter" id="ch-3" style="--ch:255,180,84">
-<div class="chapter-head"><span class="no">۳</span><div><h2>ساختارِ ماده</h2><p>از اتم و الکترون تا اسپین و کوارک</p></div></div>
+<details class="chapter" id="ch-3" style="--ch:255,180,84">
+<summary class="chapter-head"><span class="no">۳</span><div><h2>ساختارِ ماده</h2><p>از اتم و الکترون تا اسپین و کوارک</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
 <section class="concept" id="sec-zoom">
     <div class="concept-head"><h2>🍎 زوم روی سیب: الکترون کجاست؟</h2></div>
@@ -903,7 +929,9 @@
       <div class="note-box">به Δx·Δp نگاه کن: هرچقدر N را بزرگ‌تر کنی و الکترون را در جای کوچک‌تری حبس کنی، Δp و انرژی جنبشی بالا می‌رود و حاصل‌ضرب هیچ‌وقت از <span class="mono" dir="ltr">ħ/2</span> پایین‌تر نمی‌آید. همین «لگد» است که الکترون را از چسبیدن به هسته بازمی‌دارد و اتم را پایدار نگه می‌دارد.</div>
     </div>
     </div>
-    <h3 class="step-h">از جعبه تا اتمِ واقعی: شکلِ اوربیتال‌ها</h3>
+    <details id="orbMore">
+      <summary>🧬 دانستنی: از جعبه تا اتمِ واقعی — شکلِ اوربیتال‌ها <small>(برای کنجکاوها)</small><span class="chev">▾</span></summary>
+      <div class="orbm-body">
     <p class="concept-desc">تا اینجا الکترون را در یک جعبه‌ی ساده دیدیم. اتمِ واقعی فرق دارد: فضا سه‌بعدی است و به‌جای دیواره، هسته الکترون را به سمتِ خودش می‌کشد. معادله‌ی شرودینگر همان است؛ فقط حالا باید آن را برای کششِ هسته حل کنیم.</p>
     <p class="concept-desc">جواب‌ها موج‌هایی هستند که دورِ هسته جا می‌گیرند و به هرکدام «اوربیتال» می‌گوییم. اوربیتال یعنی ابرِ احتمالِ حضورِ الکترون: هرجا نقطه‌ها پرتراکم‌تر است، احتمالِ پیدا کردنِ الکترون همان‌جا بیشتر است. هر اوربیتال را سه عدد مشخص می‌کنند: n اندازه و انرژی، l شکل، و m جهتِ آن در فضا. پایین یکی را انتخاب کن و بچرخانش.</p>
     <div class="demo" id="orbDemo">
@@ -928,18 +956,28 @@
       <div class="found-msg" id="orbDesc" style="margin-top:12px"></div>
       <div class="note-box">در هیدروژن ۲s و ۲p هم‌انرژی‌اند، چون انرژی فقط به n بستگی دارد. در اتم‌های چندالکترونی، دافعه‌ی الکترون‌ها این برابری را می‌شکند و به همین دلیل ترتیبِ پرشدنِ اوربیتال‌ها در جدول تناوبی پیچیده می‌شود.</div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- 4. SPIN -->
   <section class="concept" id="sec-spin">
     <div class="concept-head"><h2>🧭 اسپین کوانتومی</h2></div>
-    <p class="concept-desc">الکترون مثل توپِ بسکتبال دور خودش نمی‌چرخد. چرخشِ واقعی یعنی اجزایی که روی مسیر دایره‌ای حرکت کنند، و الکترون یک ذره‌ی بنیادی و نقطه‌مانند است که جزء ندارد. «اسپین» یک ویژگیِ ذاتی است که <b>مثل</b> تکانه‌ی زاویه‌ای رفتار می‌کند. اسمش هم از اینجا آمده که الکترون مثل آهنربای ریز است، درست مثل یک گوی باردارِ چرخان، اما هیچ چرخشِ فیزیکی در کار نیست. اول از تب «چرخش چیه؟» شروع کن: توپِ بسکتبال، بعد توپِ باردار، بعد الکترون. سپس سه نمایشِ دیگر را هم با کشیدن (drag) بچرخان و ببین.</p>
+    <p class="concept-desc">الکترون مثل توپِ بسکتبال دور خودش نمی‌چرخد. چرخشِ واقعی یعنی اجزایی که روی مسیر دایره‌ای حرکت کنند، و الکترون یک ذره‌ی بنیادی و نقطه‌مانند است که جزء ندارد. «اسپین» یک ویژگیِ ذاتی است که <b>مثل</b> تکانه‌ی زاویه‌ای رفتار می‌کند. اسمش هم از اینجا آمده که الکترون مثل آهنربای ریز است، درست مثل یک گوی باردارِ چرخان، اما هیچ چرخشِ فیزیکی در کار نیست. اول از تب «چرخش چیست؟» شروع کن: توپِ بسکتبال، بعد توپِ باردار، بعد الکترون. سپس سه نمایشِ دیگر را هم با کشیدن (drag) بچرخان و ببین.</p>
     <div class="demo" id="spinDemo">
       <div class="row" style="justify-content:center; margin-bottom:12px">
-        <button class="act ghost on" data-m="O">🏀 چرخش چیه؟</button>
+        <button class="act ghost on" data-m="O">🏀 چرخش چیست؟</button>
         <button class="act ghost" data-m="A">🧲 استرن–گرلاخ</button>
         <button class="act ghost" data-m="B">🌀 پیش‌روی لارمور</button>
         <button class="act ghost" data-m="C">🔄 کدام ذره برمی‌گردد؟</button>
+      </div>
+      <div id="spCtlO" class="sp-sub">
+        <div class="row" style="justify-content:center; margin-bottom:8px">
+          <button class="act ghost on" data-st="0">🏀 توپِ بسکتبال</button>
+          <button class="act ghost" data-st="1">⚡ توپِ باردار</button>
+          <button class="act ghost" data-st="2">⚛️ الکترون</button>
+        </div>
+        <div class="row" style="justify-content:center"><button class="act" id="spFlip">🔁 جهتِ چرخش را برعکس کن</button></div>
       </div>
       <div class="ds-stage"><canvas class="demo-canvas ds-canvas" id="spinCanvas" style="height:340px"></canvas><div class="ds-hint" id="spHint">بکش تا بچرخد ↔</div></div>
       <div class="ds-chips" id="spCams" style="justify-content:center">
@@ -952,14 +990,6 @@
         <button class="app-chip" data-d="2">🧭 دوبعدی</button>
       </div>
       <div class="found-msg" id="spInfo" style="margin:10px 0"></div>
-      <div id="spCtlO">
-        <div class="row" style="justify-content:center; margin-bottom:8px">
-          <button class="act ghost on" data-st="0">🏀 توپِ بسکتبال</button>
-          <button class="act ghost" data-st="1">⚡ توپِ باردار</button>
-          <button class="act ghost" data-st="2">⚛️ الکترون</button>
-        </div>
-        <div class="row" style="justify-content:center"><button class="act" id="spFlip">🔁 جهتِ چرخش را برعکس کن</button></div>
-      </div>
       <div id="spCtlA" class="row" style="justify-content:center">
         <button class="act" id="spShoot">⚛️ یک اتم پرتاب کن</button>
         <button class="act ghost" id="spShoot20">×۲۰</button>
@@ -1056,10 +1086,10 @@
     <div class="note-box" style="margin-top:12px"><b>جرم از کجا می‌آید؟</b> جرمِ سه کوارکِ پروتون روی‌هم‌رفته حدود ۱٪ جرمِ آن است. بقیه انرژیِ حرکتِ کوارک‌ها و میدانِ گلوئونی است که بنا بر E = mc² خودش را به‌صورت جرم نشان می‌دهد. کوارک‌ها را گل-من و تسوایگ در ۱۹۶۴ پیشنهاد کردند و آزمایش‌های پراکندگیِ الکترون در SLAC، حدود ۱۹۶۸، ساختارِ سه‌تایی درونِ پروتون را نشان داد.</div>
   </section>
 
-</div>
+</details>
 
-<div class="chapter" id="ch-4" style="--ch:126,224,138">
-<div class="chapter-head"><span class="no">۴</span><div><h2>پدیده‌های عجیب</h2><p>کیوبیت، برهم‌نهی، گربه‌ی شرودینگر، تونل‌زنی و درهم‌تنیدگی</p></div></div>
+<details class="chapter" id="ch-4" style="--ch:126,224,138">
+<summary class="chapter-head"><span class="no">۴</span><div><h2>پدیده‌های عجیب</h2><p>کیوبیت، برهم‌نهی، گربه‌ی شرودینگر، تونل‌زنی و درهم‌تنیدگی</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
 <section class="concept" id="sec-bitqubit">
     <div class="concept-head"><h2>💻 بیت یا کیوبیت؟</h2></div>
@@ -1078,7 +1108,7 @@
       <div class="bq-hint">صحنه را بکش تا بچرخد · روی هر سکه بزن</div>
       <div class="qubit-result" id="bitResult">بیت همیشه یکی از دو رو است (شیر یا خط)؛ کیوبیت مثل سکه‌ای است که در جعبه‌ی بسته می‌چرخد: تا جعبه را باز نکنی (اندازه نگیری)، هر دو حالت را با هم دارد.</div>
     </div>
-</</section>
+</section>
 
   <!-- 2. SUPERPOSITION -->
   <section class="concept" id="sec-super">
@@ -1230,10 +1260,10 @@
     </div>
   </section>
 
-</div>
+</details>
 
-<div class="chapter" id="ch-5" style="--ch:255,143,177">
-<div class="chapter-head"><span class="no">۵</span><div><h2>کوانتوم در زندگی روزمره</h2><p>فناوری‌هایی که امروز با کوانتوم کار می‌کنند</p></div></div>
+<details class="chapter" id="ch-5" style="--ch:255,143,177">
+<summary class="chapter-head"><span class="no">۵</span><div><h2>کوانتوم در زندگی روزمره</h2><p>فناوری‌هایی که امروز با کوانتوم کار می‌کنند</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
   <!-- 9. APPLICATIONS -->
   <section class="concept" id="sec-apps">
@@ -1304,7 +1334,7 @@
     </div>
   </section>
 
-</div>
+</details>
 
 <footer class="credit">آزمایشگاه کوانتومی تعاملی — از صفر تا صد<div id="musicCredit" style="margin-top:6px;font-size:11px;opacity:.7;direction:ltr">Music: “Mesmerizing Galaxy Loop” by Kevin MacLeod (incompetech.com) — CC BY 4.0</div></footer>
 </main>
@@ -1519,7 +1549,6 @@
       openIdx = wasActive ? -1 : i;
       if(openIdx>=0){
         items[openIdx].classList.add('active');
-        items[openIdx].scrollIntoView({ behavior:'smooth', block:'center' });
         const rgb = items[openIdx].style.getPropertyValue('--c-rgb');
         burstAtEl(items[openIdx].querySelector('.tl-node2'), `rgb(${rgb})`, 16);
         tone(340+i*24, 0.08, 'sine', 0.06);
@@ -6230,6 +6259,17 @@ function createCatScene(canvas, H){
   }
   show(G[0].list[0]);
 })();
+</script>
+<script>
+document.querySelectorAll('details.chapter').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open){ requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); }); }
+  });
+});
+</script>
+<script>
+(function(){var d=document.getElementById('orbMore');if(!d)return;
+d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'));});}});})();
 </script>
 </body>
 </html>
