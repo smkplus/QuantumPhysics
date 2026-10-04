@@ -444,6 +444,59 @@
   .pl-tick{ position:absolute; bottom:0; transform:translateX(-50%); text-align:center; font-size:11px; color:var(--wave); pointer-events:none; line-height:1.2; }
   .pl-tick i{ display:block; width:2px; height:9px; margin:0 auto 2px; background:var(--wave); box-shadow:0 0 8px var(--wave); }
 
+  /* ===== proton / neutron + quark cards ===== */
+  .qp-answer{ font-size:14px; line-height:2; color:#e8e6f0; background:#0c0c14; border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:12px; padding:10px 14px; margin-bottom:14px; }
+  .qp-answer .mono{ direction:ltr; display:inline-block; color:var(--wave); font-weight:800; }
+  .qp-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+  .qp-card{ text-align:center; background:#12121c; border:1px solid var(--border); border-radius:16px; padding:12px 10px 14px; }
+  .qp-card h4{ margin:0; font-size:18px; font-weight:800; }
+  .qp-card svg{ width:100%; max-width:230px; height:auto; display:block; margin:4px auto 0; animation:gfloat 3.2s ease-in-out infinite; }
+  .qp-gl{ stroke:rgba(255,255,255,.45); stroke-width:2; stroke-dasharray:5 5; animation:qpFlow 1s linear infinite; }
+  @keyframes qpFlow{ to{ stroke-dashoffset:-20; } }
+  .qp-eq{ direction:ltr; font:800 20px 'JetBrains Mono',monospace; color:var(--wave); margin-top:4px; }
+  .qp-sum{ direction:ltr; font:600 14px 'JetBrains Mono',monospace; color:#c7c3da; margin-top:4px; }
+  .qp-sum b{ color:var(--collapse); font-size:17px; }
+  .qp-card p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); line-height:1.9; }
+  .qs-grid{ direction:ltr; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .qs-grp{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:18px 0 8px; }
+  .qs-grp:first-child{ margin-top:6px; }
+  .qs-grp b{ font-size:15px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-grp span{ font-size:12px; color:var(--muted); }
+  .qs-legend{ font-size:12px; color:var(--muted); margin:0 0 4px; }
+  .qs-legend b{ color:var(--ink); }
+  .qs-card{ font-family:inherit; color:var(--ink); cursor:pointer; text-align:center; padding:10px 6px 9px; border-radius:16px; border:2px solid rgba(var(--c-rgb),.4); background:#12121c;
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, box-shadow .25s ease; }
+  .qs-card:hover{ transform:translateY(-3px); border-color:rgba(var(--c-rgb),.9); }
+  .qs-card:active{ transform:scale(.96); }
+  .qs-card.sel{ border-color:rgb(var(--c-rgb)); box-shadow:0 0 22px -6px rgba(var(--c-rgb),.8); background:rgba(var(--c-rgb),.08); }
+  .qs-card .qd,.qs-top .qd{ --qc:rgb(var(--c-rgb)); }
+  .qs-card .qd{ width:48px; height:48px; font-size:24px; margin:0 auto 4px; }
+  .qd.sm{ font-size:19px !important; }
+  .qd sub{ font-size:.55em; line-height:0; }
+  .qs-card.sel .qd{ animation:gfloat 2.4s ease-in-out infinite; }
+  .qs-vals{ direction:ltr; font:600 10.5px/1.55 'JetBrains Mono',monospace; color:#c7c3da; margin-bottom:5px; }
+  .qs-nm{ font-size:13.5px; font-weight:800; line-height:1.5; }
+  .qs-en{ font-size:11px; color:var(--muted); direction:ltr; }
+  @media (min-width:560px){
+    .qs-card{ display:grid; grid-template-columns:1fr auto; grid-template-areas:"v d" "n n" "e e"; align-items:center; padding:10px 12px; }
+    .qs-vals{ grid-area:v; text-align:left; margin:0; font-size:11px; }
+    .qs-card .qd{ grid-area:d; margin:0; }
+    .qs-nm{ grid-area:n; margin-top:6px; }
+    .qs-en{ grid-area:e; }
+  }
+  .qs-detail{ margin-top:16px; border:1px solid rgba(var(--c-rgb),.5); border-radius:14px; background:#0c0c14; padding:14px; }
+  .qs-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .qs-top .qd{ width:54px; height:54px; font-size:28px; margin:0; flex:0 0 auto; }
+  .qs-top h4{ margin:0; font-size:20px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-top small{ display:block; color:var(--muted); direction:ltr; text-align:right; font-size:12px; }
+  .qs-props{ display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; }
+  .qs-props div{ background:#12121c; border:1px solid var(--border); border-radius:10px; padding:7px 10px; }
+  .qs-props span{ display:block; font-size:11px; color:var(--muted); }
+  .qs-props b{ font:700 13.5px 'JetBrains Mono',monospace; direction:ltr; display:inline-block; }
+  .qs-props b.fa{ font-family:inherit; direction:rtl; }
+  .qs-txt{ margin:12px 0 0; font-size:13.5px; line-height:2; color:#d9d6ea; }
+  .qs-txt b{ color:var(--collapse); }
+
   /* ===== chapters & navigation ===== */
   .chapter + .chapter{ margin-top:56px; }
   .chapter-head{ display:flex; align-items:center; gap:14px; padding:16px 18px; margin-top:22px; border-radius:16px;
@@ -934,9 +987,9 @@
     <p class="concept-desc">پروتون و نوترون هم ذرات بنیادی نیستند: هرکدام از سه <b>کوارک</b> ساخته شده‌اند که با نیروی هسته‌ای قوی، به‌واسطه‌ی ذراتی به‌نام گلوئون، به هم چسبیده‌اند. کوارک‌ها اسپین ½ دارند (مثل الکترون) و علاوه بر بار الکتریکی، یک «بار رنگ» هم دارند: سرخ، سبز یا آبی — ربطی به رنگِ واقعی ندارد، فقط نام‌گذاری است. هر ذره‌ی پایدار باید روی‌هم‌رفته «بی‌رنگ» باشد.</p>
     <div class="zoom-tabs" role="tablist">
       <button type="button" role="tab" class="zoom-tab active" data-tab="1" aria-selected="true"><span class="no">۱</span>زوم</button>
-      <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>بساز</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>از چی ساخته شده؟</button>
       <button type="button" role="tab" class="zoom-tab" data-tab="3" aria-selected="false"><span class="no">۳</span>حبس کوارک</button>
-      <button type="button" role="tab" class="zoom-tab" data-tab="4" aria-selected="false"><span class="no">۴</span>جدول کوارک‌ها</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="4" aria-selected="false"><span class="no">۴</span>ذره‌های بنیادی</button>
     </div>
     <div class="zoom-panel active" data-panel="1">
       <div class="demo">
@@ -954,20 +1007,25 @@
       </div>
     </div>
     <div class="zoom-panel" data-panel="2">
-      <div class="demo">
-        <div class="q-goalbar"><span id="qProg"></span><div class="q-goals" id="qGoals"></div></div>
-        <canvas class="demo-canvas" id="qCanvas1" style="height:240px;cursor:pointer"></canvas>
-        <div class="q-pal" id="qPal">
-          <button type="button" class="q-tok" data-k="u"><b>u</b><span>کوارک بالا<small dir="ltr">بار +۲/۳</small></span></button>
-          <button type="button" class="q-tok" data-k="d"><b>d</b><span>کوارک پایین<small dir="ltr">بار −۱/۳</small></span></button>
-          <button type="button" class="q-clr" id="qClr">پاک کردن</button>
+      <div class="demo qp">
+        <div class="qp-answer"><b>جواب کوتاه:</b> هم پروتون هم نوترون از <b>سه کوارک</b> ساخته شده‌اند: پروتون <span class="mono">u u d</span> و نوترون <span class="mono">u d d</span>. کوارک‌ها را گلوئون‌ها (خط‌چین‌های متحرک) به هم می‌چسبانند.</div>
+        <div class="qp-cards">
+          <div class="qp-card">
+            <h4>پروتون</h4>
+            <svg viewBox="0 0 200 150" aria-hidden="true"><circle cx="100" cy="82" r="72" fill="none" stroke="rgba(255,180,84,.45)" stroke-width="1.5" stroke-dasharray="5 5"/><line class="qp-gl" x1="100" y1="36" x2="50" y2="112"/><line class="qp-gl" x1="50" y1="112" x2="150" y2="112"/><line class="qp-gl" x1="150" y1="112" x2="100" y2="36"/><circle cx="100" cy="36" r="22" fill="#ff6b6b"/><circle cx="93" cy="28" r="7" fill="#fff" opacity=".4"/><text x="100" y="44" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="50" cy="112" r="22" fill="#7ee08a"/><circle cx="43" cy="104" r="7" fill="#fff" opacity=".4"/><text x="50" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="150" cy="112" r="22" fill="#62d6ff"/><circle cx="143" cy="104" r="7" fill="#fff" opacity=".4"/><text x="150" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text></svg>
+            <div class="qp-eq">u + u + d</div>
+            <div class="qp-sum">⅔ + ⅔ − ⅓ = <b>+۱</b></div>
+            <p>دو کوارک بالا و یک پایین. پایدار است و هسته‌ی هیدروژن را می‌سازد. جرم ≈ ۹۳۸٫۳ MeV</p>
+          </div>
+          <div class="qp-card">
+            <h4>نوترون</h4>
+            <svg viewBox="0 0 200 150" aria-hidden="true"><circle cx="100" cy="82" r="72" fill="none" stroke="rgba(255,180,84,.45)" stroke-width="1.5" stroke-dasharray="5 5"/><line class="qp-gl" x1="100" y1="36" x2="50" y2="112"/><line class="qp-gl" x1="50" y1="112" x2="150" y2="112"/><line class="qp-gl" x1="150" y1="112" x2="100" y2="36"/><circle cx="100" cy="36" r="22" fill="#ff6b6b"/><circle cx="93" cy="28" r="7" fill="#fff" opacity=".4"/><text x="100" y="44" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="50" cy="112" r="22" fill="#7ee08a"/><circle cx="43" cy="104" r="7" fill="#fff" opacity=".4"/><text x="50" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text><circle cx="150" cy="112" r="22" fill="#62d6ff"/><circle cx="143" cy="104" r="7" fill="#fff" opacity=".4"/><text x="150" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text></svg>
+            <div class="qp-eq">u + d + d</div>
+            <div class="qp-sum">⅔ − ⅓ − ⅓ = <b>۰</b></div>
+            <p>یک کوارک بالا و دو پایین. بیرونِ هسته حدود ۱۵ دقیقه عمر می‌کند. جرم ≈ ۹۳۹٫۶ MeV</p>
+          </div>
         </div>
-        <div class="ds-cap" id="qCap"></div>
-        <div class="readouts">
-          <div class="readout"><div class="rl">مجموع بار</div><div class="rv mono c-wave" id="qCharge" style="direction:ltr;text-align:right">—</div></div>
-          <div class="readout"><div class="rl">ذره</div><div class="rv c-collapse" id="qName">—</div></div>
-          <div class="readout"><div class="rl">جرمِ کوارک‌ها ÷ جرمِ ذره</div><div class="rv mono" id="qMass" style="direction:ltr;text-align:right">—</div></div>
-        </div>
+        <div class="note-box">کوارک بالا (u) بارِ +⅔ و کوارک پایین (d) بارِ −⅓ دارد؛ جمعِ بارها همان بارِ ذره را می‌دهد. هر سه کوارک یک «رنگ» دارند (سرخ، سبز، آبی) که روی‌هم‌رفته بی‌رنگ می‌شود. ذره‌های سه‌کوارکی را «باریون» می‌گویند.</div>
       </div>
     </div>
     <div class="zoom-panel" data-panel="3">
@@ -987,13 +1045,12 @@
       </div>
     </div>
     <div class="zoom-panel" data-panel="4">
-      <div class="demo">
-        <table class="q-table">
-          <tr><th></th><th>نسل ۱</th><th>نسل ۲</th><th>نسل ۳</th></tr>
-          <tr><th>بار <span dir="ltr">+۲/۳</span></th><td><span class="qd" style="--qc:#ff6b6b">u</span><br>بالا (up)<br><small dir="ltr">≈ ۲٫۲ MeV</small></td><td><span class="qd" style="--qc:#7ee08a">c</span><br>افسون (charm)<br><small dir="ltr">≈ ۱٫۳ GeV</small></td><td><span class="qd" style="--qc:#62d6ff">t</span><br>سر (top)<br><small dir="ltr">≈ ۱۷۳ GeV</small></td></tr>
-          <tr><th>بار <span dir="ltr">−۱/۳</span></th><td><span class="qd" style="--qc:#ff6b6b">d</span><br>پایین (down)<br><small dir="ltr">≈ ۴٫۷ MeV</small></td><td><span class="qd" style="--qc:#7ee08a">s</span><br>شگفت (strange)<br><small dir="ltr">≈ ۹۳ MeV</small></td><td><span class="qd" style="--qc:#62d6ff">b</span><br>ته (bottom)<br><small dir="ltr">≈ ۴٫۲ GeV</small></td></tr>
-        </table>
-        <div class="note-box">مادهٔ معمولی فقط از نسل ۱ ساخته شده: کوارک‌های u و d (و الکترون). چهار کوارک دیگر فقط در برخوردهای پرانرژی یا پرتوهای کیهانی پدید می‌آیند و فوراً می‌پاشند؛ کوارک t چنان سنگین و کم‌عمر است که پیش از ساختنِ ذره‌ی مرکب از بین می‌رود.</div>
+      <div class="demo qs" id="qsDemo">
+        <p class="concept-desc" style="margin-bottom:6px">همه‌ی ذره‌های بنیادیِ شناخته‌شده در یک نگاه (مدل استاندارد). روی هر کارت بزن تا ویژگی‌هایش را ببینی.</p>
+        <div class="qs-legend">روی هر کارت از بالا به پایین: <b>جرم</b> · <b>بار</b> · <b>اسپین</b></div>
+        <div id="qsGroups"></div>
+        <div class="qs-detail" id="qsDetail"></div>
+        <div class="note-box">مادّه از «فرمیون‌ها» (اسپین ½: کوارک‌ها و لپتون‌ها) ساخته شده و نیروها با «بوزون‌ها» (اسپین ۱) منتقل می‌شوند: ۶ کوارک + ۶ لپتون + ۴ بوزون حامل نیرو + هیگز = ۱۷ ذره. گرانش در این جدول نیست. هر کوارک و لپتون یک پادذره هم دارد. مادّه‌ی معمولی فقط از u، d و الکترون ساخته شده.</div>
       </div>
     </div>
     <div class="note-box" style="margin-top:12px"><b>جرم از کجا می‌آید؟</b> جرمِ سه کوارکِ پروتون روی‌هم‌رفته حدود ۱٪ جرمِ آن است. بقیه انرژیِ حرکتِ کوارک‌ها و میدانِ گلوئونی است که بنا بر E = mc² خودش را به‌صورت جرم نشان می‌دهد. کوارک‌ها را گل-من و تسوایگ در ۱۹۶۴ پیشنهاد کردند و آزمایش‌های پراکندگیِ الکترون در SLAC، حدود ۱۹۶۸، ساختارِ سه‌تایی درونِ پروتون را نشان داد.</div>
@@ -1150,8 +1207,8 @@
     <p class="concept-desc">اینشتین به آن می‌گفت «کنش شبح‌وار از راه دور». چشمه‌ی وسط جفت‌ذره می‌فرستد و هر طرف یک آهن‌رباییِ <b>اشترن–گرلاخ</b> اسپین را می‌سنجد: ذره بسته به اسپینش در امتدادِ <b>خطوطِ میدان</b> به سمتِ ↑ یا ↓ منحرف می‌شود. <b>پیکانِ روی هر ذره، جهتِ اسپین</b> است. بین دو دیدگاه جابه‌جا شو: اینشتین و همکارانش می‌گفتند جواب‌ها از اول در ذره‌ها «برنامه‌ریزی» شده؛ بور می‌گفت تا اندازه‌گیری نشود، جهتی وجود ندارد. آهن‌ربا را بچرخان و ببین نقطه‌ها روی کدام خط می‌نشینند.</p>
     <div class="demo" id="entDemo">
       <div class="row" style="margin-bottom:8px">
-        <button class="act" id="entModeE">🧑‍🔬 اینشتین: برنامه‌ی پنهان</button>
-        <button class="act on" id="entModeB">⚛️ بور: تا اندازه‌گیری نامعین</button>
+        <button class="act on" id="entModeE">🧑‍🔬 اینشتین: برنامه‌ی پنهان</button>
+        <button class="act" id="entModeB">⚛️ بور: تا اندازه‌گیری نامعین</button>
       </div>
       <div class="ent-note" id="entModeTxt" style="margin:0 0 8px"></div>
       <canvas id="entCv"></canvas>
@@ -1181,16 +1238,69 @@
   <!-- 9. APPLICATIONS -->
   <section class="concept" id="sec-apps">
     <div class="concept-head"><h2>🌍 کوانتوم در زندگی روزمره</h2></div>
-    <p class="concept-desc">این‌ها همه انتزاعی نیستند — همین قوانین عجیب، پشتِ خیلی از وسایلی است که هر روز دستت است. روی هرکدام از این‌ها بزن تا ببینی کوانتوم دقیقاً کجای آن پنهان شده.</p>
-    <div class="demo">
+    <p class="concept-desc">این‌ها همه انتزاعی نیستند — همین قوانین عجیب، پشتِ وسایلی است که هر روز دستت است. یکی را انتخاب کن و <b>خودت دستگاه را کنترل کن</b>: اسلایدر را بکش، دکمه را بزن و ببین کوانتوم کجای کار است.</p>
+    <style>
+      .app-panel .ent-note{ margin:0 0 10px; }
+      .bb-grid{ display:flex; flex-wrap:wrap; gap:4px; direction:ltr; margin:10px 0; }
+      .bb-cell{ width:24px; height:24px; border-radius:6px; background:#1b1b29; font-size:11px; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(.6); transition:all .25s ease; color:#0a0a12; font-weight:700; }
+      .bb-cell.show{ opacity:1; transform:scale(1); }
+      .bb-cell.ok{ background:var(--alive); } .bb-cell.bad{ background:var(--dead); } .bb-cell.skip{ background:#2a2a3d; color:#6b6e84; }
+    </style>
+    <div class="demo" id="appDemo">
       <div class="app-grid" id="appGrid">
-        <button class="app-chip" data-info="اتم‌های تحریک‌شده وقتی به تراز پایین‌تر می‌افتند، فوتون‌هایی دقیقاً هم‌فاز و هم‌رنگ گسیل می‌کنند — همان «پله‌های انرژی» بالا، اما هماهنگ‌شده در یک باریکه‌ی نور خالص.">🔦 لیزر</button>
-        <button class="app-chip" data-info="اسپینِ هسته‌ی اتم‌های بدن، مثل اسپین بالاتر، فقط در راستاهای مشخصی می‌ایستد؛ دستگاه MRI با یک میدان مغناطیسی قوی همین راستاها را می‌خواند تا از داخل بدن عکس بگیرد.">🧲 تصویربرداری MRI</button>
-        <button class="app-chip" data-info="ترانزیستورهای داخل تراشه‌ی گوشی و کامپیوتر، رفتار الکترون در نیمه‌رساناها را کنترل می‌کنند — رفتاری که فقط با قوانین کوانتومی، نه فیزیک کلاسیک، درست توضیح داده می‌شود.">🔌 ترانزیستور و تراشه</button>
-        <button class="app-chip" data-info="ساعت‌های اتمیِ ماهواره‌های GPS، زمان را از پرش دقیقِ الکترون بین همان پله‌های انرژی اندازه می‌گیرند — دقتی که موقعیت تو را تا چند متر مشخص می‌کند.">🛰️ ساعت اتمی و GPS</button>
-        <button class="app-chip" data-info="در رمزنگاری کوانتومی، همان اصلِ «نگاه‌کردن، حالت را فرومی‌پاشد» به نفعت کار می‌کند: هر تلاش برای شنودِ کلید، رد پای قابل‌کشف روی خودِ پیام می‌گذارد.">🔐 رمزنگاری کوانتومی</button>
+        <button class="app-chip active" data-p="laser">🔦 لیزر</button>
+        <button class="app-chip" data-p="mri">🧲 تصویربرداری MRI</button>
+        <button class="app-chip" data-p="tr">🔌 ترانزیستور و تراشه</button>
+        <button class="app-chip" data-p="clk">🛰️ ساعت اتمی و GPS</button>
+        <button class="app-chip" data-p="qkd">🔐 رمزنگاری کوانتومی</button>
       </div>
-      <div class="qubit-result" id="appResult">روی هرکدام بزن تا ببینی کوانتوم آن‌جا چه‌کار می‌کند.</div>
+
+      <div class="app-panel" data-p="laser">
+        <div class="ent-note">اتم‌ها را «پمپ» کن تا برانگیخته شوند (دایره‌های نارنجی). تا وقتی تعدادشان کم است، هرکدام خودسر نور می‌دهد؛ از یک آستانه به بعد، یک فوتون اتم‌های دیگر را وادار می‌کند <b>دقیقاً هم‌فاز و هم‌رنگ</b> فوتون بدهند و باریکه‌ی لیزر از آینه‌ی نیمه‌شفاف بیرون می‌زند.</div>
+        <canvas class="demo-canvas" id="apLaser"></canvas>
+        <div class="slider-group"><label><span>توان پمپ</span><span class="mono c-collapse" id="apLaserV">۳۰٪</span></label><input type="range" id="apLaserP" min="0" max="100" value="30"></div>
+        <div class="readouts"><div class="readout"><div class="rl">نوع نور</div><div class="rv c-wave" id="apLaserO">—</div></div><div class="readout"><div class="rl">توان خروجی</div><div class="rv mono c-collapse" id="apLaserC">—</div></div></div>
+      </div>
+
+      <div class="app-panel" data-p="mri" hidden>
+        <div class="ent-note">یک دستگاه MRI ساده‌شده. هر <b>پیکانِ کوچک</b> یعنی گروهی از پروتون‌های هیدروژنِ آبِ بدن (اینجا داخل سرِ بیمار). مرحله‌ها را به ترتیب بزن یا «پخش خودکار» را بزن. روی صحنه بکش تا بچرخد.</div>
+        <div class="app-grid" id="mriSteps">
+          <button class="app-chip active" data-k="1">۱ · بدون میدان</button><button class="app-chip" data-k="2">۲ · روشن‌شدن آهن‌ربا</button><button class="app-chip" data-k="3">۳ · پالس رادیویی</button><button class="app-chip" data-k="4">۴ · دریافت سیگنال</button><button class="app-chip" data-k="5">۵ · گرادیان (مکان)</button>
+        </div>
+        <div id="mriWrap" style="position:relative;overflow:hidden"><canvas class="demo-canvas" id="mriGl" style="height:360px;touch-action:none;cursor:grab;margin-bottom:8px"></canvas></div>
+        <div style="font-size:11px;color:var(--muted);margin:-4px 0 4px">سیگنالِ دریافتی در کویل (ولتاژ)</div>
+        <canvas class="demo-canvas" id="mriSig" style="height:80px"></canvas>
+        <div class="row" style="margin-bottom:10px"><button class="act" id="mriAuto">▶ پخش خودکار</button><button class="act ghost" id="mriZoom">🔍 نزدیک‌کردن به سر</button></div>
+        <div class="qubit-result" id="mriPart" style="text-align:right;color:var(--collapse);min-height:22px;margin:0 0 6px;font-size:12.5px">روی دایره‌های شماره‌دار بزن تا هر بخشِ دستگاه را بشناسی.</div>
+        <div class="qubit-result" id="mriCap" style="text-align:right;line-height:1.9;color:#c7c3da"></div>
+        <div class="readouts"><div class="readout"><div class="rl">آهن‌ربا (B₀)</div><div class="rv c-wave" id="mriB"></div></div><div class="readout"><div class="rl">پالس رادیویی</div><div class="rv c-collapse" id="mriR"></div></div><div class="readout"><div class="rl">مغناطشِ هم‌راستا با میدان</div><div class="rv mono c-ent" id="mriMz"></div></div><div class="readout"><div class="rl">مغناطشِ عرضی (قابل‌دریافت)</div><div class="rv mono c-alive" id="mriMx"></div></div></div>
+      </div>
+      <div class="app-panel" data-p="tr" hidden>
+        <div class="ent-note">ترانزیستور یک شیر برای الکترون‌هاست. ولتاژ گیت، سدِ انرژی را پایین می‌آورد تا الکترون‌ها از رویش بگذرند (<b>۱</b>). اما وقتی سد را بسیار نازک کنی، الکترون‌ها با <b>تونل‌زنی</b> از میانش نشت می‌کنند، حتی اگر شیر «بسته» باشد.</div>
+        <canvas class="demo-canvas" id="apTr"></canvas>
+        <div class="slider-group"><label><span>ولتاژ گیت</span><span class="mono c-wave" id="apTrVv">—</span></label><input type="range" id="apTrV" min="0" max="100" value="10"></div>
+        <div class="slider-group"><label><span>ضخامت سد (کانال)</span><span class="mono c-ent" id="apTrLv">—</span></label><input type="range" id="apTrL" min="1" max="10" value="5"></div>
+        <div class="readouts"><div class="readout"><div class="rl">بیت</div><div class="rv mono c-alive" id="apTrB">—</div></div><div class="readout"><div class="rl">جریان</div><div class="rv mono c-wave" id="apTrI">—</div></div><div class="readout"><div class="rl">نشتیِ تونلی</div><div class="rv mono c-ent" id="apTrT">—</div></div></div>
+        <div class="qubit-result" id="apTrN"></div>
+      </div>
+
+      <div class="app-panel" data-p="clk" hidden>
+        <div class="ent-note">ساعتِ اتمی بسامدِ ریزموج را روی «پلهٔ انرژیِ» اتم سزیم قفل می‌کند. فقط وقتی دقیقاً روی بسامدِ تشدید باشد اتم‌ها می‌پرند. اسلایدر را بکش یا «قفل خودکار» را بزن. پایین‌تر ببین چرا خطای زمان در GPS یعنی خطای مکان: ۱ نانوثانیه ≈ ۳۰ سانتی‌متر.</div>
+        <canvas class="demo-canvas" id="apClk"></canvas>
+        <div class="slider-group"><label><span>انحراف ریزموج از بسامد تشدید</span><span class="mono c-collapse" id="apClkDv">—</span></label><input type="range" id="apClkD" min="-100" max="100" value="55" step="1"></div>
+        <div class="row" style="margin-bottom:12px"><button class="act" id="apClkL">🎯 قفل خودکار</button></div>
+        <div class="slider-group"><label><span>زمان از آخرین همگام‌سازی</span><span class="mono c-wave" id="apClkHv">—</span></label><input type="range" id="apClkH" min="1" max="24" value="6"></div>
+        <div class="readouts"><div class="readout"><div class="rl">اتم‌های پرش‌کرده</div><div class="rv mono c-collapse" id="apClkA">—</div></div><div class="readout"><div class="rl">خطای مکان با ساعتِ کوارتز</div><div class="rv mono c-dead" id="apClkQ">—</div></div><div class="readout"><div class="rl">خطای مکان با ساعتِ اتمی</div><div class="rv mono c-alive" id="apClkE">—</div></div></div>
+        <div class="qubit-result" id="apClkN"></div>
+      </div>
+
+      <div class="app-panel" data-p="qkd" hidden>
+        <div class="ent-note">آلیس فوتون‌هایی با قطبش تصادفی می‌فرستد و باب با پایه‌ی تصادفی می‌سنجد. جاهایی که پایه یکی بود کلید می‌شود. اگر <b>شنودگر</b> وسط باشد، چون «نگاه‌کردن حالت را فرومی‌پاشد»، در بخشی از کلید خطا می‌افتد و لو می‌رود.</div>
+        <div class="row"><button class="act" id="apQkdGo">📨 ارسال ۴۰ فوتون</button><button class="act ghost" id="apQkdEve">👁️ شنودگر: خاموش</button></div>
+        <div class="bb-grid" id="apQkdGrid"></div>
+        <div class="readouts"><div class="readout"><div class="rl">طول کلید</div><div class="rv mono c-alive" id="apQkdK">—</div></div><div class="readout"><div class="rl">خطای کلید</div><div class="rv mono c-dead" id="apQkdE">—</div></div></div>
+        <div class="qubit-result" id="apQkdN">🟩 هم‌پایه و درست · 🟥 هم‌پایه ولی خطا · ⬛ پایه‌ی متفاوت (دورریخته)</div>
+      </div>
     </div>
   </section>
 
@@ -1211,6 +1321,7 @@
   <div class="formula-grid" id="formulaGrid"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 
 (function(){
@@ -4393,7 +4504,7 @@
     const sc=a=>a.map(p=>[p[0]*.6,p[1]*.6]), NP=sc([[-1.7,2.7],[1.7,2.7],[1.7,1.25],[.55,1.25],[0,.35],[-.55,1.25],[-1.7,1.25]]), SP=sc([[-1.7,-2.7],[1.7,-2.7],[1.7,-.8],[.75,-.8],[0,-1.05],[-.75,-.8],[-1.7,-.8]]);
     const TXT={ein:'🧑‍🔬 <b>اینشتین، پودولسکی و روزن:</b> هر جفت از چشمه با یک «دستورالعملِ» مشخص (پیکان زرد) بیرون می‌آید؛ آهن‌ربا فقط آن را می‌خواند. پیکان هیچ‌وقت عوض نمی‌شود و هیچ «کنشِ شبح‌واری» لازم نیست.',
                 bor:'⚛️ <b>بور:</b> پیش از اندازه‌گیری هیچ جهتی وجود ندارد (پیکان‌های لرزان). لحظه‌ی عبور از آهن‌ربا جهت «ساخته می‌شود» و پیکان روی محور می‌نشیند؛ دو ذره یک سیستمِ واحدند.'};
-    let mode='bor', pairs=[], dots=[[],[]], N=0, upA=0, upB=0, opp=0, streak=0, bins=Array.from({length:13},()=>[0,0]), last=[null,null], auto=null, vis=true, lt=0, zap=0;
+    let mode='ein', pairs=[], dots=[[],[]], N=0, upA=0, upB=0, opp=0, streak=0, bins=Array.from({length:13},()=>[0,0]), last=[null,null], auto=null, vis=true, lt=0, zap=0;
     let iA=0, iB=0, aA=0, aB=0, yaw=.8, pit=.42, drag=null, W=0, H=260, F=1, k1=1, k2=0, k3=1, k4=0;
     const dAng=()=>Math.abs(DEG[iA]-DEG[iB]);
     const fit=(c,h)=>{ const w=c.getBoundingClientRect().width; if(!w) return 0; if(c._w!==w){ const d=Math.max(2,devicePixelRatio||1); c.width=w*d; c.height=h*d; c.style.height=h+'px'; c._w=w; c.getContext('2d').setTransform(d,0,0,d,0,0); } return w; };
@@ -4431,7 +4542,7 @@
     cv.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY}; cv.setPointerCapture(e.pointerId); });
     cv.addEventListener('pointermove',e=>{ if(!drag) return; yaw+=(e.clientX-drag.x)*.01; pit=Math.max(.05,Math.min(1.3,pit+(e.clientY-drag.y)*.008)); drag={x:e.clientX,y:e.clientY}; });
     ['pointerup','pointercancel'].forEach(n=>cv.addEventListener(n,()=>drag=null));
-    btn(); setMode('bor');
+    btn(); setMode('ein');
 
     function scene(t,dt){
       const Q=[], add=(pt,f)=>Q.push([P(...pt)[3],f]);
@@ -5466,11 +5577,6 @@ function createCatScene(canvas, H){
     function drawQubit(){
       const open = qb.mode !== 'super', oc = FACE_COL[qb.out], bc = open ? mix(EN,oc,qb.lid) : EN, fast = clamp(qb.w/14,0,1), lid = qb.lid;
       halo([QX,1.6,0],2.3,bc,.14+.06*Math.sin(T*3)+.3*qb.glow*lid);
-      if(open && lid > .02){
-        const a = P(QX,BH,0), b = P(QX,BH+2.2,0), w0 = BW*.9*U*a[3], w1 = BW*2.1*U*b[3], gr = g.createLinearGradient(0,a[1],0,b[1]);
-        gr.addColorStop(0,rgba(oc,.55*lid)); gr.addColorStop(1,rgba(oc,0));
-        g.globalCompositeOperation = 'lighter'; g.fillStyle = gr; poly([[a[0]-w0,a[1]],[a[0]+w0,a[1]],[b[0]+w1,b[1]],[b[0]-w1,b[1]]]); g.fill(); g.globalCompositeOperation = 'source-over';
-      }
       boxPass(false,bc);
       if(fast > .35){ for(let k=4;k>=1;k--) coin([QX,qb.y,0],qb.a-k*qb.w*.02*(1+k*.15),qb.phi,QR,{ alpha:.2*fast/(1+k*.55), ghost:true }); }
       coin([QX,qb.y,0],qb.a,qb.phi,QR,{ sq:qb.sq });
@@ -5492,9 +5598,9 @@ function createCatScene(canvas, H){
     }
     function label(x,name,txt,col,pop){
       const p = P(x,0,2.15), k = 1+.28*Math.sin(clamp(pop,0,1)*PI);
-      g.textAlign = 'center'; g.textBaseline = 'middle'; g.direction = 'ltr';
+      g.textAlign = 'center'; g.textBaseline = 'middle'; g.direction = 'rtl';
       g.font = '600 12px Vazirmatn, sans-serif'; g.fillStyle = 'rgba(139,142,163,.95)'; g.fillText(name,p[0],H-42);
-      g.save(); g.translate(p[0],H-20); g.scale(k,k); g.font = '800 16px Vazirmatn, sans-serif'; g.shadowColor = rgba(col,.8); g.shadowBlur = 10; g.fillStyle = rgba(col,1); g.fillText(txt,0,0); g.restore();
+      g.save(); g.translate(p[0],H-20); g.scale(k,k); g.font = '800 16px Vazirmatn, sans-serif'; g.shadowColor = rgba(col,.8); g.shadowBlur = 10; g.fillStyle = rgba(col,1); g.fillText(txt,0,0); g.restore(); g.direction = 'ltr';
     }
     function draw(){
       yaw = lerp(yaw,tYaw+(drag ? 0 : Math.sin(T*.35)*.08),.14); setCam();
@@ -5530,16 +5636,304 @@ function createCatScene(canvas, H){
 
   /* ================= 9. APPLICATIONS ================= */
   (function(){
-    const grid = document.getElementById('appGrid');
-    const result = document.getElementById('appResult');
-    grid.querySelectorAll('.app-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        grid.querySelectorAll('.app-chip').forEach(c=>c.classList.remove('active'));
-        chip.classList.add('active');
-        result.textContent = chip.dataset.info;
-        tone(460, 0.08, 'sine', 0.06);
-      });
-    });
+    const $ = id => document.getElementById(id), fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]), cl = (v,a,b) => Math.max(a,Math.min(b,v));
+    const snd = f => { try{ tone(f, 0.08, 'sine', 0.06); }catch(e){} };
+    const grid = $('appGrid'), panels = [...document.querySelectorAll('#appDemo .app-panel')]; let cur = 'laser';
+    grid.querySelectorAll('.app-chip').forEach(c => c.addEventListener('click', () => {
+      cur = c.dataset.p;
+      grid.querySelectorAll('.app-chip').forEach(x => x.classList.toggle('active', x === c));
+      panels.forEach(p => p.hidden = p.dataset.p !== cur);
+      snd(460);
+    }));
+    function fit(cv){
+      const d = devicePixelRatio || 1, w = Math.max(1, cv.clientWidth), h = cv.clientHeight || 200;
+      if(cv.width !== Math.round(w*d) || cv.height !== Math.round(h*d)){ cv.width = Math.round(w*d); cv.height = Math.round(h*d); }
+      const g = cv.getContext('2d'); g.setTransform(d,0,0,d,0,0); g.clearRect(0,0,w,h); return [g,w,h];
+    }
+    const draws = {};
+
+    /* ---- لیزر ---- */
+    (function(){
+      const cv = $('apLaser'), pr = $('apLaserP'), ph = [], THR = 45; let t = 0;
+      draws.laser = () => {
+        const [g,w,h] = fit(cv), P = +pr.value, coh = P >= THR, a = coh ? (P-THR)/(100-THR) : 0; t += .1;
+        $('apLaserV').textContent = fa(P)+'٪';
+        const x0 = 24, x1 = w*.62, cy = h/2, ch = h*.62;
+        g.strokeStyle = '#31314a'; g.strokeRect(x0, cy-ch/2, x1-x0, ch);
+        g.fillStyle = '#c0c8e0'; g.fillRect(x0-5, cy-ch/2, 5, ch); g.fillStyle = 'rgba(192,200,224,.45)'; g.fillRect(x1, cy-ch/2, 4, ch);
+        for(let i=0;i<10;i++){
+          const x = x0+18+(i%5)*((x1-x0-36)/4), y = cy+(i<5?-1:1)*ch*.3, on = i < P/10;
+          g.beginPath(); g.arc(x,y,6,0,7); g.fillStyle = on ? '#ffb454' : '#2a2a3d'; g.shadowColor = '#ffb454'; g.shadowBlur = on ? 10 : 0; g.fill(); g.shadowBlur = 0;
+        }
+        if(Math.random() < P/100*.4){
+          if(coh) ph.push({x:x0+8, y:cy+(Math.random()-.5)*ch*.5, vx:3.2, vy:0, hue:195, life:200});
+          else { const an = Math.random()*6.28; ph.push({x:x0+10+Math.random()*(x1-x0-20), y:cy+(Math.random()-.5)*ch*.8, vx:Math.cos(an)*1.6, vy:Math.sin(an)*1.6, hue:Math.random()*360, life:70}); }
+        }
+        for(let i=ph.length-1;i>=0;i--){
+          const p = ph[i]; p.x += p.vx; p.y += p.vy; p.life--;
+          if(p.life<=0 || p.x>x1 || p.x<x0 || p.y<cy-ch/2 || p.y>cy+ch/2){ ph.splice(i,1); continue; }
+          g.fillStyle = 'hsla('+p.hue+',90%,65%,'+Math.min(1,p.life/40)+')'; g.beginPath(); g.arc(p.x,p.y,3,0,7); g.fill();
+        }
+        if(coh){
+          g.strokeStyle = 'rgba(98,214,255,'+(.35+.6*a)+')'; g.lineWidth = 2+a*3; g.shadowColor = '#62d6ff'; g.shadowBlur = 8+a*14; g.beginPath();
+          for(let x=x1+4;x<=w;x+=3){ const y = cy+Math.sin(x*.35-t*3)*(4+8*a); x===x1+4 ? g.moveTo(x,y) : g.lineTo(x,y); }
+          g.stroke(); g.shadowBlur = 0; g.lineWidth = 1;
+        }
+        $('apLaserO').textContent = coh ? 'همدوس — باریکه‌ی لیزر' : 'ناهمدوس — مثل لامپ';
+        $('apLaserC').textContent = fa(Math.round(a*100))+'٪';
+      };
+    })();
+
+    /* ---- MRI (three.js) ---- */
+    (function(){
+      const gl = $('mriGl'), sg = $('mriSig'), W0 = 4, NP = 40, HEAD = [0,-.5,0], FLOOR = -2.05;
+      const CAP = {
+        1:'بدون میدان: پروتون‌ها هر طرف را نشان می‌دهند و برآیندشان صفر است؛ چیزی برای اندازه‌گیری نیست.',
+        2:'آهن‌ربای قوی (مثلاً ۳ تسلا) روشن شد. خطوط آبی با نقطه‌های متحرک، میدان مغناطیسی‌اند: داخل تونل مستقیم و یکنواخت‌اند و از بیرونِ دستگاه برمی‌گردند. پیکان‌ها در راستای میدان صف می‌کشند و دور آن می‌چرخند (بسامد لارمور). پیکان نارنجی برآیندِ همه است. در واقعیت فقط حدود ۱۰ پروتون در هر یک‌میلیون «اضافه» هم‌راستا می‌شوند، ولی همین کافی است.',
+        3:'پالس رادیویی با همان بسامدِ چرخش (حدود ۱۲۸ مگاهرتز) فرستاده می‌شود: پیکان‌ها به صفحه‌ی عرضی کج و با هم هم‌فاز می‌شوند. حالا یک برآیندِ چرخانِ بزرگ داریم.',
+        4:'پالس قطع می‌شود و کویل مثل آنتن گوش می‌دهد: چرخشِ برآیند در آن ولتاژ می‌سازد (نمودار سبز). بعد پیکان‌ها از هم‌فاز بودن درمی‌آیند و سیگنال محو می‌شود (T2) و آرام‌آرام به راستای میدان برمی‌گردند (T1). سرعتِ این دو به نوع بافت بستگی دارد و کنتراستِ تصویر از همین می‌آید.',
+        5:'گرادیان: میدان از یک سمتِ بدن به سمتِ دیگر کمی عوض می‌شود، پس پیکان‌های هر مکان با بسامدِ متفاوتی می‌چرخند (رنگ = بسامد). سیگنال حالا می‌گوید «کدام بسامد، کجا»، و تبدیل فوریه آن را به تصویر برمی‌گرداند.'};
+      const TAGS = [
+        {p:[0,2.35,0], t:'۱ · آهن‌ربای ابررسانا: سیم‌پیچ‌هایی که در دمای نزدیک صفر مطلق، میدانی قوی و یکنواخت می‌سازند (۳ تسلا ≈ ۶۰ هزار برابر میدان زمین).'},
+        {p:[0,.1,0], t:'۲ · کویل رادیویی: دور سر است؛ هم پالس را می‌فرستد و هم سیگنالِ بدن را می‌گیرد.'},
+        {p:[2.4,-.8,.75], t:'۳ · تخت: بیمار را به مرکزِ آهن‌ربا می‌برد، جایی که میدان از همه‌جا یکنواخت‌تر است.'},
+        {p:[-2.7,-.55,-1.6], t:'۴ · کامپیوتر: سیگنال‌ها را ثبت می‌کند و با تبدیل فوریه به تصویر برمی‌گرداند.'}];
+      let step = 1, prev = 1, stT = 0, auto = false, autoT = 0, zoom = false, ready = false, last = performance.now(), Phi = 0, hist = [], lastGrad = null, lw = 0, lh = 0;
+      let R, S, C, tg, net, hc, housing, lines, dots, glow, scr, fieldA = 0, loops = [], coils = [], arrows = [], tagEls = [], yaw = .75, pitch = .34, dist = 15.5, drag = null, V;
+      /* پخش خودکار: خطِ زمانیِ یک‌بارهٔ مثل «اگر ذره واپاشی کند…» در گربه؛ هر مرحله با صدا و فلش شروع می‌شود و آخر روی مرحلهٔ ۵ می‌ایستد */
+      const AT = [0,1,2.2,3.6,5], AT_END = 6.2, CUE = ['rgba(143,162,216,.35)','rgba(98,214,255,.4)','rgba(255,180,84,.4)','rgba(126,224,138,.4)','rgba(199,146,234,.4)'];
+      /* همان صداهای گربه‌ی شرودینگر: پرتاب، گایگر، رله، برخورد، افتادن */
+      const clicks = n => { for(let i=0;i<n;i++) setTimeout(() => tone(1900+Math.random()*500,0.025,'square',0.05), i*55); };
+      const SFX = [() => tone(1200,0.12,'sine',0.06), () => clicks(4), () => tone(320,0.07,'square',0.07), () => { tone(240,0.09,'triangle',0.12); setTimeout(() => tone(1500,0.1,'sine',0.05),40); }, () => thud()];
+      const cue = k => { try{ SFX[k](); }catch(e){} try{ flashScreen(CUE[k]); }catch(e){} };
+      /* تصویر نهایی: برش افقیِ مغز، ساخته‌شده با کد (طرحِ شماتیک، نه اسکنِ واقعی)؛ خط‌به‌خط مثل دریافتِ تصویر آشکار می‌شود */
+      const imgBox = document.createElement('div'), imgCv = document.createElement('canvas'), imgCap = document.createElement('div');
+      imgBox.style.cssText = 'position:absolute;top:10px;right:10px;width:138px;padding:6px;border-radius:14px;background:rgba(10,10,18,.9);border:1px solid #2e2e48;opacity:0;transform:scale(.85);transform-origin:top right;pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1);z-index:3';
+      imgCv.width = imgCv.height = 276; imgCv.style.cssText = 'width:138px;height:138px;display:block;border-radius:8px;background:#000';
+      imgCap.textContent = 'تصویر نهایی: برشِ مغز'; imgCap.style.cssText = 'font-size:11px;color:#8b8ea3;text-align:center;margin-top:5px';
+      imgBox.append(imgCv, imgCap); $('mriWrap').appendChild(imgBox);
+      let brainCv = null, imgT = -1;
+      function makeBrain(){
+        const c = document.createElement('canvas'); c.width = c.height = 276; const g = c.getContext('2d'); let sd = 7; const rnd = () => (sd = (sd*16807)%2147483647)/2147483647;
+        const E = (x,y,rx,ry,f,rot) => { g.fillStyle = f; g.beginPath(); g.ellipse(x,y,rx,ry,rot||0,0,6.2832); g.fill(); };
+        const B = (rx,ry,k,f) => { g.fillStyle = f; g.beginPath(); for(let i=0;i<=120;i++){ const a = i/120*6.2832, r = 1+k*(Math.sin(a*9+1)*.5+Math.sin(a*17)*.3+Math.sin(a*5)*.2); const x = 138+Math.cos(a)*rx*r, y = 142+Math.sin(a)*ry*r; i ? g.lineTo(x,y) : g.moveTo(x,y); } g.fill(); };
+        const P = (a,rr) => [138+Math.cos(a)*94*rr, 142+Math.sin(a)*110*rr];
+        g.fillStyle = '#000'; g.fillRect(0,0,276,276);
+        E(138,142,112,128,'#7d7d7d'); E(138,142,102,118,'#181818'); E(138,142,96,112,'#2b2b2b');
+        B(94,110,.035,'#8e8e8e'); B(78,94,.05,'#cfcfcf');
+        g.strokeStyle = '#2e2e2e'; g.lineWidth = 2.2; g.lineCap = 'round';
+        for(let i=0;i<70;i++){ const a = rnd()*6.2832, r1 = .95+rnd()*.07, l = (8+rnd()*10)/100, s0 = P(a,r1), e0 = P(a+(rnd()-.5)*.25,r1-l), m = [(s0[0]+e0[0])/2+(rnd()-.5)*8,(s0[1]+e0[1])/2+(rnd()-.5)*8]; g.beginPath(); g.moveTo(s0[0],s0[1]); g.quadraticCurveTo(m[0],m[1],e0[0],e0[1]); g.stroke(); }
+        g.strokeStyle = '#202020'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(138,32); g.lineTo(138,92); g.moveTo(138,196); g.lineTo(138,252); g.stroke();
+        E(122,128,9,22,'#161616',.25); E(154,128,9,22,'#161616',-.25); E(127,104,6,12,'#161616',.5); E(149,104,6,12,'#161616',-.5); E(138,152,3,7,'#1c1c1c');
+        E(112,152,12,16,'#aaaaaa',-.2); E(164,152,12,16,'#aaaaaa',.2);
+        const im = g.getImageData(0,0,276,276), d = im.data; for(let i=0;i<d.length;i+=4){ const n = (rnd()-.5)*18; d[i] += n; d[i+1] += n; d[i+2] += n; } g.putImageData(im,0,0);
+        return c;
+      }
+      const nz = document.createElement('canvas'); nz.width = nz.height = 46; const nzg = nz.getContext('2d'), nzd = nzg.createImageData(46,46);
+      function showProc(){ imgT = -2; imgBox.style.opacity = '1'; imgBox.style.transform = 'scale(1)'; }
+      function procDraw(){
+        for(let i=0;i<nzd.data.length;i+=4){ nzd.data[i] = nzd.data[i+1] = nzd.data[i+2] = Math.random()*70; nzd.data[i+3] = 255; }
+        nzg.putImageData(nzd,0,0); const g = imgCv.getContext('2d'); g.imageSmoothingEnabled = false; g.drawImage(nz,0,0,276,276);
+        const pr = Math.max(0,Math.min(1,auto ? (autoT-AT[3])/(AT_END-AT[3]) : (step === 5 ? stT/1.2 : (stT%2)/2))); g.fillStyle = 'rgba(0,0,0,.65)'; g.fillRect(30,244,216,10); g.fillStyle = '#7ee08a'; g.fillRect(31,245,214*pr,8);
+        imgCap.textContent = 'در حال پردازش' + '.'.repeat(1+Math.floor(performance.now()/350)%3);
+      }
+      function showBrain(){ imgT = 0; imgCap.textContent = 'تصویر نهایی: برشِ مغز'; imgBox.style.opacity = '1'; imgBox.style.transform = 'scale(1)'; try{ chime(500); flashScreen('rgba(126,224,138,.4)'); }catch(e){} }
+      function hideBrain(){ imgT = -1; imgBox.style.opacity = '0'; imgBox.style.transform = 'scale(.85)'; }
+      function drawBrain(dt){
+        if(imgT === -2){ procDraw(); return; } if(imgT < 0 || imgT > 50) return; if(!brainCv) brainCv = makeBrain();
+        imgT += dt; const p = Math.min(1,imgT/1.4), g = imgCv.getContext('2d'), hh = Math.max(1,Math.round(276*p));
+        g.fillStyle = '#000'; g.fillRect(0,0,276,276); g.drawImage(brainCv,0,0,276,hh,0,0,276,hh);
+        if(p < 1){ g.fillStyle = 'rgba(126,224,138,.85)'; g.fillRect(0,hh-1,276,3); } else imgT = 99;
+      }
+      const chips = [...$('mriSteps').querySelectorAll('.app-chip')];
+      function setStep(k){ prev = step; step = k; stT = 0; chips.forEach(c => c.classList.toggle('active', +c.dataset.k === k)); $('mriCap').textContent = CAP[k]; }
+      chips.forEach(c => c.addEventListener('click', () => { hideBrain(); auto = false; $('mriAuto').textContent = '▶ پخش خودکار'; setStep(+c.dataset.k); snd(520); if(step >= 4) showProc(); }));
+      $('mriAuto').onclick = () => { auto = !auto; autoT = 0; $('mriAuto').textContent = auto ? '⏸ توقف' : '▶ پخش خودکار'; if(auto){ hideBrain(); setStep(1); cue(0); } else hideBrain(); };
+      $('mriZoom').onclick = () => { zoom = !zoom; $('mriZoom').classList.toggle('on',zoom); snd(480); };
+      gl.addEventListener('pointerdown', e => { drag = {x:e.clientX,y:e.clientY}; gl.setPointerCapture(e.pointerId); gl.style.cursor = 'grabbing'; });
+      gl.addEventListener('pointermove', e => { if(!drag) return; yaw -= (e.clientX-drag.x)*.01; pitch = cl(pitch+(e.clientY-drag.y)*.01,-.2,1.3); drag = {x:e.clientX,y:e.clientY}; });
+      const up = () => { drag = null; gl.style.cursor = 'grab'; }; gl.addEventListener('pointerup', up); gl.addEventListener('pointercancel', up);
+      /* نقطه‌ای روی خطِ میدان: t=0 داخل تونل (+x)، t=π بیرونِ دستگاه (−x) */
+      function lp(L,t,a,o){ const r = L.rc-L.b*Math.cos(t); a[o] = 3*Math.sin(t); a[o+1] = r*Math.cos(L.az); a[o+2] = r*Math.sin(L.az); }
+      function init(){
+        if(!window.THREE){ $('mriCap').textContent = '⚠️ کتابخانه‌ی three.js بارگذاری نشد؛ اتصال اینترنت را بررسی کن.'; return false; }
+        V = (a,b,c) => new THREE.Vector3(a,b,c);
+        R = new THREE.WebGLRenderer({canvas:gl, antialias:true, alpha:true}); R.setPixelRatio(Math.min(devicePixelRatio||1,2));
+        S = new THREE.Scene(); C = new THREE.PerspectiveCamera(36,1,.1,100); tg = V(0,-.2,0);
+        S.add(new THREE.HemisphereLight(0xc8ccff,0x1a1a2b,.95)); const dl = new THREE.DirectionalLight(0xffffff,.75); dl.position.set(-4,7,5); S.add(dl);
+        const Z = Math.PI/2, std = (c,o) => new THREE.MeshStandardMaterial(Object.assign({color:c, roughness:.6, flatShading:true, side:THREE.DoubleSide},o||{}));
+        const add = (g,m,x,y,z,rz) => { const o = new THREE.Mesh(g,m); o.position.set(x,y,z); if(rz) o.rotation.z = rz; S.add(o); return o; };
+        const tex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), r = g.createRadialGradient(32,32,0,32,32,32); r.addColorStop(0,'rgba(255,255,255,1)'); r.addColorStop(.3,'rgba(255,255,255,.4)'); r.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle = r; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); })();
+        /* دیوراما: پایه + جعبه‌ی شیشه‌ای مثل گربه */
+        add(new THREE.BoxGeometry(7.8,.34,5.8), std(0x1d1d30), 0,FLOOR-.17,0); add(new THREE.BoxGeometry(7.4,.04,5.4), std(0x10101c), 0,FLOOR+.01,0);
+        const gb = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(7,4.6,5)), new THREE.LineBasicMaterial({color:0x8fa2d8,transparent:true,opacity:.6})); gb.position.y = FLOOR+2.3; S.add(gb);
+        add(new THREE.BoxGeometry(7,4.6,5), new THREE.MeshBasicMaterial({color:0x8fa2d8,transparent:true,opacity:.03,depthWrite:false}), 0,FLOOR+2.3,0);
+        /* آهن‌ربا: بدنه‌ی کم‌وجه + تونلِ تیره + حلقه‌های درخشان */
+        const pr = [[1.45,-1.1],[1.75,-1.1],[1.95,-1],[2,-.8],[2,.8],[1.95,1],[1.75,1.1],[1.45,1.1]].map(a => new THREE.Vector2(a[0],a[1]));
+        housing = add(new THREE.LatheGeometry(pr,28), std(0x8890e0,{roughness:.35,emissive:0x3a7bd5,emissiveIntensity:0,transparent:true,opacity:.26,depthWrite:false}), 0,0,0,Z);
+        add(new THREE.LatheGeometry([new THREE.Vector2(1.44,-1.1),new THREE.Vector2(1.44,1.1)],28), std(0x20223c,{transparent:true,opacity:.2,depthWrite:false}), 0,0,0,Z);
+        [-1.1,1.1].forEach(x => { const t = add(new THREE.TorusGeometry(1.5,.06,8,40), std(0x62d6ff,{emissive:0x62d6ff,emissiveIntensity:0}), x,0,0); t.rotation.y = Z; t.visible = false; coils.push(t); });
+        /* تخت و آدمِ کم‌وجه (بنفش‌خاکستری مثل گربه) */
+        add(new THREE.BoxGeometry(4.7,.1,1.5), std(0xacb0d4), 1.1,-.98,0); add(new THREE.BoxGeometry(.5,1.0,.6), std(0x4a4f70), 2.7,-1.55,0);
+        /* آدمِ کم‌وجه با همان سبک و پالتِ گربه؛ لباسِ یک‌بارمصرفِ MRI (آبیِ نیلی) و کفشِ سفید. ایستاده ساخته می‌شود و بعد روی تخت می‌خوابد */
+        const mSk = std(0xf2b997,{roughness:.75}), mHr = std(0x4b3426,{roughness:.9}), mSc = std(0x3f45b0,{roughness:.95}), mSd = std(0x353a9c,{roughness:.95}), mCl = std(0xf4f5fa,{roughness:.5}), mInk = std(0x2a1d1a), mLip = std(0xd9807a), mGh = std(0xf2b997,{roughness:.75,transparent:true,opacity:.2,depthWrite:false}), mGhH = std(0x4b3426,{transparent:true,opacity:.3,depthWrite:false}), mGhF = std(0x3a2a26,{transparent:true,opacity:.55,depthWrite:false}), mGhL = std(0xd9807a,{transparent:true,opacity:.5,depthWrite:false});
+        const hu = new THREE.Group(), hCyl = (a,b,h) => new THREE.CylinderGeometry(a,b,h,9), hSph = r => new THREE.SphereGeometry(r,9,7);
+        const hp = (g,m,x,y,z,sc,rx,rz) => { const o = new THREE.Mesh(g,m); o.position.set(x,y,z); if(sc) o.scale.set(sc[0],sc[1],sc[2]); if(rx) o.rotation.x = rx; if(rz) o.rotation.z = rz; hu.add(o); return o; };
+        hp(hCyl(.5,.4,1.2), mSc, 0,2.3,0, [1,1,.56]);
+        hp(hSph(.46), mSd, 0,1.72,0, [1,.55,.6]);
+        hp(hCyl(.14,.15,.3), mGh, 0,3.02,0);
+        hp(new THREE.TorusGeometry(.17,.04,6,12), mSd, 0,2.93,.02, null, Math.PI/2);
+        for(const k of [-1,1]){
+          hp(hSph(.2), mSc, k*.52,2.8,0, [1,1,.9]);
+          hp(hCyl(.17,.15,.55), mSc, k*.6,2.52,0, null, 0, k*.1);
+          hp(hCyl(.13,.1,.65), mSk, k*.66,1.95,0, null, 0, k*.05);
+          hp(hSph(.1), mSk, k*.7,1.52,0, [.85,1.15,.55]);
+          hp(hSph(.04), mSk, k*.61,1.57,.05);
+          hp(hCyl(.25,.2,.75), mSd, k*.22,1.3,0);
+          hp(hSph(.19), mSd, k*.22,.93,0);
+          hp(hCyl(.19,.16,.68), mSd, k*.22,.6,0);
+          hp(hSph(.17), mCl, k*.22,.14,.14, [1.05,.75,2]);
+          hp(new THREE.BoxGeometry(.11,.02,.02), mGhF, k*.14,3.43,.47, null, 0, -k*.12);
+          hp(new THREE.BoxGeometry(.14,.025,.03), mGhF, k*.15,3.52,.45, null, 0, k*.1);
+          hp(hSph(.07), mGh, k*.37,3.36,.1, [.5,1,.8]);
+        }
+        const hg = new THREE.SphereGeometry(.38,12,9), hm = hp(hg, std(0xf2b997,{roughness:.75,transparent:true,opacity:.2,depthWrite:false}), 0,3.38,.12, [.95,1.08,1]);
+        
+        hp(new THREE.SphereGeometry(.41,12,9,0,Math.PI*2,0,1.6), mGhH, 0,3.4,.1, [.97,1.06,1.02], -.45);
+        hp(new THREE.ConeGeometry(.05,.12,5), mGh, 0,3.36,.54, null, Math.PI/2);
+        hp(new THREE.BoxGeometry(.12,.022,.02), mGhL, 0,3.2,.46);
+        hu.rotation.order = 'YXZ'; hu.rotation.set(-Math.PI/2, Math.PI/2, 0); hu.position.set(3.38,-.63,0); S.add(hu);
+        hc = add(new THREE.TorusGeometry(.62,.035,10,40), std(0xffb454,{emissive:0xffb454,emissiveIntensity:0}), ...HEAD); hc.rotation.y = Z;
+        glow = new THREE.Sprite(new THREE.SpriteMaterial({map:tex,color:0x62d6ff,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0})); glow.position.set(...HEAD); glow.scale.set(2.6,2.6,1); glow.visible = false; S.add(glow);
+        /* کامپیوتر */
+        add(new THREE.CylinderGeometry(.08,.14,.5,6), std(0x4a4f70), -2.7,-1.8,-1.6); add(new THREE.BoxGeometry(.95,.7,.12), std(0x2b2e48), -2.7,-1.2,-1.6);
+        scr = add(new THREE.PlaneGeometry(.8,.55), std(0x1b3a2c,{emissive:0x7ee08a,emissiveIntensity:0}), -2.7,-1.2,-1.67); scr.rotation.y = Math.PI;
+        /* خطوط میدانِ مغناطیسی */
+        const pos = [];
+        [[0,.45],[40,.45],[-40,.45],[80,.45],[-80,.45],[0,.95],[40,.95],[-40,.95],[80,.95],[-80,.95]].forEach(([d,ri]) => {
+          const L = {az:d*Math.PI/180, rc:(ri+2.45)/2, b:(2.45-ri)/2, ph:Math.random()}; loops.push(L);
+          for(let j=0;j<72;j++) for(const t of [j,j+1]){ const o = []; lp(L,t/72*6.2832,o,0); pos.push(...o); }
+        });
+        lines = new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(pos,3)), new THREE.LineBasicMaterial({color:0x8fb8ff,transparent:true,opacity:0,depthWrite:false})); S.add(lines);
+        dots = new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(loops.length*9),3)), new THREE.PointsMaterial({map:tex,color:0xbfe9ff,size:.34,blending:THREE.AdditiveBlending,transparent:true,opacity:0,depthWrite:false})); S.add(dots);
+        for(let i=0;i<NP;i++){
+          let q; do q = V(Math.random()*2-1,Math.random()*2-1,Math.random()*2-1); while(q.lengthSq() > 1); q.multiplyScalar(.3);
+          const a = new THREE.ArrowHelper(V(1,0,0),V(0,0,0),.3,0x9fe3ff,.11,.08); S.add(a);
+          arrows.push({a, off:q.x, p:q.clone().add(V(...HEAD)), v:V(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(), th:1, ph:0, dw:(Math.random()-.5)*3.2});
+        }
+        net = new THREE.ArrowHelper(V(1,0,0),V(...HEAD),1,0xffb454,.2,.12); S.add(net);
+        TAGS.forEach(tg2 => { const e = document.createElement('button'); e.textContent = fa(tagEls.length+1); e.style.cssText = 'position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;border:1px solid #8fa2d8;background:#0f0f1a;color:#e8e6f0;font:700 12px Vazirmatn,sans-serif;cursor:pointer;padding:0;z-index:2;box-shadow:0 0 10px rgba(143,162,216,.5)'; e.onclick = () => { $('mriPart').textContent = tg2.t; snd(560); }; $('mriWrap').appendChild(e); tagEls.push(e); });
+        return true;
+      }
+      draws.mri = () => {
+        const now = performance.now(), dt = Math.min(.05,(now-last)/1000); last = now;
+        if(!ready){ if(!init()) return; ready = true; setStep(1); }
+        const w = gl.clientWidth, h = gl.clientHeight; if(w !== lw || h !== lh){ R.setSize(w,h,false); C.aspect = w/h; C.updateProjectionMatrix(); lw = w; lh = h; }
+        stT += dt; Phi += W0*dt; if(auto){ autoT += dt; let k = 0; AT.forEach((t,i) => { if(autoT >= t) k = i; }); if(k+1 !== step){ setStep(k+1); cue(k); if(k === 3) showProc(); } if(autoT > AT_END){ auto = false; $('mriAuto').textContent = '▶ پخش خودکار'; showBrain(); } if(!drag) yaw += Math.cos(now/3100)*.0016; }
+        const field = step >= 2, pre = (step === 4 ? prev < 3 : step === 5 ? prev !== 3 : false) && stT < 1.4, rf = step === 3 || pre, relax = step === 4 && !rf, grad = step === 5;
+        let mx = 0, my = 0, mz = 0; const col = new THREE.Color();
+        arrows.forEach(o => {
+          if(!field){ o.v.add(V((Math.random()-.5)*.35,(Math.random()-.5)*.35,(Math.random()-.5)*.35)).normalize(); o.th = Math.acos(o.v.x); o.ph = Math.atan2(o.v.z,o.v.y); }
+          else {
+            o.th += (((rf || grad) ? Math.PI/2 : .35)-o.th)*Math.min(1,(rf ? 2.5 : relax ? .4 : 2.2)*dt);
+            o.ph += (W0+(grad ? 16*o.off : 0)+(relax ? o.dw : 0))*dt;
+            if(rf) o.ph += Math.atan2(Math.sin(Phi-o.ph),Math.cos(Phi-o.ph))*Math.min(1,4*dt);
+          }
+          const d = V(Math.cos(o.th),Math.sin(o.th)*Math.cos(o.ph),Math.sin(o.th)*Math.sin(o.ph));
+          o.a.position.copy(o.p).addScaledVector(d,-.15); o.a.setDirection(d); mx += d.x; my += d.y; mz += d.z;
+          if(grad !== lastGrad) o.a.setColor(grad ? col.setHSL(.6-.5*(o.off+.3)/.6,.9,.6) : col.setHex(0x9fe3ff));
+        });
+        lastGrad = grad; mx /= NP; my /= NP; mz /= NP; const m = Math.hypot(mx,my,mz);
+        net.visible = field; if(field && m > .01){ net.setDirection(V(mx,my,mz).normalize()); net.setLength(m*.95,Math.min(.2,m*.4),.12); }
+        fieldA += ((field ? 1 : 0)-fieldA)*Math.min(1,3*dt); lines.visible = dots.visible = fieldA > .01; lines.material.opacity = .6*fieldA; dots.material.opacity = fieldA;
+        const pa = dots.geometry.attributes.position; loops.forEach((L,i) => { for(let k=0;k<3;k++) lp(L,((now/1000*.08+k/3+L.ph)%1)*6.2832,pa.array,(i*3+k)*3); }); pa.needsUpdate = true;
+        housing.material.emissiveIntensity = 0; { const fl = .5+.5*Math.sin(now/650); housing.material.opacity = .2+.1*fl; } coils.forEach(t => t.material.emissiveIntensity = 1.2*fieldA);
+        const rec = (step >= 4 && !rf), pulse = .6+.4*Math.sin(now/60);
+        hc.material.emissive.setHex(rf ? 0xffb454 : 0x7ee08a); hc.material.emissiveIntensity = rf ? pulse : rec ? .5 : 0;
+        glow.material.color.setHex(rf ? 0xffb454 : rec ? 0x7ee08a : 0x62d6ff); glow.material.opacity += ((rf ? .35+.35*pulse : rec ? .3 : field ? .22 : 0)-glow.material.opacity)*Math.min(1,6*dt);
+        scr.material.emissiveIntensity = rec ? .5+.3*Math.sin(now/150) : rf ? .2 : 0;
+        tg.lerp(zoom ? V(...HEAD) : V(0,-.2,0),.08); dist += ((zoom ? 3.2 : 15.5)-dist)*.08;
+        C.position.set(tg.x+dist*Math.cos(pitch)*Math.sin(yaw),tg.y+dist*Math.sin(pitch),tg.z+dist*Math.cos(pitch)*Math.cos(yaw)); C.lookAt(tg); R.render(S,C);
+        TAGS.forEach((t,i) => { const v = V(...t.p).project(C), e = tagEls[i], px = (v.x*.5+.5)*w, py = (-v.y*.5+.5)*h; e.style.display = (v.z < 1 && px > 13 && px < w-13 && py > 13 && py < h-13) ? '' : 'none'; e.style.transform = 'translate('+(px-13)+'px,'+(py-13)+'px)'; });
+        if(!auto && step === 5 && imgT === -2 && stT > 1.2) showBrain(); drawBrain(dt); hist.push(my); if(hist.length > 260) hist.shift();
+        const [g,w2,h2] = fit(sg); g.strokeStyle = '#252536'; g.beginPath(); g.moveTo(0,h2/2); g.lineTo(w2,h2/2); g.stroke();
+        g.strokeStyle = '#7ee08a'; g.lineWidth = 2; g.beginPath(); hist.forEach((v,i) => { const x = i/260*w2, y = h2/2-v*h2*.42; i ? g.lineTo(x,y) : g.moveTo(x,y); }); g.stroke();
+        $('mriB').textContent = field ? 'روشن (۳ تسلا)' : 'خاموش'; $('mriR').textContent = rf ? 'روشن (۱۲۷٫۷ MHz)' : 'خاموش';
+        $('mriMz').textContent = fa(Math.round(Math.abs(mx)*100))+'٪'; $('mriMx').textContent = fa(Math.round(Math.hypot(my,mz)*100))+'٪';
+      };
+    })();
+
+    /* ---- ترانزیستور ---- */
+    (function(){
+      const cv = $('apTr'), vg = $('apTrV'), ln = $('apTrL'), el = []; let ema = 0, emaT = 0, n = 0;
+      draws.tr = () => {
+        const [g,w,h] = fit(cv), V = vg.value/100, L = +ln.value, hb = 1-.9*V, bw = Math.min(w*.4,10+L*12), bx0 = w/2-bw/2, bx1 = w/2+bw/2, base = h-20, yE = e => base-e*(h-44);
+        $('apTrVv').textContent = fa((V*1.0).toFixed(2).replace('.','٫'))+' V'; $('apTrLv').textContent = fa(L)+' نانومتر';
+        g.strokeStyle = '#31314a'; g.beginPath(); g.moveTo(0,base); g.lineTo(w,base); g.stroke();
+        g.fillStyle = 'rgba(199,146,234,.22)'; g.fillRect(bx0,yE(hb),bw,base-yE(hb)); g.strokeStyle = '#c792ea'; g.beginPath(); g.moveTo(bx0,base); g.lineTo(bx0,yE(hb)); g.lineTo(bx1,yE(hb)); g.lineTo(bx1,base); g.stroke();
+        g.fillStyle = V > .5 ? '#7ee08a' : '#8b8ea3'; g.fillRect(bx0,4,bw,8);
+        g.fillStyle = '#8b8ea3'; g.font = '11px Vazirmatn,sans-serif'; g.textAlign = 'center'; g.fillText('گیت',w/2,26); g.fillText('سورس',w*.12,h-5); g.fillText('درین',w*.88,h-5);
+        if(++n % 4 === 0) el.push({x:6, e:.1+.55*Math.pow(Math.random(),1.5), s:0, vx:2.2});
+        for(let i=el.length-1;i>=0;i--){
+          const p = el[i]; p.x += p.vx;
+          if(p.s === 0 && p.x >= bx0){
+            if(p.e > hb){ p.s = 1; ema = ema*.97+.03; emaT *= .97; }
+            else if(Math.random() < Math.exp(-.9*L*Math.sqrt(4*(hb-p.e)))){ p.s = 2; ema = ema*.97+.03; emaT = emaT*.97+.03; }
+            else { p.s = 3; p.vx = -p.vx; ema *= .97; emaT *= .97; }
+          }
+          if(p.x < 0 || p.x > w){ el.splice(i,1); continue; }
+          g.globalAlpha = p.s === 2 && p.x > bx0 && p.x < bx1 ? .45 : 1;
+          g.fillStyle = ['#e8e6f0','#62d6ff','#c792ea','#6b6e84'][p.s]; g.beginPath(); g.arc(p.x,yE(p.e),3.5,0,7); g.fill(); g.globalAlpha = 1;
+        }
+        const bit = ema > .5 ? 1 : 0;
+        $('apTrB').textContent = fa(bit); $('apTrI').textContent = fa(Math.round(ema*100))+'٪'; $('apTrT').textContent = fa(Math.round(emaT*100))+'٪';
+        $('apTrN').textContent = bit ? 'شیر باز است: بیتِ ۱.' : (emaT > .04 ? '⚠️ شیر بسته است ولی الکترون‌ها از دلِ سد تونل می‌زنند: نشتی! سد را ضخیم‌تر کن.' : 'شیر بسته و سد ضخیم: بیتِ ۰ بدون نشتی.');
+      };
+    })();
+
+    /* ---- ساعت اتمی و GPS ---- */
+    (function(){
+      const cv = $('apClk'), ds = $('apClkD'), hr = $('apClkH'); let D = +ds.value, tgt = null;
+      $('apClkL').onclick = () => { tgt = 0; snd(700); }; ds.addEventListener('input', () => { tgt = null; });
+      draws.clk = () => {
+        if(tgt !== null){ D += (tgt-D)*.12; if(Math.abs(D) < .4){ D = 0; tgt = null; } ds.value = D; } else D = +ds.value;
+        const [g,w,h] = fit(cv), base = h-24, top = 22, f = d => 1/(1+Math.pow(d/14,2)), fr = f(D), hrs = +hr.value;
+        g.strokeStyle = '#252536'; g.beginPath(); g.moveTo(0,base); g.lineTo(w,base); g.stroke();
+        g.strokeStyle = '#62d6ff'; g.lineWidth = 2; g.beginPath(); for(let x=0;x<=w;x+=2){ const y = base-f((x/w-.5)*200)*(base-top); x ? g.lineTo(x,y) : g.moveTo(x,y); } g.stroke(); g.lineWidth = 1;
+        const px = w/2+D/100*w/2, py = base-fr*(base-top);
+        g.setLineDash([4,4]); g.strokeStyle = '#31314a'; g.beginPath(); g.moveTo(px,py); g.lineTo(px,base); g.stroke(); g.setLineDash([]);
+        g.fillStyle = fr > .97 ? '#7ee08a' : '#ffb454'; g.shadowColor = g.fillStyle; g.shadowBlur = 12; g.beginPath(); g.arc(px,py,7,0,7); g.fill(); g.shadowBlur = 0;
+        g.fillStyle = '#8b8ea3'; g.font = '11px Vazirmatn,sans-serif'; g.textAlign = 'center'; g.fillText('بسامد تشدید: ۹٬۱۹۲٬۶۳۱٬۷۷۰ هرتز',w/2,h-6);
+        const qkm = hrs*3600*4e-7*3e8/1000, acm = hrs*3600*1e-13*3e8*100;
+        $('apClkDv').textContent = (D>0?'+':'')+fa(Math.round(D))+' هرتز'; $('apClkHv').textContent = fa(hrs)+' ساعت';
+        $('apClkA').textContent = fa(Math.round(fr*100))+'٪';
+        $('apClkQ').textContent = '≈ '+fa(Math.round(qkm))+' کیلومتر'; $('apClkE').textContent = '≈ '+fa(acm.toFixed(0))+' سانتی‌متر';
+        $('apClkN').textContent = fr > .97 ? '🎯 قفل شد: همه‌ی اتم‌ها می‌پرند و ساعت دقیق است.' : 'ریزموج از تشدید دور است: اتم‌ها نمی‌پرند و ساعت قابل‌اعتماد نیست.';
+      };
+    })();
+
+    /* ---- رمزنگاری کوانتومی (BB84) ---- */
+    (function(){
+      const gridEl = $('apQkdGrid'); let eve = false, busy = false;
+      $('apQkdEve').onclick = e => { eve = !eve; e.target.textContent = '👁️ شنودگر: '+(eve?'روشن':'خاموش'); e.target.classList.toggle('on',eve); snd(eve?300:500); };
+      $('apQkdGo').onclick = () => {
+        if(busy) return; busy = true; gridEl.innerHTML = ''; let key = 0, err = 0; const R = () => Math.random() < .5 ? 1 : 0, cells = [];
+        for(let i=0;i<40;i++){
+          const ab = R(), aB = R(); let pb = ab, pB = aB;
+          if(eve){ const eB = R(); pb = eB === aB ? ab : R(); pB = eB; }
+          const bB = R(), bb = bB === pB ? pb : R(), c = document.createElement('div'); c.className = 'bb-cell';
+          if(bB !== aB) c.classList.add('skip'); else { key++; if(bb !== ab){ err++; c.classList.add('bad'); } else c.classList.add('ok'); }
+          c.textContent = bb; gridEl.appendChild(c); cells.push(c);
+        }
+        cells.forEach((c,i) => setTimeout(() => { c.classList.add('show'); if(i%6===0) snd(500+i*8); if(i === 39){ busy = false; fin(); } }, i*35));
+        function fin(){
+          const q = key ? err/key : 0; $('apQkdK').textContent = fa(key)+' بیت'; $('apQkdE').textContent = fa(Math.round(q*100))+'٪';
+          $('apQkdN').textContent = q > .11 ? '🚨 خطای زیاد: کسی شنود کرده! کلید دور ریخته می‌شود.' : '✅ خطا ناچیز است: کلید امن است و شنودی دیده نشد.';
+        }
+      };
+    })();
+
+    (function loop(){ if(draws[cur] && !document.hidden) draws[cur](); requestAnimationFrame(loop); })();
   })();
 
 })();
@@ -5766,37 +6160,6 @@ function createCatScene(canvas, H){
   zr.addEventListener('input',function(){zAuto=false;$('qZp').textContent='▶ زوم خودکار';setZ(zr.value/1000);});
   $('qZp').addEventListener('click',function(){if(zAuto)zAuto=false;else{if(z>.999)setZ(0);zAuto=true;}$('qZp').textContent=zAuto?'⏸ توقف':'▶ زوم خودکار';});
   setZ(0);
-  // ---- 1: builder (discovery game)
-  var q=[null,null,null], sz=[1,1,1], ga=0, flash=-9, lt1=0, found={}, c1=$('qCanvas1'), g1=c1.getContext('2d'), GO=[1,0,2,-1];
-  var CH={u:'+۲/۳',d:'−۱/۳'}, QM={u:2.2,d:4.7};
-  var INFO={2:['Δ⁺⁺ (دلتا)',1232,'سه کوارکِ کاملاً یکسان با اسپین هم‌جهت! اگر بارِ رنگ نبود، اصل طرد پائولی این ترکیب را ممنوع می‌کرد؛ همین یکی از دلایل پیشنهادِ رنگ بود. ناپایدار است و در حدود ۱۰⁻²⁴ ثانیه می‌پاشد.'],
-    1:['پروتون',938.3,'دو کوارک بالا و یک پایین: ۲/۳ + ۲/۳ − ۱/۳ = +۱. پروتون پایدار است و هسته‌ی هیدروژن را می‌سازد.'],
-    0:['نوترون',939.6,'یک کوارک بالا و دو پایین: ۲/۳ − ۱/۳ − ۱/۳ = ۰. نوترونِ آزاد پس از حدود ۱۵ دقیقه به پروتون می‌پاشد.'],
-    '-1':['Δ⁻ (دلتا)',1232,'سه کوارکِ پایینِ یکسان با بارِ کل −۱. ناپایدار است و در حدود ۱۰⁻²⁴ ثانیه می‌پاشد.']};
-  
-  function fr(v){var a=Math.abs(v),sg=v>0?'+':v<0?'−':'';return v%3===0?sg+fa(a/3):sg+fa(a)+'/۳';}
-  function chips(){var n=0;$('qGoals').innerHTML=GO.map(function(g){var f=found[g];if(f)n++;return '<span class="q-goal'+(f?' found':'')+'">'+(f?INFO[g][0]+' ✓':'؟ <span dir="ltr">بار '+(g>0?'+':g<0?'−':'')+fa(Math.abs(g))+'</span>')+'</span>';}).join('');
-    $('qProg').textContent='ذره‌های کشف‌شده: '+fa(n)+' از ۴ — با u و d سه‌تایی بساز و بارِ کل را ببین';}
-  function refresh(){var n=0,sum=0,m=0;q.forEach(function(x){if(x){n++;sum+=x==='u'?2:-1;m+=QM[x];}});
-    $('qCharge').textContent=n?fr(sum):'—';
-    if(n<3){$('qName').textContent='—';$('qMass').textContent='—';$('qCap').textContent=n?('یک ذره‌ی پایدار سه کوارک می‌خواهد — '+fa(3-n)+' جایگاه خالی مانده.'):'روی u یا d بزن تا کوارک به جایگاه‌ها بیاید. روی کوارکِ داخل تصویر بزنی برداشته می‌شود.';return;}
-    var ch=sum/3,I=INFO[ch];$('qName').textContent=I[0];$('qMass').textContent='≈ '+fa((m/I[1]*100).toFixed(1))+'٪';$('qCap').textContent=I[2];
-    if(!found[ch]){found[ch]=true;flash=performance.now()/1000;chips();}}
-  function add(k){var i=q.indexOf(null);if(i<0){$('qCap').textContent='هر سه جایگاه پر است؛ روی یک کوارک بزن تا برداشته شود یا «پاک کردن» را بزن.';return;}q[i]=k;sz[i]=0;refresh();}
-  $('qPal').addEventListener('click',function(e){var b=e.target.closest('[data-k]');if(b)add(b.dataset.k);});
-  $('qClr').addEventListener('click',function(){q=[null,null,null];refresh();});
-  function slotXY(i,W,H,t){var a=-Math.PI/2+i*TAU/3;return [W/2+62*Math.cos(a),H/2+8+62*Math.sin(a)+3*Math.sin(t*2+i)];}
-  c1.addEventListener('click',function(e){var r=c1.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,t=performance.now()/1000;for(var i=0;i<3;i++){var p=slotXY(i,r.width,240,t);if(q[i]&&Math.hypot(x-p[0],y-p[1])<30){q[i]=null;refresh();return;}}});
-  chips();refresh();
-  function draw1(t){var W=fit(c1,240);if(!W)return;var H=240,dt=Math.min(.05,t-lt1);lt1=t;var full=q.every(Boolean);ga+=((full?1:0)-ga)*Math.min(1,dt*6);g1.clearRect(0,0,W,H);
-    var P=[0,1,2].map(function(i){return slotXY(i,W,H,t);});
-    g1.beginPath();g1.arc(W/2,H/2+8,108,0,TAU);g1.setLineDash(full?[]:[5,5]);g1.strokeStyle='rgba(255,180,84,'+(.15+.5*ga)+')';g1.lineWidth=1+ga;g1.stroke();g1.setLineDash([]);
-    if(ga>.02){g1.globalAlpha=ga;[[0,1],[1,2],[2,0]].forEach(function(pr){var a=P[pr[0]],b=P[pr[1]],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;g1.beginPath();for(var j=0;j<=28;j++){var u=j/28,o=5*Math.sin(u*TAU*3-t*7)*Math.sin(u*Math.PI);var x=a[0]+dx*u+nx*o,y=a[1]+dy*u+ny*o;j?g1.lineTo(x,y):g1.moveTo(x,y);}g1.strokeStyle='rgba(255,255,255,.45)';g1.lineWidth=1.6;g1.stroke();});g1.globalAlpha=1;}
-    P.forEach(function(p,i){g1.textAlign='center';g1.textBaseline='middle';
-      if(!q[i]){g1.beginPath();g1.arc(p[0],p[1],21,0,TAU);g1.setLineDash([4,4]);g1.strokeStyle='rgba(255,255,255,.3)';g1.lineWidth=1.2;g1.stroke();g1.setLineDash([]);g1.fillStyle='rgba(255,255,255,.35)';g1.font='20px sans-serif';g1.fillText('+',p[0],p[1]+1);return;}
-      sz[i]+=(1-sz[i])*Math.min(1,dt*12);var k=sz[i]*(1+.25*Math.sin(Math.min(1,sz[i])*Math.PI));disk(g1,p[0],p[1],21*k,COL[i],q[i]);
-      g1.fillStyle='#8b8ea3';g1.font='11px Vazirmatn, sans-serif';g1.textBaseline='alphabetic';g1.fillText(CH[q[i]],p[0],p[1]+38);});
-    var f=t-flash;if(f<.9){g1.beginPath();g1.arc(W/2,H/2+8,20+f*130,0,TAU);g1.strokeStyle='rgba(255,180,84,'+(1-f/.9)+')';g1.lineWidth=3;g1.stroke();}}
   // ---- 2: confinement
   var c2=$('qCanvas2'), g2=c2.getContext('2d'), rng=$('qDist'), auto=false, aT0=0, flash=-9, was=false, DB=1.5;
   function qd(x,y,c,l,bar){disk(g2,x,y,15,c,l); if(bar){g2.beginPath();g2.moveTo(x-5,y-8);g2.lineTo(x+5,y-8);g2.strokeStyle='#0a0a12';g2.lineWidth=1.6;g2.stroke();}}
@@ -5815,7 +6178,57 @@ function createCatScene(canvas, H){
   (function loop(now){requestAnimationFrame(loop); var t=now/1000;
     if(auto){var u=(t-aT0)/6; rng.value=Math.min(300,20+u*280); if(u>=1){auto=false;$('qAuto').textContent='▶ جدا کردن خودکار';}}
     var dt=Math.min(.05,t-lt);lt=t;if(zAuto){setZ(z+dt/9);if(z>=1){zAuto=false;$('qZp').textContent='▶ زوم خودکار';}}
-    draw0(t); draw1(t); draw2(t);})(0);
+    draw0(t); draw2(t);})(0);
+})();
+</script>
+<script>
+(function(){
+  var host=document.getElementById('qsGroups'); if(!host) return;
+  var det=document.getElementById('qsDetail'), cards={}, P={};
+  var G=[
+    {t:'کوارک‌ها',s:'ذره‌های ماده؛ هر چهار نیرو را حس می‌کنند',rgb:'199,146,234',list:[
+      ['u','بالا','up','≈ ۲٫۳ MeV','+۲/۳','½','نسل','۱','شواهد مستقیم ≈ ۱۹۶۸ (SLAC)','سبک‌ترین کوارک است. دو تا از آن در هر پروتون هست، پس بیشترِ مادّه‌ی اطرافِ ما از آن ساخته شده.'],
+      ['c','افسون','charm','≈ ۱٫۲۷۵ GeV','+۲/۳','½','نسل','۲','نوامبر ۱۹۷۴ — ذره‌ی J/ψ','دو گروه هم‌زمان آن را یافتند (SLAC و بروکهیون)؛ به این رویداد «انقلاب نوامبر» می‌گویند.'],
+      ['t','سر','top','≈ ۱۷۳ GeV','+۲/۳','½','نسل','۳','۱۹۹۵ — فرمی‌لب','سنگین‌ترین ذره‌ی بنیادیِ شناخته‌شده؛ تقریباً هم‌وزنِ یک اتم طلا. حدود ۵×۱۰⁻²⁵ ثانیه عمر می‌کند و پیش از ساختنِ ذره‌ی مرکب می‌پاشد.'],
+      ['d','پایین','down','≈ ۴٫۸ MeV','−۱/۳','½','نسل','۱','شواهد مستقیم ≈ ۱۹۶۸ (SLAC)','همراهِ u در نسل ۱. پروتون یک و نوترون دو کوارکِ d دارد. d می‌تواند به u تبدیل شود: همان واپاشیِ بتا.'],
+      ['s','شگفت','strange','≈ ۹۵ MeV','−۱/۳','½','نسل','۲','۱۹۴۷ — پرتوهای کیهانی','ذره‌های «شگفت» سریع ساخته می‌شدند ولی کند می‌پاشیدند؛ از همین‌جا نامش آمد.'],
+      ['b','ته','bottom','≈ ۴٫۱۸ GeV','−۱/۳','½','نسل','۳','۱۹۷۷ — فرمی‌لب (ذره‌ی ϒ)','حدود ۴٫۵ برابرِ پروتون سنگین است. مزون‌های B به دانشمندان کمک می‌کنند تفاوتِ ماده و پادماده را بفهمند.']
+    ]},
+    {t:'لپتون‌ها',s:'ذره‌های ماده؛ نیروی قوی را حس نمی‌کنند',rgb:'126,224,138',list:[
+      ['e','الکترون','electron','≈ ۰٫۵۱۱ MeV','−۱','½','نسل','۱','۱۸۹۷ — جی.جی. تامسون','سبک‌ترین لپتونِ باردار و پایدار. دور هسته می‌چرخد و تمام شیمی را می‌سازد.'],
+      ['μ','میون','muon','≈ ۱۰۵٫۷ MeV','−۱','½','نسل','۲','۱۹۳۶ — پرتوهای کیهانی','حدود ۲۰۷ برابر سنگین‌تر از الکترون و ناپایدار (≈ ۲٫۲ میکروثانیه). هر دقیقه تقریباً یک میون از هر سانتی‌مترمربعِ سطحِ زمین رد می‌شود.'],
+      ['τ','تاو','tau','≈ ۱٫۷۷۷ GeV','−۱','½','نسل','۳','۱۹۷۵ — SLAC (مارتین پرل)','سنگین‌ترین لپتون، حدود ۲ برابرِ پروتون. عمرش فقط ≈ ۳×۱۰⁻¹³ ثانیه است.'],
+      ['ν<sub>e</sub>','نوترینوی الکترونی','electron neutrino','< ۲٫۲ eV','۰','½','نسل','۱','۱۹۵۶ — کاوان و رینز (پیشنهاد پائولی: ۱۹۳۰)','بار ندارد و تقریباً با هیچ‌چیز برهم‌کنش نمی‌کند؛ هر ثانیه حدود ۶۰ میلیارد نوترینوی خورشیدی از هر سانتی‌مترمربعِ بدنِ تو رد می‌شود.'],
+      ['ν<sub>μ</sub>','نوترینوی میونی','muon neutrino','< ۰٫۱۷ MeV','۰','½','نسل','۲','۱۹۶۲ — بروکهیون','همراهِ میون ساخته می‌شود. آزمایش‌های «نوسان» نشان داده‌اند نوترینوها جرمِ بسیار ناچیزی دارند و نوعشان را عوض می‌کنند (نوبل ۲۰۱۵).'],
+      ['ν<sub>τ</sub>','نوترینوی تاویی','tau neutrino','< ۱۵٫۵ MeV','۰','½','نسل','۳','۲۰۰۰ — فرمی‌لب (DONUT)','همراهِ تاو؛ آخرین لپتونی که کشف شد.']
+    ]},
+    {t:'بوزون‌ها',s:'حامل نیروها (و هیگز)',rgb:'255,122,107',list:[
+      ['g','گلوئون','gluon','۰','۰','۱','نیرو','قوی','۱۹۷۹ — DESY (آلمان)','حاملِ نیروی قوی است و کوارک‌ها را به هم می‌چسباند. ۸ نوع دارد و خودش هم «بار رنگ» دارد.'],
+      ['γ','فوتون','photon','۰','۰','۱','نیرو','الکترومغناطیس','۱۹۰۵ پیشنهاد آینشتین — ۱۹۲۳ کامپتون','ذره‌ی نور و حاملِ نیروی الکترومغناطیسی. جرم ندارد، پس همیشه با سرعت نور می‌رود.'],
+      ['Z','بوزون Z','Z boson','≈ ۹۱٫۲ GeV','۰','۱','نیرو','ضعیف','۱۹۸۳ — CERN','حاملِ نیروی ضعیفِ خنثی. حدود ۹۷ برابرِ پروتون سنگین است؛ برای همین نیروی ضعیف بردی بسیار کوتاه دارد.'],
+      ['W','بوزون W','W boson','≈ ۸۰٫۴ GeV','±۱','۱','نیرو','ضعیف','۱۹۸۳ — CERN','حاملِ نیروی ضعیفِ باردار (W⁺ و W⁻). طعمِ کوارک‌ها را عوض می‌کند، مثلاً d → u در واپاشیِ بتا؛ خورشید هم با همین نیرو می‌سوزد.'],
+      ['H','بوزون هیگز','Higgs boson','≈ ۱۲۵ GeV','۰','۰','نقش','دادن جرم','۲۰۱۲ — CERN (LHC)','کوانتای «میدان هیگز» است؛ برهم‌کنشِ ذره‌ها با این میدان به آن‌ها جرم می‌دهد. تنها ذره‌ی بنیادیِ با اسپین ۰ که می‌شناسیم. (نوبل ۲۰۱۳)','255,210,77']
+    ]}
+  ];
+  function mk(g,d){
+    var rgb=d[10]||g.rgb, k=d[0], b=document.createElement('button'); b.type='button'; b.className='qs-card'; b.style.setProperty('--c-rgb',rgb);
+    b.innerHTML='<div class="qs-vals"><div>'+d[3]+'</div><div>'+d[4]+'</div><div>'+d[5]+'</div></div><span class="qd'+(k.length>3?' sm':'')+'">'+k+'</span><div class="qs-nm">'+d[1]+'</div><div class="qs-en">'+d[2]+'</div>';
+    b.addEventListener('click',function(){ show(d); });
+    cards[d[2]]=b; return b;
+  }
+  G.forEach(function(g){
+    var h=document.createElement('div'); h.className='qs-grp'; h.style.setProperty('--c-rgb',g.rgb); h.innerHTML='<b>'+g.t+'</b><span>'+g.s+'</span>'; host.appendChild(h);
+    var gr=document.createElement('div'); gr.className='qs-grid'; g.list.forEach(function(d){ d.g=g; gr.appendChild(mk(g,d)); }); host.appendChild(gr);
+  });
+  function show(d){
+    var rgb=d[10]||d.g.rgb;
+    Object.keys(cards).forEach(function(x){ cards[x].classList.toggle('sel',x===d[2]); });
+    det.style.setProperty('--c-rgb',rgb);
+    det.innerHTML='<div class="qs-top"><span class="qd'+(d[0].length>3?' sm':'')+'">'+d[0]+'</span><div><h4>'+d[1]+'</h4><small>'+d[2]+'</small></div></div>'+
+      '<div class="qs-props"><div><span>جرم</span><b>'+d[3]+'</b></div><div><span>بار الکتریکی</span><b>'+d[4]+(d[4]==='۰'?'':' e')+'</b></div><div><span>اسپین</span><b>'+d[5]+'</b></div><div><span>'+d[6]+'</span><b class="fa">'+d[7]+'</b></div></div>'+
+      '<p class="qs-txt"><b>کشف:</b> '+d[8]+'<br>'+d[9]+'</p>';
+  }
+  show(G[0].list[0]);
 })();
 </script>
 </body>
