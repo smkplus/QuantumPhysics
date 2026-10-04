@@ -386,6 +386,8 @@
   .step-h .no{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:rgba(98,214,255,.14); border:1px solid var(--wave); color:var(--wave); font-size:13px; flex:0 0 auto; }
 
   .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
+  #sec-quark .zoom-tabs{ flex-wrap:wrap; }
+  #sec-quark .zoom-tab{ flex:1 1 auto; }
   .zoom-tab{ flex:1; display:flex; align-items:center; justify-content:center; gap:7px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
     color:var(--muted); background:transparent; border:0; border-radius:10px; padding:9px 6px; transition:all .15s; }
   .zoom-tab .no{ width:20px; height:20px; font-size:11px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; border:1px solid currentColor; flex:0 0 auto; }
@@ -1102,9 +1104,10 @@
     <p class="concept-desc">پروتون و نوترون هم ذرات بنیادی نیستند: هرکدام از سه <b>کوارک</b> ساخته شده‌اند که با نیروی هسته‌ای قوی، به‌واسطه‌ی ذراتی به‌نام گلوئون، به هم چسبیده‌اند. کوارک‌ها اسپین ½ دارند (مثل الکترون) و علاوه بر بار الکتریکی، یک «بار رنگ» هم دارند: سرخ، سبز یا آبی — ربطی به رنگِ واقعی ندارد، فقط نام‌گذاری است. هر ذره‌ی پایدار باید روی‌هم‌رفته «بی‌رنگ» باشد.</p>
     <div class="zoom-tabs" role="tablist">
       <button type="button" role="tab" class="zoom-tab active" data-tab="1" aria-selected="true"><span class="no">۱</span>زوم</button>
-      <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>از چی ساخته شده؟</button>
-      <button type="button" role="tab" class="zoom-tab" data-tab="3" aria-selected="false"><span class="no">۳</span>حبس کوارک</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>پروتون و نوترون</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="3" aria-selected="false"><span class="no">۳</span>جدا کردنِ کوارک‌ها</button>
       <button type="button" role="tab" class="zoom-tab" data-tab="4" aria-selected="false"><span class="no">۴</span>ذره‌های بنیادی</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="5" aria-selected="false"><span class="no">۵</span>شتاب‌دهنده</button>
     </div>
     <div class="zoom-panel active" data-panel="1">
       <div class="demo">
@@ -1123,7 +1126,7 @@
     </div>
     <div class="zoom-panel" data-panel="2">
       <div class="demo qp">
-        <div class="qp-answer"><b>جواب کوتاه:</b> هم پروتون هم نوترون از <b>سه کوارک</b> ساخته شده‌اند: پروتون <span class="mono">u u d</span> و نوترون <span class="mono">u d d</span>. کوارک‌ها را گلوئون‌ها (خط‌چین‌های متحرک) به هم می‌چسبانند.</div>
+        <div class="qp-answer">پروتون و نوترون از <b>سه کوارک</b> ساخته شده‌اند: پروتون <span class="mono">u u d</span> و نوترون <span class="mono">u d d</span>. کوارک‌ها را گلوئون‌ها (خط‌چین‌های متحرک) به هم می‌چسبانند.</div>
         <div class="qp-cards">
           <div class="qp-card">
             <h4>پروتون</h4>
@@ -1166,6 +1169,25 @@
         <div class="qs-detail" id="qsDetail"></div>
         <div id="qsGroups"></div>
         <div class="note-box">مادّه از «فرمیون‌ها» (اسپین ½: کوارک‌ها و لپتون‌ها) ساخته شده و نیروها با «بوزون‌ها» (اسپین ۱) منتقل می‌شوند: ۶ کوارک + ۶ لپتون + ۴ بوزون حامل نیرو + هیگز = ۱۷ ذره. گرانش در این جدول نیست. هر کوارک و لپتون یک پادذره هم دارد. مادّه‌ی معمولی فقط از u، d و الکترون ساخته شده.</div>
+      </div>
+    </div>
+    <div class="zoom-panel" data-panel="5">
+      <div class="demo">
+        <canvas class="demo-canvas" id="qAcc" style="height:270px"></canvas>
+        <div style="display:flex;gap:6px 16px;flex-wrap:wrap;font-size:12px;opacity:.9;margin:6px 2px 10px"><span><b style="color:#62d6ff">●</b> الکترونی که صاف رد شد یا کم منحرف شد</span><span><b style="color:#ffb454">●</b> ضربه‌ی سخت: الکترون به کوارک خورد و زاویه‌ی بزرگ گرفت</span><span>کمانِ سمت راست = آشکارساز؛ هر نقطه یک الکترونِ ثبت‌شده</span><span>آهنربای هدایت: باریکه را باریک نگه می‌دارد و به سمت هدف نشانه می‌گیرد</span></div>
+        <div class="slider-group">
+          <label style="direction:ltr"><span>انرژی کم (۰٫۵ GeV)</span><span>انرژی زیاد (۲۰ GeV)</span></label>
+          <input type="range" id="qAccE" min="5" max="200" step="5" value="150" style="direction:ltr">
+        </div>
+        <div class="row"><button class="act" id="qAccGo">⚡ شلیک الکترون</button><button class="act ghost" id="qAccAuto">🔁 شلیک پیوسته</button><button class="act ghost" id="qAccSlow">🐢 حرکت آهسته</button><button class="act ghost" id="qAccClr">↺ پاک‌کردن</button></div>
+        <div class="readouts">
+          <div class="readout"><div class="rl">انرژی الکترون</div><div class="rv mono c-collapse" id="qAE" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout"><div class="rl">طول‌موجِ الکترون</div><div class="rv mono c-wave" id="qAL" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout"><div class="rl">شلیک‌ها / ضربه‌ی سخت</div><div class="rv mono" id="qAN">۰ / ۰</div></div>
+          <div class="readout" style="flex:2 1 220px"><div class="rl">وضعیت</div><div class="rv" id="qAS" style="font-size:13px">منتظر شلیک</div></div>
+        </div>
+        <div class="note-box" id="qAR" style="border-color:rgba(255,180,84,.55)">نتیجه‌گیریِ هر شلیک اینجا نوشته می‌شود.</div>
+        <div class="note-box">این همان منطقِ آزمایشِ رادرفورد است، این‌بار برای پروتون. الکترون‌ها را در شتاب‌دهنده‌ی خطیِ SLAC (حدود ۳٫۲ کیلومتر) تا حدود ۲۰ GeV شتاب دادند و به هدفِ هیدروژنِ مایع زدند. با انرژیِ کم، طول‌موجِ الکترون از پروتون بزرگ‌تر است: پروتون مثل ابری نرم دیده می‌شود و الکترون فقط کمی منحرف می‌شود. با انرژیِ زیاد، طول‌موج بسیار کوچک‌تر از پروتون می‌شود و الکترون «درونش» را می‌بیند: بیشترشان صاف رد می‌شوند، اما گاهی یکی تند برمی‌گردد و پروتون خرد می‌شود؛ یعنی درونش مرکزهایی نقطه‌ای و سخت هست. الکترون با تبادلِ یک فوتونِ مجازی (γ*، موجِ زردِ کوتاه) به آن کوارک ضربه می‌زند. این «پراکندگیِ ناکشسانِ عمیق» را گروهِ SLAC–MIT از اواخر دهه‌ی ۱۹۶۰ اندازه گرفت (فریدمن، کندال، تیلور؛ نوبل ۱۹۹۰). (مقیاس‌ها شماتیک‌اند.)</div>
       </div>
     </div>
     <div class="note-box" style="margin-top:12px"><b>جرم از کجا می‌آید؟</b> جرمِ سه کوارکِ پروتون روی‌هم‌رفته حدود ۱٪ جرمِ آن است. بقیه انرژیِ حرکتِ کوارک‌ها و میدانِ گلوئونی است که بنا بر E = mc² خودش را به‌صورت جرم نشان می‌دهد. کوارک‌ها را گل-من و تسوایگ در ۱۹۶۴ پیشنهاد کردند و آزمایش‌های پراکندگیِ الکترون در SLAC، حدود ۱۹۶۸، ساختارِ سه‌تایی درونِ پروتون را نشان داد.</div>
@@ -6213,11 +6235,71 @@ function createCatScene(canvas, H){
     $('qState').textContent=br?'لوله شکست: به‌جای کوارکِ آزاد، دو ذره‌ی تازه (مزون)':'اسیر در لوله‌ی گلوئونی — جدا نمی‌شود';}
   $('qAuto').addEventListener('click',function(){auto=!auto; if(auto){aT0=performance.now()/1000; rng.value=20;} $('qAuto').textContent=auto?'⏸ توقف':'▶ جدا کردن خودکار';});
   rng.addEventListener('input',function(){auto=false;$('qAuto').textContent='▶ جدا کردن خودکار';});
+  // ---- 5: accelerator (electron -> proton)
+  var c5=$('qAcc'), g5=c5.getContext('2d'), eR=$('qAccE'), SH=[], dots=[], nS=0, nH=0, autoF=false, slow=false, nxt=0, T5=0, lt5=0, shk=0, H5=270;
+  var QP=[[-.2,-.5],[-.45,.35],[.55,0]], QL=['u','u','d'];
+  function lay(W){return {cx:W*.66,cy:H5/2,R:H5*.27,Rd:Math.min(W*.32-6,H5*.47),L1:Math.min(W*.36,W*.66-H5*.27-82),x0:12};}
+  function rrect5(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+  function concl(s){var lam=fa((1.24/s.E).toFixed(2)),h=s.hard?'ضربه‌ی سخت: الکترون با زاویه‌ی بزرگ برگشت. اگر پروتون یک ابرِ نرم و یکنواخت بود این تقریباً هرگز رخ نمی‌داد؛ پس درونش مرکزهای کوچک و سخت هست: کوارک‌ها.':(s.E>=3?'الکترون تقریباً صاف رد شد و به هیچ مرکزِ سختی نخورد. بیشترِ شلیک‌ها همین‌طورند و فقط گاهی یکی به کوارکی می‌خورد؛ برای همین باید شلیکِ زیاد کرد.':'انرژیِ کم: طول‌موجِ الکترون (≈ '+lam+' fm) از پروتون بزرگ‌تر است، پس پروتون را مثل ابری نرم دید و فقط کمی منحرف شد. برای دیدنِ درونش انرژی را بالا ببر.');
+    return 'شلیکِ '+fa(nS)+' ('+fa(s.E.toFixed(1))+' GeV): '+h+' — تا اینجا '+fa(nH)+' ضربه‌ی سخت از '+fa(nS)+' شلیک.';}
+  function fire(t){var W=c5._w||fit(c5,H5); if(!W) return; var L=lay(W),E=eR.value/10,hard=E>=3&&Math.random()<.75,k=Math.floor(Math.random()*3),q=QP[k],qr=L.R*.55,Ta=.4,v=2*L.L1/Ta,
+      qx=L.cx+q[0]*qr,qy=L.cy+q[1]*qr,hx=hard?qx-26:L.cx-L.R*.3,ay=hard?qy:L.cy+(Math.random()-.5)*L.R*1.2,
+      sg=hard?(q[1]?(q[1]<0?-1:1):(Math.random()<.5?-1:1)):(Math.random()<.5?-1:1),
+      ph=sg*(hard?35+Math.random()*40:(E>=3?1+Math.random()*2:5+Math.random()*8))*Math.PI/180,
+      dx=Math.cos(ph),dy=Math.sin(ph),px=hx-L.cx,py=ay-L.cy,b=dx*px+dy*py,s=-b+Math.sqrt(b*b-(px*px+py*py-L.Rd*L.Rd));
+    SH.push({t0:t,L:L,E:E,hard:hard,k:k,qx:qx,qy:qy,hx:hx,ay:ay,ph:ph,Ta:Ta,v:v,th:Ta+(hx-L.x0-L.L1)/v,ts:s/v,ang:Math.atan2(py+dy*s,px+dx*s),fl:0,dn:0,ar:0,
+      sp:[0,1,2,3,4,5,6,7,8,9,10,11,12,13].map(function(){return [(Math.random()-.5)*1.6,50+Math.random()*90,[RED,GRN,BLU,'#ffb454','#b8bccc'][Math.floor(Math.random()*5)]];})});}
+  function pos(s,u){var L=s.L,x; if(u<s.Ta){x=L.x0+L.L1*u*u/(s.Ta*s.Ta);return [x,L.cy];}
+    x=L.x0+L.L1+s.v*(u-s.Ta); if(x<s.hx){var xs=L.x0+L.L1+8,f=Math.max(0,Math.min(1,(x-xs)/(s.hx-xs)));f=f*f*(3-2*f);return [x,L.cy+(s.ay-L.cy)*f];}
+    var e=u-s.th; return [s.hx+Math.cos(s.ph)*s.v*e,s.ay+Math.sin(s.ph)*s.v*e];}
+  function draw5(t){var W=fit(c5,H5); if(!W) return; var dt=Math.min(.05,Math.max(0,t-lt5)); lt5=t; T5+=dt*(slow?.22:1); t=T5;
+    var L=lay(W),g=g5,E=eR.value/10,cx=L.cx,cy=L.cy,R=L.R,qr=R*.55,i,j,pl=0,n=Math.floor(L.L1/11);
+    if(autoF&&t>=nxt){fire(t);nxt=t+.14;}
+    SH.forEach(function(s){var e=t-s.t0-s.th; if(s.hard&&e>0) pl=Math.max(pl,Math.exp(-e*7));});
+    g.clearRect(0,0,W,H5);g.save();if(shk>0){g.translate((Math.random()-.5)*shk,(Math.random()-.5)*shk);shk=Math.max(0,shk-dt*45);}
+    g.lineCap='round';g.beginPath();g.arc(cx,cy,L.Rd,-1.6,1.6);g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=6;g.stroke();
+    dots.forEach(function(d){g.beginPath();g.arc(cx+L.Rd*Math.cos(d[0]),cy+L.Rd*Math.sin(d[0]),2.4,0,TAU);g.fillStyle=d[1]?'#ffb454':'#62d6ff';g.fill();});
+    g.fillStyle='rgba(98,214,255,.08)';g.fillRect(L.x0,cy-8,L.L1+14,16);
+    for(i=0;i<n;i++){var a=Math.max(0,Math.sin(t*14-i*.55));g.fillStyle='rgba(98,214,255,'+(.12+.6*a*a)+')';g.fillRect(L.x0+i*11+1,cy-13-3*a,7,26+6*a);}
+    g.strokeStyle='rgba(255,255,255,.2)';g.lineWidth=1;g.setLineDash([3,4]);g.beginPath();g.moveTo(L.x0+L.L1+14,cy);g.lineTo(cx-R,cy);g.stroke();g.setLineDash([]);
+    var g0=L.x0+L.L1+8,gp=cx-R-6-g0;[.18,.55].forEach(function(f){var x=g0+gp*f,mg=g.createLinearGradient(x,cy-27,x,cy+27),pu=.55+.3*Math.sin(t*5);mg.addColorStop(0,'#46507a');mg.addColorStop(.5,'#161a2b');mg.addColorStop(1,'#46507a');
+      g.fillStyle=mg;rrect5(g,x,cy-27,15,54,6);g.fill();g.strokeStyle='rgba(98,214,255,.5)';g.lineWidth=1;g.stroke();
+      g.strokeStyle='rgba(255,180,84,'+pu+')';g.lineWidth=2;[-22,-18,-14,14,18,22].forEach(function(d){g.beginPath();g.moveTo(x+3,cy+d);g.lineTo(x+12,cy+d);g.stroke();});
+      g.fillStyle='#0a0a12';g.fillRect(x-1,cy-4,17,8);});
+    var gr=g.createRadialGradient(cx,cy,0,cx,cy,R*(1+.25*pl));gr.addColorStop(0,'rgba(255,'+Math.round(143+90*pl)+',143,'+((E>=3?.22:.5)+.5*pl)+')');gr.addColorStop(1,'rgba(255,143,143,0)');
+    g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R*(1+.25*pl),0,TAU);g.fill();g.beginPath();g.arc(cx,cy,R,0,TAU);g.strokeStyle='rgba(98,214,255,.55)';g.lineWidth=2;g.stroke();
+    var P=QP.map(function(q,m){return [cx+q[0]*qr+2*Math.sin(t*3+m*2),cy+q[1]*qr+2*Math.cos(t*2.6+m*2)];});
+    g.globalAlpha=E>=3?1:.3;glu(g,P,1,t,3);P.forEach(function(p,m){disk(g,p[0],p[1],9,COL[m],QL[m]);});g.globalAlpha=1;
+    for(i=SH.length-1;i>=0;i--){var s=SH[i],u=t-s.t0,e=u-s.th,p=pos(s,u),tl=Math.min(.09,u),pq=-s.ph*.45,dp=cx+L.Rd*Math.cos(s.ang),dq=cy+L.Rd*Math.sin(s.ang);
+      if(e>0&&!s.fl){s.fl=1;if(s.hard)shk=8;$('qAS').textContent=s.hard?'ضربه‌ی سخت! فوتونِ مجازی به یک کوارکِ نقطه‌ای خورد و پروتون خرد شد':(E>=3?'الکترون از لابه‌لای پروتون رد شد (بیشترشان همین‌طورند)':'پراکندگیِ نرم — پروتون ابری پخش‌شده به‌نظر می‌رسد');}
+      if(!s.dn&&u>s.th+s.ts){s.dn=1;s.ar=t;nS++;if(s.hard)nH++;dots.push([s.ang,s.hard]);if(dots.length>500)dots.shift();$('qAR').textContent=concl(s);}
+      if(!s.dn){var en=Math.min(1,u/s.Ta),col='rgba('+Math.round(98+157*en)+','+Math.round(214+41*en)+',255,',prev=pos(s,u-tl);
+        for(j=1;j<=7;j++){var q2=pos(s,u-tl*(1-j/7));g.strokeStyle=col+(.9*j/7)+')';g.lineWidth=1+3.5*j/7;g.beginPath();g.moveTo(prev[0],prev[1]);g.lineTo(q2[0],q2[1]);g.stroke();prev=q2;}
+        var gl=g.createRadialGradient(p[0],p[1],0,p[0],p[1],12);gl.addColorStop(0,'#fff');gl.addColorStop(.35,col+'.8)');gl.addColorStop(1,col+'0)');g.fillStyle=gl;g.beginPath();g.arc(p[0],p[1],12,0,TAU);g.fill();}
+      else if(t-s.ar<.3){var fa2=1-(t-s.ar)/.3,gd=g.createRadialGradient(dp,dq,0,dp,dq,6+22*(1-fa2));gd.addColorStop(0,'rgba(255,255,255,'+fa2+')');gd.addColorStop(1,'rgba(255,180,84,0)');g.fillStyle=gd;g.beginPath();g.arc(dp,dq,28,0,TAU);g.fill();}
+      if(s.hard&&e>0){
+        if(e<.3){var al=1-e/.3;g.beginPath();for(j=0;j<=14;j++){var f=j/14,x=s.hx+(s.qx-s.hx)*f,y=s.ay+(s.qy-s.ay)*f+4*Math.sin(f*TAU*2.5-e*50)*Math.sin(f*Math.PI);j?g.lineTo(x,y):g.moveTo(x,y);}
+          g.strokeStyle='rgba(255,210,122,'+al+')';g.lineWidth=2.2;g.stroke();g.fillStyle='rgba(255,210,122,'+al+')';g.font='700 12px JetBrains Mono, monospace';g.textAlign='center';g.fillText('γ*',(s.hx+s.qx)/2,s.ay-12);}
+        if(e<.25){var fl2=g.createRadialGradient(s.qx,s.qy,0,s.qx,s.qy,46);fl2.addColorStop(0,'rgba(255,255,255,'+(1-e/.25)+')');fl2.addColorStop(1,'rgba(255,180,84,0)');g.fillStyle=fl2;g.beginPath();g.arc(s.qx,s.qy,46,0,TAU);g.fill();}
+        if(e<.6){g.beginPath();g.arc(s.qx,s.qy,e*160,0,TAU);g.strokeStyle='rgba(255,180,84,'+(1-e/.6)+')';g.lineWidth=2.5;g.stroke();}
+        var qa=Math.max(0,1-e/1.2),qd2=70*e,gx=s.qx+Math.cos(pq)*qd2,gy=s.qy+Math.sin(pq)*qd2;
+        if(qa>0){g.globalAlpha=qa;g.setLineDash([4,4]);g.beginPath();g.moveTo(s.qx,s.qy);g.lineTo(gx,gy);g.strokeStyle='rgba(199,146,234,.9)';g.lineWidth=3;g.stroke();g.setLineDash([]);disk(g,gx,gy,9,COL[s.k],QL[s.k]);g.globalAlpha=1;}
+        if(e>.15){var ds=e-.15;s.sp.forEach(function(a2){var d1=a2[1]*ds,d0=a2[1]*Math.max(0,ds-.07),an=pq+a2[0];g.strokeStyle=a2[2];g.globalAlpha=Math.max(0,1-ds/1.2);g.lineWidth=2.4;g.beginPath();g.moveTo(s.qx+Math.cos(an)*d0,s.qy+Math.sin(an)*d0);g.lineTo(s.qx+Math.cos(an)*d1,s.qy+Math.sin(an)*d1);g.stroke();});g.globalAlpha=1;}
+      }
+      if(u>s.th+s.ts+1.5) SH.splice(i,1);
+    }
+    g.restore();g.font='11px Vazirmatn, sans-serif';g.textAlign='center';g.fillStyle='rgba(255,255,255,.6)';
+    g.fillText('شتاب‌دهنده‌ی خطی (۳٫۲ km)',L.x0+L.L1/2,cy-30);g.fillText('هدفِ پروتون',cx,cy-R-8);g.fillText('آهنربای هدایت',g0+gp*.36+7,cy-34);g.fillText('آشکارساز',W-32,H5-6);
+    $('qAE').textContent=fa(E.toFixed(1))+' GeV';$('qAL').textContent='≈ '+fa((1.24/E).toFixed(2))+' fm';$('qAN').textContent=fa(nS)+' / '+fa(nH);}
+  $('qAccGo').addEventListener('click',function(){fire(T5);});
+  $('qAccAuto').addEventListener('click',function(){autoF=!autoF;nxt=T5;$('qAccAuto').textContent=autoF?'⏸ توقف شلیک':'🔁 شلیک پیوسته';});
+  $('qAccSlow').addEventListener('click',function(){slow=!slow;$('qAccSlow').textContent=slow?'🐇 سرعت عادی':'🐢 حرکت آهسته';});
+  $('qAccClr').addEventListener('click',function(){dots=[];SH=[];nS=nH=0;$('qAR').textContent='نتیجه‌گیریِ هر شلیک اینجا نوشته می‌شود.';});
   var __qVis=__inView(sec);
   (function loop(now){requestAnimationFrame(loop); var t=now/1000;
     if(auto){var u=(t-aT0)/6; rng.value=Math.min(300,20+u*280); if(u>=1){auto=false;$('qAuto').textContent='▶ جدا کردن خودکار';}}
     var dt=Math.min(.05,t-lt);lt=t;if(zAuto){setZ(z+dt/9);if(z>=1){zAuto=false;$('qZp').textContent='▶ زوم خودکار';}}
-    if(!__qVis.v) return; draw0(t); draw2(t);})(0);
+    if(!__qVis.v) return; draw0(t); draw2(t); draw5(t);})(0);
 })();
 </script>
 <script>
