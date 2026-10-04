@@ -31,6 +31,9 @@
   header .kicker{ font-size:13px; color:var(--wave); font-weight:700; margin-bottom:10px; }
   header h1{ font-size:clamp(24px,6vw,34px); font-weight:800; margin:0 0 12px; }
   header p{ font-size:15px; color:var(--muted); max-width:560px; margin:0 auto; }
+  .qdef{ max-width:600px; margin:0 auto 16px; padding:14px 18px; text-align:right; font-size:14.5px; line-height:2; color:var(--ink);
+    background:var(--panel2); border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:14px; }
+  .qdef b{ color:var(--wave); }
   #soundBtn,#musicBtn{
     position:absolute; top:38px; left:20px; width:38px; height:38px; border-radius:50%;
     background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer;
@@ -242,7 +245,6 @@
   .tl-wrap{ position:relative; padding-inline-start:6px; }
   .tl-svg{ position:absolute; inset:0; z-index:0; overflow:visible; pointer-events:none; }
   .tl-path{ fill:none; stroke-width:3; stroke-linecap:round; filter:drop-shadow(0 0 7px rgba(98,214,255,.45)); }
-  .tl-pulse{ filter:drop-shadow(0 0 6px #fff); }
   .tl-item{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;
     opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.15,1); }
   .tl-item.reveal{ opacity:1; transform:translateY(0); }
@@ -277,7 +279,16 @@
   .tl-era{ display:flex; align-items:center; gap:8px; justify-content:center; margin:24px auto 16px; padding:7px 15px;
     border-radius:999px; background:rgba(var(--c-rgb),.13); border:1px solid rgba(var(--c-rgb),.45);
     font-size:12px; font-weight:700; color:rgb(var(--c-rgb)); width:fit-content; position:relative; z-index:1; }
-  .tl-era:first-child{ margin-top:0; }
+  .tl-era{ cursor:pointer; user-select:none; transition:background .25s ease, margin .25s ease; }
+  .tl-era:hover{ background:rgba(var(--c-rgb),.22); }
+  .tl-era{ padding:8px 10px 8px 15px; gap:9px; box-shadow:0 0 0 1px rgba(var(--c-rgb),.12), 0 6px 18px -10px rgba(var(--c-rgb),.6); }
+  .tl-era-cnt{ font-size:10.5px; font-weight:600; opacity:.8; padding-inline-start:9px; border-inline-start:1px solid rgba(var(--c-rgb),.4); }
+  .tl-era-chev{ width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px;
+    background:rgba(var(--c-rgb),.22); border:1px solid rgba(var(--c-rgb),.55); transition:transform .3s ease; }
+  .tl-era.collapsed{ margin:10px auto; }
+  .tl-era:not(.collapsed) .tl-era-chev{ transform:rotate(180deg); }
+  .tl-item.tl-hide{ display:none; }
+  .tl-item.tl-enter{ animation:tlFade .35s ease; }
   .tl-era-range{ font-size:10.5px; opacity:.75; font-weight:600; }
 
   /* ===== tabs ===== */
@@ -532,6 +543,26 @@
   /* sub-options that belong to the "what is spin" tab */
   #spinDemo .sp-sub{ margin:-2px 0 14px; padding:12px 10px 10px; border:1px solid rgba(98,214,255,.28); border-radius:12px; background:rgba(98,214,255,.05); }
   #spinDemo .sp-sub > .row:last-child{ margin-top:2px; }
+
+  /* energy steps: sun + photons */
+  #lvMore{ margin-top:18px; }
+  #lvMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #lvMore>summary::-webkit-details-marker{ display:none; }
+  #lvMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.45); }
+  #lvMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #lvMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #lvMore[open]>summary .chev{ transform:rotate(180deg); }
+  #lvMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #lvMore>.lvm-body{ padding-top:14px; }
+  #sec-levels .step-h{ margin-top:26px; }
+
+  #sunF,#sunI{ height:7px; }
+  #sunF{ background:linear-gradient(90deg,hsl(0,100%,50%) 0%,hsl(30,100%,52%) 20.5%,hsl(52,100%,55%) 28.2%,hsl(100,85%,50%) 35.9%,hsl(150,90%,48%) 53.8%,hsl(190,100%,52%) 69.2%,hsl(225,100%,62%) 89.7%,hsl(270,90%,58%) 100%); }
+  #sunF::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunF::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunI{ background:linear-gradient(90deg,#241d0e,#7a5a14 45%,#ffcf4a); }
+  #sunI::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+  #sunI::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
 </style>
 </head>
 <body>
@@ -545,6 +576,7 @@
   <button id="musicBtn" title="موسیقی">🎵</button>
   <div class="kicker">Ψ از صفر تا صد کوانتوم</div>
   <h1>مفاهیم کوانتوم را با دست خودت لمس کن</h1>
+  <div class="qdef"><b>فیزیک کوانتوم</b> نظریه‌ای است که رفتار طبیعت را در مقیاس اتم‌ها و ذرات بنیادی توصیف می‌کند. در این مقیاس، انرژی فقط در بسته‌های مجزا (کوانتوم) مبادله می‌شود، ذره‌ها هم‌زمان رفتار موجی دارند، و پیش از اندازه‌گیری سیستم می‌تواند در چند حالت باشد؛ نتیجه‌ی اندازه‌گیری را فقط به‌صورت احتمال می‌شود پیش‌بینی کرد.</div>
   <p>از اولین ایده‌ی «انرژی بسته‌بندی‌شده» تا کاربردهای امروزی‌اش — چهارده ایستگاه در پنج فصل، هرکدام با یک شبیه‌سازی زنده. اسلایدر را بکش، دکمه را بزن، و هر فروپاشی را با چشم و گوش خودت حس کن.</p>
 </header>
 
@@ -557,7 +589,7 @@
 <main>
 
   <!-- HISTORY -->
-  <details class="chapter" id="ch-1" style="--ch:98,214,255" open>
+  <details class="chapter" id="ch-1" style="--ch:98,214,255">
 <summary class="chapter-head"><span class="no">۱</span><div><h2>ریشه‌ها: چرا کوانتوم لازم شد؟</h2><p>از یک مسئله‌ی گرمایی تا انرژیِ پله‌پله</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
 <section class="concept" id="sec-history">
@@ -579,11 +611,6 @@
             </linearGradient>
           </defs>
           <path class="tl-path" id="tlPath" d="" stroke="url(#tlGrad)"></path>
-          <circle class="tl-pulse" id="tlPulse" r="4.5" fill="#fff">
-            <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
-              <mpath xlink:href="#tlPath" href="#tlPath"></mpath>
-            </animateMotion>
-          </circle>
         </svg>
       </div>
     </div>
@@ -592,7 +619,33 @@
   <!-- 0. QUANTIZATION -->
   <section class="concept" id="sec-levels">
     <div class="concept-head"><h2>⚡ پله‌های انرژی</h2></div>
-    <p class="concept-desc">قبل از هرچیز، خودِ اسم «کوانتوم» از همین‌جا می‌آید: انرژی در دنیای اتمی مثل شیب یک رمپ پیوسته نیست، بلکه مثل پله‌های یک نردبان، بسته‌بسته و ناپیوسته است. یک الکترون دور هسته فقط می‌تواند روی ترازهای مشخصی بنشیند، نه هیچ‌جای وسط؛ وقتی برانگیخته می‌شود و دوباره به پایین می‌افتد، دقیقاً به اندازه‌ی همان فاصله‌ی پله یک «بسته‌ی نور» به‌نام فوتون گسیل می‌کند — رنگ نور، اندازه‌ی همان پله را لو می‌دهد.</p>
+    <p class="concept-desc">«کوانتوم» یعنی «بسته». ایده‌ی بنیادی این است: انرژی را نمی‌شود به هر اندازه‌ی دلخواه داد یا گرفت؛ فقط در بسته‌های مشخص مبادله می‌شود، مثل پله‌های یک نردبان، نه شیبِ یک رمپ. آشناترین بسته، خودِ نور است: <b>فوتون</b> (کوانتومِ نور) یک ذره‌ی بنیادی است و نور و همه‌ی امواج الکترومغناطیسی — از رادیو و ریزموج تا نور مرئی، فرابنفش و پرتو ایکس — از بسته‌های مجزای آن ساخته شده‌اند. اندازه‌ی هر بسته را فرکانسِ نور تعیین می‌کند: <b class="mono">E = hf</b>.</p>
+
+    <h3 class="step-h"><span class="no">۱</span> ☀️ نورِ خورشید، بارانی از بسته‌های انرژی</h3>
+    <p class="concept-desc">نورِ خورشید پیوسته به نظر می‌رسد، ولی در واقع باران بی‌پایانی از فوتون‌هاست. (خورشید همه‌ی رنگ‌ها را می‌فرستد؛ این‌جا برای آزمایش یک رنگ را جدا کرده‌ایم.) هر فوتون یک «پله‌ی کامل» انرژی به گیرنده می‌دهد؛ نه نصفِ پله، نه یک‌ونیم پله. <b>رنگِ نور</b> را از قرمز به بنفش ببر: فرکانس بالا می‌رود و هر پله بلندتر می‌شود. <b>شدتِ نور</b> را زیاد کن: بسته‌ها بیشتر می‌شوند، ولی هر بسته همان اندازه‌ی قبلی می‌ماند.</p>
+    <div class="demo" id="sunDemo">
+      <canvas class="demo-canvas" id="sunCanvas" style="height:240px"></canvas>
+      <div class="slider-group">
+        <label dir="ltr"><span>فرکانس کم (قرمز)</span><span id="sunFv" class="mono">—</span><span>فرکانس زیاد (بنفش)</span></label>
+        <input type="range" id="sunF" dir="ltr" min="400" max="790" step="5" value="520">
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>💡 کم‌نور</span><span id="sunIv" class="mono">—</span><span>پرنور ☀️</span></label>
+        <input type="range" id="sunI" dir="ltr" min="1" max="10" value="4">
+      </div>
+      <div class="sum-legend">هر فوتون = یک پله‌ی کامل <span class="mono">hf</span> · بالا رفتنِ نصفه‌پله وجود ندارد · وقتی نردبان پر شد، از صفر شروع می‌کند.</div>
+      <div class="readouts">
+        <div class="readout"><div class="rl">رنگ و فرکانس</div><div class="rv" id="sunCol">—</div></div>
+        <div class="readout"><div class="rl">انرژیِ هر فوتون (یک پله)</div><div class="rv mono c-collapse" id="sunE" style="direction:ltr;text-align:right">—</div></div>
+        <div class="readout"><div class="rl">فوتون‌های رسیده</div><div class="rv mono c-wave" id="sunN">۰</div></div>
+        <div class="readout"><div class="rl">انرژیِ کلِ رسیده</div><div class="rv mono c-ent" id="sunTot" style="direction:ltr;text-align:right">۰</div></div>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="act ghost" id="sunReset">↺ از اول</button></div>
+      <div class="note-box">قرمز یعنی پله‌ی کوتاه (فوتونِ کم‌انرژی) و بنفش یعنی پله‌ی بلند. شدتِ بیشتر یعنی فوتون‌های بیشتر، نه فوتونِ قوی‌تر. انرژیِ کل همیشه مضرب صحیحی از <span class="mono">hf</span> است.</div>
+    </div>
+
+    <h3 class="step-h"><span class="no">۲</span> ⚛️ الکترون هم فقط روی پله‌ها می‌نشیند</h3>
+    <p class="concept-desc">فوتون‌ها از کجا می‌آیند؟ یکی از راه‌هایش اتم است. الکترونِ دور هسته مثل کسی روی نردبان است: فقط روی پله‌ها می‌ایستد، نه هیچ‌جای وسط. وقتی از پله‌ی بالا به پایین می‌پرد، تفاوتِ انرژیِ دو پله یک فوتون می‌شود: <b class="mono">E<sub>فوتون</sub> = E<sub>بالا</sub> − E<sub>پایین</sub></b>. به همین دلیل رنگِ نورِ هر اتم اثرانگشتِ اوست (مثل نورِ لامپ نئون). دکمه را بزن و جهشِ الکترون و فوتونِ گسیل‌شده را ببین.</p>
     <div class="demo">
       <canvas class="demo-canvas" id="levelsCanvas"></canvas>
       <div class="row">
@@ -603,6 +656,19 @@
         <div class="readout"><div class="rl">رنگ فوتون گسیل‌شده</div><div class="rv" id="photonVal">—</div></div>
       </div>
     </div>
+
+    <details id="lvMore">
+      <summary>📚 دانستنی: بسته‌ها چقدر بزرگ‌اند؟ <small>(برای کنجکاوها)</small><span class="chev">▾</span></summary>
+      <div class="lvm-body">
+        <div class="eq-line" style="color:var(--collapse)">E = h · f</div>
+        <div class="note-box"><b>h</b> ثابتِ پلانک است: ≈ <span class="mono" dir="ltr">6.626×10⁻³⁴ J·s</span> ≈ <span class="mono" dir="ltr">4.136×10⁻¹⁵ eV·s</span>. هرچه فرکانس بالاتر، فوتون پرانرژی‌تر.</div>
+        <div class="note-box"><b>رادیوی FM</b> (≈ ۱۰۰ MHz): ≈ <span class="mono" dir="ltr">4×10⁻⁷ eV</span> — پله‌هایش آن‌قدر ریز است که موج کاملاً پیوسته به نظر می‌رسد.</div>
+        <div class="note-box"><b>نور قرمز</b> (≈ ۴۳۰ THz): ≈ ۱٫۸ eV · <b>نور بنفش</b> (≈ ۷۵۰ THz): ≈ ۳٫۱ eV.</div>
+        <div class="note-box"><b>فرابنفش</b> (≈ ۱۰۰۰ THz): ≈ ۴٫۱ eV — پله‌ای به اندازه‌ی کافی بلند که می‌تواند پیوندهای شیمیایی پوست را بشکند (آفتاب‌سوختگی).</div>
+        <div class="note-box"><b>پرتو ایکس</b> (≈ <span class="mono" dir="ltr">10¹⁸ Hz</span>): ≈ ۴ keV — هر فوتونش آن‌قدر انرژی دارد که از بافتِ نرم رد شود.</div>
+        <div class="note-box"><b>چرا پله‌ها را حس نمی‌کنیم؟</b> یک لامپ ۱۰۰ واتی در هر ثانیه از مرتبه‌ی <span class="mono" dir="ltr">10¹⁹</span> فوتونِ مرئی می‌فرستد و خورشید از مرتبه‌ی <span class="mono" dir="ltr">10⁴⁵</span>. با این‌همه بسته، پله‌های ریز در هم گم می‌شوند و نور پیوسته به نظر می‌رسد.</div>
+      </div>
+    </details>
   </section>
 
   <!-- 0b. PLANCK CONSTANT / UV CATASTROPHE -->
@@ -1336,7 +1402,7 @@
 
 </details>
 
-<footer class="credit">آزمایشگاه کوانتومی تعاملی — از صفر تا صد<div id="musicCredit" style="margin-top:6px;font-size:11px;opacity:.7;direction:ltr">Music: “Mesmerizing Galaxy Loop” by Kevin MacLeod (incompetech.com) — CC BY 4.0</div></footer>
+<footer class="credit">آزمایشگاه کوانتومی تعاملی — از صفر تا صد</footer>
 </main>
 </div>
 
@@ -1486,14 +1552,17 @@
       const era = eras.find(x=>x.before===i);
       if(era){
         const div = document.createElement('div');
-        div.className = 'tl-era';
+        div.className = 'tl-era collapsed';
+        div.setAttribute('role','button'); div.tabIndex = 0; div.setAttribute('aria-expanded','false');
         div.style.setProperty('--c-rgb', `${cr},${cg},${cb}`);
-        div.innerHTML = `<span>${era.icon}</span><span>${era.label}</span><span class="tl-era-range mono">${era.range}</span>`;
+        div.innerHTML = `<span>${era.icon}</span><span>${era.label}</span><span class="tl-era-range mono">${era.range}</span><span class="tl-era-cnt"></span><span class="tl-era-chev">▾</span>`;
         wrap.appendChild(div);
+        era.el = div; era.items = [];
       }
+      const curEra = eras.filter(x=>x.before<=i).pop();
       const r = Math.round(20 + t*22); // 20px → 42px: the field keeps growing
       const el = document.createElement('div');
-      el.className = 'tl-item';
+      el.className = 'tl-item tl-hide';
       el.style.setProperty('--r', r+'px');
       el.style.setProperty('--c-rgb', `${cr},${cg},${cb}`);
       el.innerHTML = `
@@ -1508,18 +1577,18 @@
           <p class="tl-card-body">${e.t}</p>
         </div>`;
       wrap.appendChild(el);
-      items.push(el);
+      items.push(el); curEra.items.push(el);
     });
 
     function layoutCurve(){
       const wrapRect = wrap.getBoundingClientRect();
       svg.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
       svg.setAttribute('preserveAspectRatio', 'none');
-      const pts = items.map(el=>{
+      const pts = items.filter(el=>el.offsetParent).map(el=>{
         const r = el.querySelector('.tl-node2').getBoundingClientRect();
         return { x: r.left + r.width/2 - wrapRect.left, y: r.top + r.height/2 - wrapRect.top };
       });
-      if(pts.length<2) return 0;
+      if(pts.length<2){ path.setAttribute('d',''); return 0; }
       let d = `M ${pts[0].x} ${pts[0].y}`;
       for(let i=1;i<pts.length;i++) d += ` L ${pts[i].x} ${pts[i].y}`;
       path.setAttribute('d', d);
@@ -1543,6 +1612,29 @@
     }
 
     let openIdx = -1;
+    function relayoutCurve(){
+      if(!drawn){ drawn = false; revealCurve(); return; }
+      layoutCurve();
+      path.style.transition = 'none'; path.style.strokeDasharray = 'none'; path.style.strokeDashoffset = '0';
+    }
+    function toggleEra(era){
+      const open = era.el.classList.contains('collapsed');
+      era.el.classList.toggle('collapsed', !open);
+      era.el.querySelector('.tl-era-cnt').textContent = open ? 'بستن' : toFa(era.items.length)+' رویداد';
+      era.el.setAttribute('aria-expanded', String(open));
+      era.items.forEach(el=>{
+        el.classList.toggle('tl-hide', !open);
+        if(open){ el.classList.add('reveal','tl-enter'); setTimeout(()=>el.classList.remove('tl-enter'), 400); }
+        else if(items.indexOf(el)===openIdx){ el.classList.remove('active'); openIdx = -1; }
+      });
+      tone(open?420:300, 0.07, 'sine', 0.05);
+      relayoutCurve(); setTimeout(relayoutCurve, 420);
+    }
+    eras.forEach(era=>{
+      era.el.querySelector('.tl-era-cnt').textContent = toFa(era.items.length)+' رویداد';
+      era.el.addEventListener('click', ()=>toggleEra(era));
+      era.el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleEra(era); } });
+    });
     function toggle(i){
       const wasActive = i===openIdx;
       if(openIdx>=0) items[openIdx].classList.remove('active');
@@ -3266,6 +3358,9 @@
       const yb = LH-22, top = 22, H0 = yb-top-4, x = hP*a*fp/(kB*T);
       const S = a<1e-6 ? 38 : Math.min(38,H0/Math.max(x,1)), sp = S*x, cont = sp<2.4;
       const x0 = 118, x1 = w-100, cxm = (x0+x1)/2, Y = n => yb-n*sp;
+      const hu = fp<VIS0 ? 0 : fp>UV0 ? 275 : Math.round((fp-VIS0)/(UV0-VIS0)*270), lL = fp<VIS0 ? 52 : 62;
+      const ch = al => 'hsla('+hu+',100%,'+lL+'%,'+al+')', cs = 'hsl('+hu+',100%,'+lL+'%)';
+      const fnm = fp<VIS0 ? 'فروسرخ (نامرئی)' : fp>UV0 ? 'فرابنفش (نامرئی)' : hu<20 ? 'قرمز' : hu<45 ? 'نارنجی' : hu<75 ? 'زرد' : hu<165 ? 'سبز' : hu<200 ? 'فیروزه‌ای' : hu<255 ? 'آبی' : 'بنفش';
       lg.clearRect(0,0,w,LH); lg.textBaseline = 'middle';
       /* kT : انرژیِ گرمایی در دسترس */
       const kh = Math.max(3,S);
@@ -3274,21 +3369,22 @@
       lg.fillStyle = '#8b8ea3'; lg.font = '10.5px Vazirmatn, sans-serif'; lg.fillText('انرژیِ گرمایی',49,yb+12);
       lg.setLineDash([4,3]); lg.strokeStyle = 'rgba(255,180,84,.8)'; lg.lineWidth = 1.3; lg.beginPath(); lg.moveTo(64,yb-kh); lg.lineTo(x1+8,yb-kh); lg.stroke(); lg.setLineDash([]);
       /* نردبانِ انرژیِ یک مُد */
-      lg.strokeStyle = 'rgba(255,255,255,.25)'; lg.lineWidth = 1; lg.beginPath(); lg.moveTo(x0-4,top-6); lg.lineTo(x0-4,yb); lg.lineTo(x1+4,yb); lg.stroke();
+      lg.strokeStyle = ch(.4); lg.lineWidth = 2; lg.lineCap = 'round'; lg.beginPath(); lg.moveTo(x0-4,top-6); lg.lineTo(x0-4,yb+4); lg.moveTo(x1+4,top-6); lg.lineTo(x1+4,yb+4); lg.stroke();
       lg.fillStyle = '#8b8ea3'; lg.font = '10.5px Vazirmatn, sans-serif'; lg.textAlign = 'left'; lg.fillText('انرژیِ یک مُد ↑',x0+2,top-10);
+      lg.fillStyle = cs; lg.font = '700 11px Vazirmatn, sans-serif'; lg.textAlign = 'right'; lg.fillText('نورِ '+fnm+' · '+fnum(fp/1e12,0)+' THz',w-8,top-10);
       let nmax = 0;
       if(cont){
-        const g2 = lg.createLinearGradient(0,yb,0,top); g2.addColorStop(0,'rgba(126,224,138,.5)'); g2.addColorStop(1,'rgba(126,224,138,.05)');
+        const g2 = lg.createLinearGradient(0,yb,0,top); g2.addColorStop(0,ch(.5)); g2.addColorStop(1,ch(.05));
         lg.fillStyle = g2; lg.fillRect(x0,top,x1-x0,yb-top);
-        lg.fillStyle = '#7ee08a'; lg.textAlign = 'center'; lg.fillText(a<.01 ? 'h = ۰ ← بدونِ پله؛ انرژی پیوسته' : 'پله‌ها آن‌قدر ریزند که پیوسته به نظر می‌رسند',cxm,top+12);
+        lg.fillStyle = cs; lg.textAlign = 'center'; lg.fillText(a<.01 ? 'h = ۰ ← بدونِ پله؛ انرژی پیوسته' : 'پله‌ها آن‌قدر ریزند که پیوسته به نظر می‌رسند',cxm,top+12);
       } else {
-        nmax = Math.floor((yb-top)/sp);
+        nmax = Math.floor((yb-top)/sp); const stride = Math.max(1,Math.ceil(14/sp));
         for(let n=0; n<=nmax && n<40; n++){
           const occ = Math.exp(-n*x), y = Y(n);
-          if(n<nmax && n<8){ lg.fillStyle = 'rgba(126,224,138,'+(.07+.22*Math.max(occ,n?0:1)).toFixed(3)+')'; lg.fillRect(x0+6,Y(n+1)+1.5,x1-x0-12,sp-3);
-            lg.strokeStyle = 'rgba(126,224,138,.45)'; lg.lineWidth = 1; lg.strokeRect(x0+6,Y(n+1)+1.5,x1-x0-12,sp-3); }
-          lg.strokeStyle = 'rgba(126,224,138,'+Math.max(.35,Math.min(1,occ*4)).toFixed(2)+')'; lg.lineWidth = 2.2; lg.beginPath(); lg.moveTo(x0,y); lg.lineTo(x1,y); lg.stroke();
-          if(n<=4 && (n===0 || sp>13)){ lg.fillStyle = '#c9ccd8'; lg.font = '700 11px JetBrains Mono, monospace'; lg.textAlign = 'right'; lg.fillText(n===0?'۰':n===1?'hf':toFa(n)+'hf',x0-9,y); }
+          if(n<nmax && n<8){ lg.fillStyle = ch((.07+.22*Math.max(occ,n?0:1)).toFixed(3)); lg.fillRect(x0+6,Y(n+1)+1.5,x1-x0-12,sp-3);
+            lg.strokeStyle = ch(.45); lg.lineWidth = 1; lg.strokeRect(x0+6,Y(n+1)+1.5,x1-x0-12,sp-3); }
+          lg.strokeStyle = ch(Math.max(.35,Math.min(1,occ*4)).toFixed(2)); lg.lineWidth = 2.4; lg.shadowColor = cs; lg.shadowBlur = 7*Math.min(1,occ*4); lg.beginPath(); lg.moveTo(x0,y); lg.lineTo(x1,y); lg.stroke(); lg.shadowBlur = 0;
+          if(n===0 || (n%stride===0 && n/stride<=5)){ lg.fillStyle = n ? cs : '#c9ccd8'; lg.font = '700 11px JetBrains Mono, monospace'; lg.textAlign = 'right'; lg.fillText(n===0?'۰':n===1?'hf':toFa(n)+'hf',x0-9,y); }
         }
         /* آکولادِ یک بسته‌ی hf */
         lg.strokeStyle = '#ffffff'; lg.lineWidth = 1.5; lg.beginPath(); lg.moveTo(x1+10,yb); lg.lineTo(x1+10,Y(1)); lg.moveTo(x1+6,yb); lg.lineTo(x1+14,yb); lg.moveTo(x1+6,Y(1)); lg.lineTo(x1+14,Y(1)); lg.stroke();
@@ -3299,7 +3395,7 @@
         lvl = cont ? -Math.log(1-u)*S : Math.min(nmax,Math.floor(-Math.log(1-u)/Math.max(x,1e-9)))*sp; }
       const ty = yb-Math.min(lvl,yb-top-2); ly += (ty-ly)*Math.min(1,dt*11); if(!ly) ly = yb;
       const hop = lvl>0.5 && !cont;
-      lg.shadowColor = hop ? '#ffe17a' : '#62d6ff'; lg.shadowBlur = hop ? 18 : 10; lg.fillStyle = hop ? '#fff3b0' : '#9fe6ff';
+      lg.shadowColor = cs; lg.shadowBlur = hop ? 20 : 12; lg.fillStyle = '#ffffff';
       lg.beginPath(); lg.arc(cxm,ly-(cont?0:6),6,0,Math.PI*2); lg.fill(); lg.shadowBlur = 0;
       /* متن زیرِ نمودار */
       const pr = Math.exp(-x)*100;
@@ -6270,6 +6366,75 @@ document.querySelectorAll('details.chapter').forEach(function(d){
 <script>
 (function(){var d=document.getElementById('orbMore');if(!d)return;
 d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'));});}});})();
+</script>
+<script>
+(function(){
+  var cv=document.getElementById('sunCanvas'); if(!cv) return;
+  var g=cv.getContext('2d'), fR=document.getElementById('sunF'), iR=document.getElementById('sunI');
+  var vF=document.getElementById('sunFv'), vI=document.getElementById('sunIv'), oCol=document.getElementById('sunCol'), oE=document.getElementById('sunE'), oN=document.getElementById('sunN'), oT=document.getElementById('sunTot');
+  var H=240, TAU=Math.PI*2, HC=4.1357e-3;
+  var ST=[[400,0],[480,30],[510,52],[540,100],[610,150],[670,190],[750,225],[790,270]];
+  var NM=[[480,'قرمز'],[510,'نارنجی'],[540,'زرد'],[610,'سبز'],[670,'فیروزه‌ای'],[750,'آبی'],[1e9,'بنفش']];
+  function fa(v){ return String(v).replace(/\d/g,function(d){ return '۰۱۲۳۴۵۶۷۸۹'.charAt(+d); }).replace('.','٫'); }
+  function hue(f){ for(var i=1;i<ST.length;i++){ if(f<=ST[i][0]){ var a=ST[i-1],b=ST[i]; return a[1]+(b[1]-a[1])*(f-a[0])/(b[0]-a[0]); } } return 270; }
+  function col(f){ return 'hsl('+hue(f).toFixed(0)+',100%,62%)'; }
+  function nm(f){ for(var i=0;i<NM.length;i++){ if(f<NM[i][0]) return NM[i][1]; } return ''; }
+  function mix(a,b,t){ return 'rgb('+a.map(function(v,j){ return Math.round(v+(b[j]-v)*t); }).join(',')+')'; }
+  function put(el,h){ if(el._h!==h){ el._h=h; el.innerHTML=h; } }
+  function fit(){ var w=Math.round(cv.getBoundingClientRect().width); if(!w) return 0; var d=window.devicePixelRatio||1;
+    if(cv.width!==Math.round(w*d)||cv.height!==Math.round(H*d)){ cv.width=Math.round(w*d); cv.height=Math.round(H*d); }
+    g.setTransform(d,0,0,d,0,0); return w; }
+  var lv=null, ph=[], acc=0, k=0, n=0, tot=0, ky=null, flash=0, lastC=col(+fR.value), last=0, rot=0;
+  document.getElementById('sunReset').addEventListener('click',function(){ ph=[]; k=0; n=0; tot=0; ky=null; flash=0; });
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt=Math.min(.05,Math.max(0,(now-last)/1000)); last=now;
+    var W=fit(); if(!W) return;
+    var f=+fR.value, I=+iR.value, E=HC*f, c=col(f), step=17*E, maxK=Math.floor((H-50)/step);
+    if(k>maxK) k=maxK;
+    var cy=H/2, sx=52, rx=W-130, y0=H-26, lx0=W-84, lx1=W-34, i, a;
+    rot+=dt*.4; acc+=dt*I*.5;
+    while(acc>=1){ acc-=1; ph.push({x:sx+46,y:cy+(Math.random()-.5)*24,f:f,c:col(f),w:44-(f-400)/390*28}); }
+    g.fillStyle='#06060b'; g.fillRect(0,0,W,H);
+    var tt=(I-1)/9; if(lv===null) lv=tt; lv+=(tt-lv)*Math.min(1,dt*6);
+    var gr=48+70*lv, gl=g.createRadialGradient(sx,cy,10,sx,cy,gr);
+    gl.addColorStop(0,'rgba(255,190,70,'+(.12+.58*lv).toFixed(2)+')'); gl.addColorStop(1,'rgba(255,150,40,0)');
+    g.fillStyle=gl; g.beginPath(); g.arc(sx,cy,gr,0,TAU); g.fill();
+    g.strokeStyle='rgba(255,196,80,.8)'; g.lineWidth=2.4; g.lineCap='round';
+    for(i=0;i<14;i++){ a=rot+i*TAU/14; var l=40+5*Math.sin(now/300+i*2);
+      g.beginPath(); g.moveTo(sx+Math.cos(a)*35,cy+Math.sin(a)*35); g.lineTo(sx+Math.cos(a)*l,cy+Math.sin(a)*l); g.stroke(); }
+    var sg=g.createRadialGradient(sx-8,cy-8,3,sx,cy,30);
+    sg.addColorStop(0,'#fff3b0'); sg.addColorStop(1,'#ff9a2e');
+    g.fillStyle=sg; g.beginPath(); g.arc(sx,cy,29,0,TAU); g.fill();
+    for(var j=ph.length-1;j>=0;j--){
+      var p=ph[j]; p.x+=150*dt;
+      if(p.x>=rx-16){ ph.splice(j,1); n++; tot+=p.f*HC; k=(k>=maxK)?0:k+1; flash=1; lastC=p.c; continue; }
+      var len=p.w*2.6, first=true; g.beginPath(); g.strokeStyle=p.c; g.lineWidth=2; g.shadowColor=p.c; g.shadowBlur=8;
+      for(var x=-len/2;x<=len/2;x+=2){ var env=Math.exp(-Math.pow(x/(len/2.4),2)), yy=p.y+13*env*Math.sin(TAU*x/p.w+now/150);
+        if(first){ g.moveTo(p.x+x,yy); first=false; } else g.lineTo(p.x+x,yy); }
+      g.stroke(); g.shadowBlur=0;
+    }
+    flash=Math.max(0,flash-dt*3);
+    g.beginPath(); g.arc(rx,cy,15,0,TAU); g.fillStyle='#14141f'; g.fill();
+    g.lineWidth=2; g.strokeStyle=flash>0?lastC:'#3a3a55'; g.shadowColor=lastC; g.shadowBlur=flash*18; g.stroke(); g.shadowBlur=0;
+    g.fillStyle='#8b8ea3'; g.beginPath(); g.arc(rx,cy,3,0,TAU); g.fill();
+    g.font='11px Vazirmatn, sans-serif'; g.textAlign='center'; g.fillStyle='#8b8ea3';
+    g.fillText('خورشید',sx,cy+62); g.fillText('گیرنده',rx,cy+34); g.fillText('نردبانِ انرژی',(lx0+lx1)/2+8,14);
+    var top=y0-maxK*step;
+    g.strokeStyle='rgba(255,255,255,.12)'; g.lineWidth=2; g.beginPath();
+    g.moveTo(lx0+4,y0+8); g.lineTo(lx0+4,top-10); g.moveTo(lx1-4,y0+8); g.lineTo(lx1-4,top-10); g.stroke();
+    g.font='11px JetBrains Mono, monospace'; g.textAlign='left'; g.lineWidth=2.2;
+    for(i=0;i<=maxK;i++){ var y=y0-i*step; g.strokeStyle=i?c:'rgba(255,255,255,.3)';
+      g.beginPath(); g.moveTo(lx0,y); g.lineTo(lx1,y); g.stroke();
+      g.fillStyle=i?c:'#8b8ea3'; g.fillText(i?(i>1?i:'')+'hf':'0',lx1+5,y+4); }
+    var ty=y0-k*step; if(ky===null) ky=ty; ky+=(ty-ky)*Math.min(1,dt*10);
+    g.fillStyle=lastC; g.shadowColor=lastC; g.shadowBlur=12; g.beginPath(); g.arc((lx0+lx1)/2,ky,7,0,TAU); g.fill(); g.shadowBlur=0;
+    put(oCol,'<span style="color:'+c+'">'+nm(f)+'</span> · '+fa(f)+' THz');
+    put(vF,'f = '+fa(f)+' THz'); put(vI,fa(I*0.5)+' فوتون در ثانیه'); if(fR._c!==c){ fR._c=c; fR.style.setProperty('--tc',c); }
+    put(oE,fa(E.toFixed(2))+' eV'); put(oN,fa(n)); put(oT,fa(tot.toFixed(1))+' eV');
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>
