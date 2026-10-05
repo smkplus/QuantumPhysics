@@ -383,7 +383,7 @@
 
   footer.credit{ text-align:center; font-size:12px; color:var(--muted); padding:34px 0 20px; }
   .step-h{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:800; margin:30px 0 8px; }
-  .step-h .no{ display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px; box-sizing:border-box; border-radius:13px; direction:ltr; unicode-bidi:isolate; background:rgba(98,214,255,.14); border:1px solid var(--wave); color:var(--wave); font-size:13px; flex:0 0 auto; }
+  .step-h .no{ display:inline; direction:ltr; unicode-bidi:isolate; color:var(--wave); font-weight:800; font-size:inherit; background:none; border:0; padding:0; min-width:0; height:auto; }
 
   .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
   #sec-quark .zoom-tabs{ flex-wrap:wrap; }
@@ -607,21 +607,9 @@
   #unMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
   #unMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
   .sec-no{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:26px; padding:0 9px; box-sizing:border-box; border-radius:13px; font-size:12.5px; font-weight:800; line-height:1; flex:0 0 auto; direction:ltr; unicode-bidi:isolate; color:rgb(var(--ch)); background:rgba(var(--ch),.14); border:1px solid rgba(var(--ch),.7); }
-  /* collapsible sections: all start closed, tap the heading to open */
-  section.concept > .concept-head{ cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; padding:11px 14px; margin-bottom:14px; border-radius:14px; border:1px solid rgba(var(--ch),.28); background:rgba(var(--ch),.05); transition:border-color .2s ease, background .2s ease; }
-  section.concept > .concept-head:hover{ border-color:rgba(var(--ch),.6); background:rgba(var(--ch),.10); }
-  section.concept > .concept-head:focus-visible{ outline:2px solid rgb(var(--ch)); outline-offset:2px; }
+  /* plain section headings: always visible, no box, no toggle */
+  section.concept > .concept-head{ margin-bottom:10px; }
   section.concept > .concept-head h2{ margin:0; }
-  .sec-chev, .sub-chev{ margin-inline-start:auto; flex:0 0 auto; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:rgb(var(--ch,98,214,255)); border:1px solid rgba(var(--ch,98,214,255),.5); background:rgba(var(--ch,98,214,255),.10); transition:transform .25s ease; }
-  section.concept:not(.sec-collapsed) > .concept-head .sec-chev{ transform:rotate(180deg); }
-  section.concept.sec-collapsed > .concept-head{ margin-bottom:0; }
-  section.concept.sec-collapsed > :not(.concept-head){ display:none !important; }
-  section.concept.sec-collapsed:not(:first-child){ border-top:0; margin-top:10px; padding-top:0; }
-  .step-h.sub-toggle{ cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; padding:9px 12px; border:1px solid rgba(98,214,255,.25); border-radius:12px; background:rgba(98,214,255,.05); transition:border-color .2s ease, background .2s ease; }
-  .step-h.sub-toggle:hover{ border-color:rgba(98,214,255,.6); background:rgba(98,214,255,.10); }
-  .step-h.sub-toggle:not(.sub-collapsed){ margin-bottom:14px; }
-  .step-h.sub-toggle:not(.sub-collapsed) .sub-chev{ transform:rotate(180deg); }
-  .step-h.sub-collapsed + .step-body{ display:none; }
   #lvMore{ margin-top:18px; }
   #lvMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
   #lvMore>summary::-webkit-details-marker{ display:none; }
@@ -698,7 +686,7 @@
     <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>⚡ پله‌های انرژی</h2></div>
     <p class="concept-desc">«کوانتوم» یعنی «بسته». ایده‌ی بنیادی این است: انرژی را نمی‌شود به هر اندازه‌ی دلخواه داد یا گرفت؛ فقط در بسته‌های مشخص مبادله می‌شود، مثل پله‌های یک نردبان، نه شیبِ یک رمپ. آشناترین بسته، خودِ نور است: <b>فوتون</b> (کوانتومِ نور) یک ذره‌ی بنیادی است و نور و همه‌ی امواج الکترومغناطیسی — از رادیو و ریزموج تا نور مرئی، فرابنفش و پرتو ایکس — از بسته‌های مجزای آن ساخته شده‌اند. اندازه‌ی هر بسته را فرکانسِ نور تعیین می‌کند: <b class="mono">E = hf</b>.</p>
 
-    <h3 class="step-h"><span class="no">۱</span> ☀️ نورِ خورشید، بارانی از بسته‌های انرژی</h3>
+    <h3 class="step-h">☀️ نورِ خورشید، بارانی از بسته‌های انرژی</h3>
     <p class="concept-desc">نورِ خورشید پیوسته به نظر می‌رسد، ولی در واقع باران بی‌پایانی از فوتون‌هاست. (خورشید همه‌ی رنگ‌ها را می‌فرستد؛ این‌جا برای آزمایش یک رنگ را جدا کرده‌ایم.) هر فوتون یک «پله‌ی کامل» انرژی به گیرنده می‌دهد؛ نه نصفِ پله، نه یک‌ونیم پله. <b>رنگِ نور</b> را از قرمز به بنفش ببر: فرکانس بالا می‌رود و هر پله بلندتر می‌شود. <b>شدتِ نور</b> را زیاد کن: بسته‌ها بیشتر می‌شوند، ولی هر بسته همان اندازه‌ی قبلی می‌ماند.</p>
     <div class="demo" id="sunDemo">
       <canvas class="demo-canvas" id="sunCanvas" style="height:240px"></canvas>
@@ -721,7 +709,7 @@
       <div class="note-box">قرمز یعنی پله‌ی کوتاه (فوتونِ کم‌انرژی) و بنفش یعنی پله‌ی بلند. شدتِ بیشتر یعنی فوتون‌های بیشتر، نه فوتونِ قوی‌تر. انرژیِ کل همیشه مضرب صحیحی از <span class="mono">hf</span> است.</div>
     </div>
 
-    <h3 class="step-h"><span class="no">۲</span> ⚛️ الکترون هم فقط روی پله‌ها می‌نشیند</h3>
+    <h3 class="step-h">⚛️ الکترون هم فقط روی پله‌ها می‌نشیند</h3>
     <p class="concept-desc">فوتون‌ها از کجا می‌آیند؟ یکی از راه‌هایش اتم است. الکترونِ دور هسته مثل کسی روی نردبان است: فقط روی پله‌ها می‌ایستد، نه هیچ‌جای وسط. وقتی از پله‌ی بالا به پایین می‌پرد، تفاوتِ انرژیِ دو پله یک فوتون می‌شود: <b class="mono">E<sub>فوتون</sub> = E<sub>بالا</sub> − E<sub>پایین</sub></b>. به همین دلیل رنگِ نورِ هر اتم اثرانگشتِ اوست (مثل نورِ لامپ نئون). دکمه را بزن و جهشِ الکترون و فوتونِ گسیل‌شده را ببین.</p>
     <div class="demo">
       <canvas class="demo-canvas" id="levelsCanvas"></canvas>
@@ -1038,7 +1026,7 @@
     </div>
     </div>
 
-    <div class="zoom-panel" data-panel="2"><h3 class="step-h"><span class="no">۲</span> معادله‌ی شرودینگر موج‌ها را فیلتر می‌کند</h3>
+    <div class="zoom-panel" data-panel="2"><h3 class="step-h">معادله‌ی شرودینگر موج‌ها را فیلتر می‌کند</h3>
     <p class="concept-desc">برای پیدا کردنِ الکترون اول باید بدانیم چه موج‌هایی «اجازه‌ی وجود» دارند. الکترون داخل اتم زندانی است؛ مدلِ ساده‌شده‌اش یک جعبه‌ی یک‌بعدی است. معادله‌ی شرودینگر می‌گوید داخلِ جعبه هر موجی با هر انرژی جوابِ معادله است — اما موج نمی‌تواند از دیواره بیرون بزند، پس باید روی هر دو دیواره صفر شود. اسلایدر را بچرخان و ببین فقط انرژی‌های خاصی روی دیواره‌ی راست صفر می‌شوند (نقطه‌ی سبز)؛ بقیه یک مقدارِ ناصفر دارند (نقطه‌ی قرمز). بعد فیلتر را اعمال کن: هر موج بین دو دیواره رفت‌وبرگشت می‌کند و هر دور با خودش جمع می‌شود. موجی که جا نمی‌شود هر دور کمی جابه‌جا می‌شود و کم‌کم خودش را خنثی می‌کند؛ موجی که دقیقاً جا می‌شود هر دور قوی‌تر می‌شود. (اتمِ واقعی سه‌بعدی است، ولی همین منطق در آن هم انرژی‌ها را گسسته می‌کند.)</p>
     <div class="demo" id="filterDemo">
       <div class="eq-line">−(ħ²/2m)·ψ″(x) = E·ψ(x)<br>ψ(0) = ψ(L) = 0</div>
@@ -1059,7 +1047,7 @@
     </div>
     </div>
 
-    <div class="zoom-panel" data-panel="3"><h3 class="step-h"><span class="no">۳</span> موج‌های مجاز را جمع کن، الکترون را پیدا کن</h3>
+    <div class="zoom-panel" data-panel="3"><h3 class="step-h">موج‌های مجاز را جمع کن، الکترون را پیدا کن</h3>
     <p class="concept-desc">حالا موج‌های زنده‌مانده را با هم جمع می‌کنیم. بالا تک‌تک موج‌ها را می‌بینی و پایین حاصل‌جمعشان را که موج‌به‌موج ساخته می‌شود. در نقطه‌ی خط‌چین همه‌ی موج‌ها هم‌فازند (همه قله‌اند) و همدیگر را تقویت می‌کنند؛ جاهای دیگر قله‌ی یکی روی دره‌ی دیگری می‌افتد و همدیگر را خنثی می‌کنند. نتیجه یک برآمدگیِ باریک است، یعنی جایی که الکترون را احتمالاً پیدا می‌کنی. بعد برو سراغ الکترونِ داخل سیب و اندازه‌گیری کن: ابرِ احتمال در یک لحظه به یک نقطه فرو می‌ریزد و الکترون «پیدا» می‌شود. هر بار یک الکترونِ تازه با همان حالت آماده می‌شود؛ پس با تکرار، نقطه‌ها کم‌کم شکلِ <span class="mono" dir="ltr">|ψ|²</span> را می‌سازند.</p>
     <div class="demo" id="probDemo">
       <canvas class="demo-canvas" id="sumCanvas" style="height:300px"></canvas>
@@ -6512,34 +6500,6 @@ d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function
     put(oE,fa(E.toFixed(2))+' eV'); put(oN,fa(n)); put(oT,fa(tot.toFixed(1))+' eV');
   }
   requestAnimationFrame(frame);
-})();
-</script>
-<script>
-(function(){
-  function relayout(){ requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); }); }); }
-  function wire(head, isOpen, setOpen){
-    head.setAttribute('role','button'); head.tabIndex = 0; head.setAttribute('aria-expanded', String(isOpen()));
-    function go(){ setOpen(!isOpen()); head.setAttribute('aria-expanded', String(isOpen())); if(isOpen()) relayout(); }
-    head.addEventListener('click', go);
-    head.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); go(); } });
-  }
-  /* whole sections */
-  document.querySelectorAll('section.concept').forEach(function(sec){
-    var head = sec.querySelector(':scope > .concept-head'); if(!head) return;
-    var h2 = head.querySelector('h2');
-    var ch = document.createElement('span'); ch.className = 'sec-chev'; ch.setAttribute('aria-hidden','true'); ch.textContent = '▾'; h2.appendChild(ch);
-    wire(head, function(){ return !sec.classList.contains('sec-collapsed'); }, function(o){ sec.classList.toggle('sec-collapsed', !o); });
-  });
-  /* numbered sub-steps inside "پله‌های انرژی": wrap each step's content (start open) */
-  document.querySelectorAll('#sec-levels > .step-h').forEach(function(h){
-    var body = document.createElement('div'); body.className = 'step-body';
-    var n = h.nextElementSibling;
-    while(n && !n.classList.contains('step-h') && n.id !== 'lvMore'){ var nx = n.nextElementSibling; body.appendChild(n); n = nx; }
-    h.after(body);
-    h.classList.add('sub-toggle');
-    var ch = document.createElement('span'); ch.className = 'sub-chev'; ch.setAttribute('aria-hidden','true'); ch.textContent = '▾'; h.appendChild(ch);
-    wire(h, function(){ return !h.classList.contains('sub-collapsed'); }, function(o){ h.classList.toggle('sub-collapsed', !o); });
-  });
 })();
 </script>
 </body>
