@@ -383,7 +383,7 @@
 
   footer.credit{ text-align:center; font-size:12px; color:var(--muted); padding:34px 0 20px; }
   .step-h{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:800; margin:30px 0 8px; }
-  .step-h .no{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:rgba(98,214,255,.14); border:1px solid var(--wave); color:var(--wave); font-size:13px; flex:0 0 auto; }
+  .step-h .no{ display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px; box-sizing:border-box; border-radius:13px; direction:ltr; unicode-bidi:isolate; background:rgba(98,214,255,.14); border:1px solid var(--wave); color:var(--wave); font-size:13px; flex:0 0 auto; }
 
   .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
   #sec-quark .zoom-tabs{ flex-wrap:wrap; }
@@ -566,6 +566,62 @@
   #catMore[open] .cat-story:nth-child(2){ animation-delay:.05s; }
   #catMore[open] .cat-story:nth-child(3){ animation-delay:.1s; }
   #catMore[open] .cat-story:nth-child(4){ animation-delay:.15s; }
+  #ucMore{ margin-top:4px; margin-bottom:14px; }
+  #ucMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(255,180,84,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #ucMore>summary::-webkit-details-marker{ display:none; }
+  #ucMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.5); }
+  #ucMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #ucMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #ucMore[open]>summary .chev{ transform:rotate(180deg); }
+  #ucMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(255,180,84,.5); }
+  .uc-wrap{ display:flex; flex-direction:column; gap:10px; padding:12px; border:1px solid rgba(255,180,84,.5); border-top:0; border-radius:0 0 14px 14px; background:var(--panel2); }
+  .uc-card{ padding:12px 14px; border-radius:12px; background:rgba(var(--c),.07); border:1px solid rgba(var(--c),.28); border-inline-start:4px solid rgb(var(--c)); }
+  .uc-h{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:13.5px; color:rgb(var(--c)); margin-bottom:6px; }
+  .uc-ic{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:rgba(var(--c),.18); border:1px solid rgba(var(--c),.45); }
+  .uc-card p{ margin:0; font-size:13.5px; line-height:1.95; color:#c7c3da; }
+  #ucMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #ucMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #ucMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #tuMore{ margin-top:4px; margin-bottom:14px; }
+  #tuMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(98,214,255,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #tuMore>summary::-webkit-details-marker{ display:none; }
+  #tuMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.5); }
+  #tuMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #tuMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #tuMore[open]>summary .chev{ transform:rotate(180deg); }
+  #tuMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(98,214,255,.5); }
+  #tuMore .uc-wrap{ border-color:rgba(98,214,255,.5); }
+  #tuMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #tuMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #tuMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #unMore{ margin-top:4px; margin-bottom:14px; }
+  #unMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(199,146,234,.10),rgba(255,180,84,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #unMore>summary::-webkit-details-marker{ display:none; }
+  #unMore>summary:hover{ border-color:var(--entangle); box-shadow:0 4px 18px -6px rgba(199,146,234,.5); }
+  #unMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #unMore>summary .chev{ margin-inline-start:auto; color:var(--entangle); transition:transform .25s ease; }
+  #unMore[open]>summary .chev{ transform:rotate(180deg); }
+  #unMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(199,146,234,.5); }
+  #unMore .uc-wrap{ border-color:rgba(199,146,234,.5); }
+  #unMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #unMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #unMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  .sec-no{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:26px; padding:0 9px; box-sizing:border-box; border-radius:13px; font-size:12.5px; font-weight:800; line-height:1; flex:0 0 auto; direction:ltr; unicode-bidi:isolate; color:rgb(var(--ch)); background:rgba(var(--ch),.14); border:1px solid rgba(var(--ch),.7); }
+  /* collapsible sections: all start closed, tap the heading to open */
+  section.concept > .concept-head{ cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; padding:11px 14px; margin-bottom:14px; border-radius:14px; border:1px solid rgba(var(--ch),.28); background:rgba(var(--ch),.05); transition:border-color .2s ease, background .2s ease; }
+  section.concept > .concept-head:hover{ border-color:rgba(var(--ch),.6); background:rgba(var(--ch),.10); }
+  section.concept > .concept-head:focus-visible{ outline:2px solid rgb(var(--ch)); outline-offset:2px; }
+  section.concept > .concept-head h2{ margin:0; }
+  .sec-chev, .sub-chev{ margin-inline-start:auto; flex:0 0 auto; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:rgb(var(--ch,98,214,255)); border:1px solid rgba(var(--ch,98,214,255),.5); background:rgba(var(--ch,98,214,255),.10); transition:transform .25s ease; }
+  section.concept:not(.sec-collapsed) > .concept-head .sec-chev{ transform:rotate(180deg); }
+  section.concept.sec-collapsed > .concept-head{ margin-bottom:0; }
+  section.concept.sec-collapsed > :not(.concept-head){ display:none !important; }
+  section.concept.sec-collapsed:not(:first-child){ border-top:0; margin-top:10px; padding-top:0; }
+  .step-h.sub-toggle{ cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; padding:9px 12px; border:1px solid rgba(98,214,255,.25); border-radius:12px; background:rgba(98,214,255,.05); transition:border-color .2s ease, background .2s ease; }
+  .step-h.sub-toggle:hover{ border-color:rgba(98,214,255,.6); background:rgba(98,214,255,.10); }
+  .step-h.sub-toggle:not(.sub-collapsed){ margin-bottom:14px; }
+  .step-h.sub-toggle:not(.sub-collapsed) .sub-chev{ transform:rotate(180deg); }
+  .step-h.sub-collapsed + .step-body{ display:none; }
   #lvMore{ margin-top:18px; }
   #lvMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
   #lvMore>summary::-webkit-details-marker{ display:none; }
@@ -613,8 +669,8 @@
   <details class="chapter" id="ch-1" style="--ch:98,214,255">
 <summary class="chapter-head"><span class="no">۱</span><div><h2>ریشه‌ها: چرا کوانتوم لازم شد؟</h2><p>از یک مسئله‌ی گرمایی تا انرژیِ پله‌پله</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
-<section class="concept" id="sec-history">
-    <div class="concept-head"><h2>🕰️ خط زمانی مکانیک کوانتوم</h2></div>
+<section class="concept sec-collapsed" id="sec-history">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>🕰️ خط زمانی مکانیک کوانتوم</h2></div>
     <p class="concept-desc">این علم یک‌شبه متولد نشد. نظریه‌ی اصلی در حدود ۲۷ سال (۱۹۰۰ تا ۱۹۲۷) شکل گرفت، اما ماجرا همان‌جا تمام نشد: دهه‌ها بعد، همین ایده‌ها به آزمایش‌های تعیین‌کننده، جایزه‌های نوبل و اولین کامپیوترهای کوانتومی رسیدند. روی هر سال بزن و ماجرا را بخوان.</p>
     <div class="demo">
       <div class="tl-stats">
@@ -638,8 +694,8 @@
   </section>
 
   <!-- 0. QUANTIZATION -->
-  <section class="concept" id="sec-levels">
-    <div class="concept-head"><h2>⚡ پله‌های انرژی</h2></div>
+  <section class="concept sec-collapsed" id="sec-levels">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>⚡ پله‌های انرژی</h2></div>
     <p class="concept-desc">«کوانتوم» یعنی «بسته». ایده‌ی بنیادی این است: انرژی را نمی‌شود به هر اندازه‌ی دلخواه داد یا گرفت؛ فقط در بسته‌های مشخص مبادله می‌شود، مثل پله‌های یک نردبان، نه شیبِ یک رمپ. آشناترین بسته، خودِ نور است: <b>فوتون</b> (کوانتومِ نور) یک ذره‌ی بنیادی است و نور و همه‌ی امواج الکترومغناطیسی — از رادیو و ریزموج تا نور مرئی، فرابنفش و پرتو ایکس — از بسته‌های مجزای آن ساخته شده‌اند. اندازه‌ی هر بسته را فرکانسِ نور تعیین می‌کند: <b class="mono">E = hf</b>.</p>
 
     <h3 class="step-h"><span class="no">۱</span> ☀️ نورِ خورشید، بارانی از بسته‌های انرژی</h3>
@@ -693,9 +749,17 @@
   </section>
 
   <!-- 0b. PLANCK CONSTANT / UV CATASTROPHE -->
-  <section class="concept" id="sec-planck">
-    <div class="concept-head"><h2>🌡️ فاجعه‌ی فرابنفش: چرا h لازم شد؟</h2></div>
-    <p class="concept-desc">فیزیکِ کلاسیک می‌گفت انرژیِ گرمایی بین همه‌ی «مُدهای» تابش به‌طور مساوی تقسیم می‌شود و هر مُد سهمی برابرِ <b class="mono">kT</b> می‌گیرد. اما مُدهای پرفرکانس بی‌شمارند، پس انرژیِ کل در فرکانس‌های بالا بی‌نهایت می‌شد؛ چون ناسازگاری از ناحیه‌ی فرابنفش به بعد دیده می‌شد، اسمش را «فاجعه‌ی فرابنفش» گذاشتند. پلانک در ۱۹۰۰ فرض کرد ماده و تابش انرژی را فقط در بسته‌هایی به اندازه‌ی <b class="mono">hf</b> مبادله می‌کنند، مثل پله‌های یک نردبان. در فرکانس‌های بالا این پله‌ها آن‌قدر درشت‌اند که <b class="mono">hf</b> خیلی بزرگ‌تر از <b class="mono">kT</b> می‌شود و جسمِ گرم نمی‌تواند آن‌ها را پر کند؛ سهمِ این مُدها به‌صورت نمایی ناچیز می‌شود و منحنی به‌جای بی‌نهایت شدن فرو می‌ریزد. <b>h را عوض کن</b> (از صفر تا مقدار واقعی)، دما را بچرخان، و با اسلایدرِ فرکانس ستون‌های سبزِ پله‌ها را روی نمودار جابه‌جا کن. با دکمه‌ی «نمایش پله‌های انرژی» زیرِ نمودار، نردبانِ همان فرکانس را ببین: هر پله یک بسته‌ی <b class="mono">hf</b> است و ستونِ نارنجی، انرژیِ گرمایی <b class="mono">kT</b> که جسم برای پر کردنِ پله‌ها دارد.</p>
+  <section class="concept sec-collapsed" id="sec-planck">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۳</span>🌡️ فاجعه‌ی فرابنفش: چرا h لازم شد؟</h2></div>
+    <p class="concept-desc">فیزیکِ کلاسیک برای یک جسمِ داغ «انرژیِ بی‌نهایت» پیش‌بینی می‌کرد، که غیرممکن است؛ پلانک این مشکل را با یک ایده حل کرد: انرژی «بسته‌بسته» مبادله می‌شود.</p>
+    <details id="ucMore">
+      <summary>📖 توضیحِ کامل: مشکلِ کلاسیک، راه‌حلِ پلانک و کار با شبیه‌ساز <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
+      <div class="uc-wrap">
+        <div class="uc-card" style="--c:255,107,107"><div class="uc-h"><span class="uc-ic">⚠️</span>مشکلِ فیزیکِ کلاسیک</div><p>تابش از «مُدها» ساخته شده و در فیزیکِ کلاسیک انرژیِ گرمایی بین همه‌ی آن‌ها به‌طور مساوی تقسیم می‌شود و هر مُد سهمی برابرِ <b class="mono">kT</b> می‌گیرد. اما مُدهای پرفرکانس بی‌شمارند، پس انرژیِ کل در فرکانس‌های بالا بی‌نهایت می‌شد؛ چون ناسازگاری از ناحیه‌ی فرابنفش به بعد دیده می‌شد، اسمش را «فاجعه‌ی فرابنفش» گذاشتند.</p></div>
+        <div class="uc-card" style="--c:255,180,84"><div class="uc-h"><span class="uc-ic">🪜</span>راه‌حلِ پلانک</div><p>پلانک در ۱۹۰۰ فرض کرد اندازه‌ی هر بسته دقیقاً <b class="mono">hf</b> است، مثل پله‌های یک نردبان. در فرکانس‌های بالا این پله‌ها آن‌قدر درشت‌اند که <b class="mono">hf</b> خیلی بزرگ‌تر از <b class="mono">kT</b> می‌شود و جسمِ گرم نمی‌تواند آن‌ها را پر کند؛ سهمِ این مُدها به‌صورت نمایی ناچیز می‌شود و منحنی به‌جای بی‌نهایت شدن فرو می‌ریزد.</p></div>
+        <div class="uc-card" style="--c:98,214,255"><div class="uc-h"><span class="uc-ic">🎛️</span>با شبیه‌ساز چه کار کنم؟</div><p><b>h را عوض کن</b> (از صفر تا مقدار واقعی)، دما را بچرخان، و با اسلایدرِ فرکانس ستون‌های سبزِ پله‌ها را روی نمودار جابه‌جا کن. با دکمه‌ی «نمایش پله‌های انرژی» زیرِ نمودار، نردبانِ همان فرکانس را ببین: هر پله یک بسته‌ی <b class="mono">hf</b> است و ستونِ نارنجی، انرژیِ گرمایی <b class="mono">kT</b> که جسم برای پر کردنِ پله‌ها دارد.</p></div>
+      </div>
+    </details>
     <div class="demo" id="plDemo">
       <div class="pl-hero" id="plHero"><span class="pl-h">h</span><span class="pl-eq">=</span><b class="pl-big" id="plHbig">—</b><span class="pl-sub" id="plHsub"></span></div>
       <canvas class="demo-canvas" id="plCanvas" style="touch-action:pan-y;cursor:crosshair"></canvas>
@@ -862,8 +926,8 @@
 <details class="chapter" id="ch-2" style="--ch:199,146,234">
 <summary class="chapter-head"><span class="no">۲</span><div><h2>ذره یا موج؟ قواعدِ بازی</h2><p>دو اصلِ بنیادینِ رفتارِ ذره‌ها</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
-<section class="concept" id="sec-duality">
-    <div class="concept-head"><h2>🎯 ذره یا موج؟</h2></div>
+<section class="concept sec-collapsed" id="sec-duality">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>🎯 ذره یا موج؟</h2></div>
     <p class="concept-desc">الکترون‌ها را یکی‌یکی از یک تفنگ به سمت دو شکاف می‌فرستیم. هر الکترون فقط یک نقطه روی صفحه می‌گذارد — درست مثل یک ذره — اما وقتی هزاران نقطه جمع شوند، نوارهای روشن و تاریک می‌سازند؛ الگویی که فقط از موج برمی‌آید. رازش در «جمعِ موج‌ها»ست: با دکمه‌های زیر موجِ هر شکاف را جدا ببین، بعد جمعِ آن‌ها را. و اگر آشکارساز را روشن کنی و بفهمی الکترون از کدام شکاف رفته، تداخل ناپدید می‌شود و فقط دو تلّ ساده می‌ماند.</p>
     <div class="demo" id="slitDemo">
       <div class="ds-stage">
@@ -921,9 +985,17 @@
   </section>
 
   <!-- 3. UNCERTAINTY -->
-  <section class="concept" id="sec-uncertainty">
-    <div class="concept-head"><h2>📏 اصل عدم قطعیت</h2></div>
-    <p class="concept-desc">هرچه مکان یک ذره را دقیق‌تر بدانی، سرعتش نامعین‌تر می‌شود — و برعکس؛ این یک محدودیت ابزار نیست، بلکه خاصیتی بنیادین از خودِ طبیعت است. دایره‌ی زیر ناحیه‌ی عدم‌قطعیتِ «مکان» ذره را نشان می‌دهد. با اسلایدر دایره را کوچک کن تا مکان دقیق‌تر شود — می‌بینی ذره‌ی داخلش بی‌قرار و پرتکان می‌شود، چون تکانه‌اش نامعین‌تر شده؛ دایره را بزرگ کن تا ذره آرام و کند حرکت کند.</p>
+  <section class="concept sec-collapsed" id="sec-uncertainty">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>📏 اصل عدم قطعیت هایزنبرگ</h2></div>
+    <p class="concept-desc">ذره را نمی‌شود هم‌زمان با مکانِ کاملاً دقیق و سرعتِ کاملاً دقیق شناخت؛ شبیه‌ساز زیر همین را نشان می‌دهد.</p>
+    <details id="unMore">
+      <summary>📖 توضیحِ کامل: اصل چه می‌گوید، دایره چیست و با اسلایدر چه کار کنم <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
+      <div class="uc-wrap">
+        <div class="uc-card" style="--c:199,146,234"><div class="uc-h"><span class="uc-ic">📏</span>اصل چه می‌گوید؟</div><p>هرچه مکان یک ذره را دقیق‌تر بدانی، سرعتش نامعین‌تر می‌شود — و برعکس؛ این یک محدودیت ابزار نیست، بلکه خاصیتی بنیادین از خودِ طبیعت است.</p></div>
+        <div class="uc-card" style="--c:98,214,255"><div class="uc-h"><span class="uc-ic">⭕</span>دایره چیست؟</div><p>دایره‌ی زیر ناحیه‌ی عدم‌قطعیتِ «مکان» ذره را نشان می‌دهد.</p></div>
+        <div class="uc-card" style="--c:255,180,84"><div class="uc-h"><span class="uc-ic">🎛️</span>با اسلایدر چه کار کنم؟</div><p>با اسلایدر دایره را کوچک کن تا مکان دقیق‌تر شود — می‌بینی ذره‌ی داخلش بی‌قرار و پرتکان می‌شود، چون تکانه‌اش نامعین‌تر شده؛ دایره را بزرگ کن تا ذره آرام و کند حرکت کند.</p></div>
+      </div>
+    </details>
     <div class="demo">
       <canvas class="demo-canvas" id="uncertaintyCanvas" style="height:180px"></canvas>
       <div class="slider-group">
@@ -943,8 +1015,8 @@
 <details class="chapter" id="ch-3" style="--ch:255,180,84">
 <summary class="chapter-head"><span class="no">۳</span><div><h2>ساختارِ ماده</h2><p>از اتم و الکترون تا اسپین و کوارک</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
-<section class="concept" id="sec-zoom">
-    <div class="concept-head"><h2>🍎 زوم روی سیب: الکترون کجاست؟</h2></div>
+<section class="concept sec-collapsed" id="sec-zoom">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>🍎 زوم روی سیب: الکترون کجاست؟</h2></div>
     <div class="zoom-tabs" role="tablist">
       <button type="button" role="tab" class="zoom-tab active" data-tab="1" aria-selected="true"><span class="no">۱</span>زوم روی سیب</button>
       <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>فیلتر شرودینگر</button>
@@ -1048,8 +1120,8 @@
   </section>
 
   <!-- 4. SPIN -->
-  <section class="concept" id="sec-spin">
-    <div class="concept-head"><h2>🧭 اسپین کوانتومی</h2></div>
+  <section class="concept sec-collapsed" id="sec-spin">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>🧭 اسپین کوانتومی</h2></div>
     <p class="concept-desc">الکترون مثل توپِ بسکتبال دور خودش نمی‌چرخد. چرخشِ واقعی یعنی اجزایی که روی مسیر دایره‌ای حرکت کنند، و الکترون یک ذره‌ی بنیادی و نقطه‌مانند است که جزء ندارد. «اسپین» یک ویژگیِ ذاتی است که <b>مثل</b> تکانه‌ی زاویه‌ای رفتار می‌کند. اسمش هم از اینجا آمده که الکترون مثل آهنربای ریز است، درست مثل یک گوی باردارِ چرخان، اما هیچ چرخشِ فیزیکی در کار نیست. اول از تب «چرخش چیست؟» شروع کن: توپِ بسکتبال، بعد توپِ باردار، بعد الکترون. سپس سه نمایشِ دیگر را هم با کشیدن (drag) بچرخان و ببین.</p>
     <div class="demo" id="spinDemo">
       <div class="row" style="justify-content:center; margin-bottom:12px">
@@ -1099,8 +1171,8 @@
   </section>
 
     <!-- 4b. QUARKS -->
-  <section class="concept" id="sec-quark">
-    <div class="concept-head"><h2>🧩 کوارک‌ها: درونِ پروتون</h2></div>
+  <section class="concept sec-collapsed" id="sec-quark">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۳</span>🧩 کوارک‌ها: درونِ پروتون</h2></div>
     <p class="concept-desc">پروتون و نوترون هم ذرات بنیادی نیستند: هرکدام از سه <b>کوارک</b> ساخته شده‌اند که با نیروی هسته‌ای قوی، به‌واسطه‌ی ذراتی به‌نام گلوئون، به هم چسبیده‌اند. کوارک‌ها اسپین ½ دارند (مثل الکترون) و علاوه بر بار الکتریکی، یک «بار رنگ» هم دارند: سرخ، سبز یا آبی — ربطی به رنگِ واقعی ندارد، فقط نام‌گذاری است. هر ذره‌ی پایدار باید روی‌هم‌رفته «بی‌رنگ» باشد.</p>
     <div class="zoom-tabs" role="tablist">
       <button type="button" role="tab" class="zoom-tab active" data-tab="1" aria-selected="true"><span class="no">۱</span>زوم</button>
@@ -1198,8 +1270,8 @@
 <details class="chapter" id="ch-4" style="--ch:126,224,138">
 <summary class="chapter-head"><span class="no">۴</span><div><h2>پدیده‌های عجیب</h2><p>کیوبیت، برهم‌نهی، گربه‌ی شرودینگر، تونل‌زنی و درهم‌تنیدگی</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
-<section class="concept" id="sec-bitqubit">
-    <div class="concept-head"><h2>💻 بیت یا کیوبیت؟</h2></div>
+<section class="concept sec-collapsed" id="sec-bitqubit">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>💻 بیت یا کیوبیت؟</h2></div>
     <p class="concept-desc">یک کامپیوتر معمولی با «بیت» کار می‌کند — سوئیچی که همیشه دقیقاً یا ۰ است یا ۱، هیچ حالت سومی ندارد. یک کامپیوتر کوانتومی به‌جایش از کیوبیت استفاده می‌کند — همان برهم‌نهی (در بخش بعد با اسلایدر لمسش می‌کنی) — که تا لحظه‌ی خواندن، هم‌زمان کمی «۰» و کمی «۱» است؛ همین ویژگی، به‌همراه درهم‌تنیدگی، به کامپیوتر کوانتومی اجازه می‌دهد خیلی از حالت‌های ممکن را هم‌زمان بررسی کند، به‌جای این‌که مثل کامپیوتر معمولی یکی‌یکی امتحانشان کند.</p>
     <div class="demo" id="bitDemo">
       <canvas class="bq-canvas" id="bqCanvas" aria-label="سکه‌ی بیت کلاسیک و سکه‌ی کیوبیت در سه‌بعد"></canvas>
@@ -1218,8 +1290,8 @@
 </section>
 
   <!-- 2. SUPERPOSITION -->
-  <section class="concept" id="sec-super">
-    <div class="concept-head"><h2>🌀 برهم‌نهی کوانتومی</h2></div>
+  <section class="concept sec-collapsed" id="sec-super">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>🌀 برهم‌نهی کوانتومی</h2></div>
     <p class="concept-desc">یک کیوبیت، برخلاف یک سکه‌ی معمولی که یا شیر است یا خط، پیش از اندازه‌گیری هم‌زمان در هر دو حالت «۰» و «۱» قرار دارد — هرکدام با یک سهمِ احتمال مشخص. اسلایدر زیر همین سهم را جابه‌جا می‌کند؛ اما لحظه‌ای که دکمه‌ی اندازه‌گیری را بزنی، برهم‌نهی به یکی از دو حالت فرومی‌پاشد، به‌طور تصادفی و دقیقاً با همان احتمالی که رویش دیدی — نه بیشتر، نه کمتر.</p>
     <div class="demo">
       <canvas class="cat3d-canvas" id="supCanvas" style="width:100%;height:270px;display:block" aria-label="جعبه‌ی کیوبیت؛ با کشیدن بچرخانید"></canvas>
@@ -1243,8 +1315,8 @@
   </section>
 
   <!-- 7. SCHRÖDINGER'S CAT -->
-  <section class="concept" id="sec-cat">
-    <div class="concept-head"><h2>🐈‍⬛ گربه‌ی شرودینگر</h2></div>
+  <section class="concept sec-collapsed" id="sec-cat">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۳</span>🐈‍⬛ گربه‌ی شرودینگر</h2></div>
     <p class="concept-desc">این یک آزمایش واقعی در آزمایشگاه نیست، بلکه یک «آزمایش فکری» است که اروین شرودینگر در سال ۱۹۳۵ مطرح کرد.</p>
     <details id="catMore">
       <summary>📖 داستانِ کامل: هدف، سناریو، تناقض و دیدگاه امروز <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
@@ -1276,9 +1348,17 @@
     </div>
   </section>
 
-<section class="concept" id="sec-tunnel">
-    <div class="concept-head"><h2>🕳️ تونل‌زنی کوانتومی</h2></div>
-    <p class="concept-desc">علتِ عبور از سد، «موج‌بودنِ» ذره است. ذره با یک <b>تابع موج ψ</b> توصیف می‌شود که معادله‌ی شرودینگر تحولش را تعیین می‌کند. وقتی این موج به سدی با انرژیِ بیشتر از انرژیِ ذره می‌رسد، بخشی بازتاب می‌شود، اما در داخل سد موج نوسان نمی‌کند و به‌صورت نمایی (∝ e<sup>−κx</sup>) کوچک می‌شود؛ اگر سد آن‌قدر نازک باشد که موج پیش از مردن به آن‌سو برسد، از آن طرف دوباره موجی نوسانی بیرون می‌آید. اینجا معادله‌ی شرودینگر به‌صورت عددی حل می‌شود. در حالت دوبعدی، موج آبی خودِ ψ و سطح کهربایی احتمالِ یافتن ذره (|ψ|²) است. در حالت سه‌بعدی، ψ یک مارپیچ است (قسمتِ حقیقی بالا و پایین، قسمتِ موهومی جلو و عقب)، دیوارِ کهربایی |ψ|² است و جعبه‌ی نارنجی سد؛ روی صحنه بکش تا ۳۶۰ درجه بچرخد. ذره «توپ» نیست؛ موج به دو بسته تقسیم می‌شود و اندازه‌گیری تصمیم می‌گیرد ذره کدام‌سو دیده شود.</p>
+<section class="concept sec-collapsed" id="sec-tunnel">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۴</span>🕳️ تونل‌زنی کوانتومی</h2></div>
+    <p class="concept-desc">ذره‌ای که انرژی‌اش از ارتفاعِ سد کمتر است، با احتمالی می‌تواند از آن‌سوی سد دیده شود — کاری که در فیزیکِ کلاسیک ناممکن است.</p>
+    <details id="tuMore">
+      <summary>📖 توضیحِ کامل: چرا ممکن است، داخلِ سد چه می‌شود و شبیه‌ساز چه نشان می‌دهد <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
+      <div class="uc-wrap">
+        <div class="uc-card" style="--c:98,214,255"><div class="uc-h"><span class="uc-ic">🌊</span>چرا ممکن است؟</div><p>علتِ عبور از سد، «موج‌بودنِ» ذره است. ذره با یک <b>تابع موج ψ</b> توصیف می‌شود که معادله‌ی شرودینگر تحولش را تعیین می‌کند.</p></div>
+        <div class="uc-card" style="--c:255,180,84"><div class="uc-h"><span class="uc-ic">🕳️</span>داخلِ سد چه می‌شود؟</div><p>وقتی این موج به سدی با انرژیِ بیشتر از انرژیِ ذره می‌رسد، بخشی بازتاب می‌شود، اما در داخل سد موج نوسان نمی‌کند و به‌صورت نمایی (∝ e<sup>−κx</sup>) کوچک می‌شود؛ اگر سد آن‌قدر نازک باشد که موج پیش از مردن به آن‌سو برسد، از آن طرف دوباره موجی نوسانی بیرون می‌آید.</p></div>
+        <div class="uc-card" style="--c:199,146,234"><div class="uc-h"><span class="uc-ic">🎛️</span>شبیه‌ساز چه نشان می‌دهد؟</div><p>اینجا معادله‌ی شرودینگر به‌صورت عددی حل می‌شود. در حالت دوبعدی، موج آبی خودِ ψ و سطح کهربایی احتمالِ یافتن ذره (|ψ|²) است. در حالت سه‌بعدی، ψ یک مارپیچ است (قسمتِ حقیقی بالا و پایین، قسمتِ موهومی جلو و عقب)، دیوارِ کهربایی |ψ|² است و جعبه‌ی نارنجی سد؛ روی صحنه بکش تا ۳۶۰ درجه بچرخد. ذره «توپ» نیست؛ موج به دو بسته تقسیم می‌شود و اندازه‌گیری تصمیم می‌گیرد ذره کدام‌سو دیده شود.</p></div>
+      </div>
+    </details>
     <div class="demo" id="tunnelDemo">
       <div class="row" style="margin-bottom:8px"><button class="act" id="tun2d">▭ دوبعدی</button><button class="act on" id="tun3d">🧊 سه‌بعدی (چرخان)</button></div>
       <canvas class="demo-canvas" id="tunnelCanvas" style="height:290px;touch-action:pan-y;cursor:grab"></canvas>
@@ -1343,8 +1423,8 @@
   </section>
 
   <!-- 6. ENTANGLEMENT -->
-  <section class="concept" id="sec-entangle">
-    <div class="concept-head"><h2>🔗 درهم‌تنیدگی</h2></div>
+  <section class="concept sec-collapsed" id="sec-entangle">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۵</span>🔗 درهم‌تنیدگی</h2></div>
     <p class="concept-desc">اینشتین به آن می‌گفت «کنش شبح‌وار از راه دور». چشمه‌ی وسط جفت‌ذره می‌فرستد و هر طرف یک آهن‌رباییِ <b>اشترن–گرلاخ</b> اسپین را می‌سنجد: ذره بسته به اسپینش در امتدادِ <b>خطوطِ میدان</b> به سمتِ ↑ یا ↓ منحرف می‌شود. <b>پیکانِ روی هر ذره، جهتِ اسپین</b> است. بین دو دیدگاه جابه‌جا شو: اینشتین و همکارانش می‌گفتند جواب‌ها از اول در ذره‌ها «برنامه‌ریزی» شده؛ بور می‌گفت تا اندازه‌گیری نشود، جهتی وجود ندارد. آهن‌ربا را بچرخان و ببین نقطه‌ها روی کدام خط می‌نشینند.</p>
     <div class="demo" id="entDemo">
       <div class="row" style="margin-bottom:8px">
@@ -1377,8 +1457,8 @@
 <summary class="chapter-head"><span class="no">۵</span><div><h2>کوانتوم در زندگی روزمره</h2><p>فناوری‌هایی که امروز با کوانتوم کار می‌کنند</p></div><span class="ch-chev" aria-hidden="true">▾</span></summary>
 
   <!-- 9. APPLICATIONS -->
-  <section class="concept" id="sec-apps">
-    <div class="concept-head"><h2>🌍 کوانتوم در زندگی روزمره</h2></div>
+  <section class="concept sec-collapsed" id="sec-apps">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>🌍 کوانتوم در زندگی روزمره</h2></div>
     <p class="concept-desc">این‌ها همه انتزاعی نیستند — همین قوانین عجیب، پشتِ وسایلی است که هر روز دستت است. یکی را انتخاب کن و <b>خودت دستگاه را کنترل کن</b>: اسلایدر را بکش، دکمه را بزن و ببین کوانتوم کجای کار است.</p>
     <style>
       .app-panel .ent-note{ margin:0 0 10px; }
@@ -1562,7 +1642,7 @@
       { y:1924, n:'لویی دوبروی', icon:'🌊', t:'دوبروی در رساله‌ی دکترایش پیشنهاد داد نه‌تنها نور، بلکه هر ذره‌ی مادی — حتی الکترون — خاصیت موجی هم دارد. همان دوگانگی موج-ذره‌ای که در بخش «ذره یا موج؟» دیدی.' },
       { y:1925, n:'هایزنبرگ، بورن و جردن', icon:'🧩', t:'هایزنبرگ فرمول‌بندی کاملاً جدیدی نوشت که فقط با کمیت‌های قابل‌اندازه‌گیری کار می‌کرد، نه مسیر واقعی الکترون. بورن و جردن آن را به زبان ماتریس‌ها صورت‌بندی کردند — اولین نسخه‌ی کامل و سازگار مکانیک کوانتومی.' },
       { y:1926, n:'اروین شرودینگر', icon:'🌀', t:'شرودینگر معادله‌ای موجی نوشت که بعداً ثابت شد دقیقاً معادل ریاضیِ فرمول‌بندی ماتریسی هایزنبرگ است — همان معادله‌ای که امروز رفتار هر ذره‌ی کوانتومی را توصیف می‌کند.' },
-      { y:1927, n:'ورنر هایزنبرگ', icon:'🌫️', t:'هایزنبرگ ثابت کرد نمی‌توان مکان و تکانه‌ی یک ذره را هم‌زمان با دقت دلخواه دانست — نه از ضعف ابزار، بلکه یک محدودیت بنیادین طبیعت. همان چیزی که در بخش «اصل عدم قطعیت» با آن ذره‌ی بی‌قرار بازی کردی.' },
+      { y:1927, n:'ورنر هایزنبرگ', icon:'🌫️', t:'هایزنبرگ ثابت کرد نمی‌توان مکان و تکانه‌ی یک ذره را هم‌زمان با دقت دلخواه دانست — نه از ضعف ابزار، بلکه یک محدودیت بنیادین طبیعت. همان چیزی که در بخش «اصل عدم قطعیت هایزنبرگ» با آن ذره‌ی بی‌قرار بازی کردی.' },
       { y:1935, n:'اینشتین، پودولسکی، روزن و شرودینگر', icon:'🐈', t:'اینشتین و همکارانش با پارادوکس EPR به درهم‌تنیدگی اعتراض کردند و آن را «ناقص» خواندند. همان سال، شرودینگر برای مسخره‌کردنِ برداشتِ رایج، آزمایش فکریِ گربه‌اش را طرح کرد.' },
       { y:1964, n:'جان استوارت بل', icon:'⚖️', t:'بل نامساوی‌ای ریاضی نوشت که مرز روشنی بین فیزیک کلاسیک و کوانتومی کشید. سال‌ها بعد، آزمایش‌ها (آسپه، ۱۹۸۲ و بعدها دیگران) ثابت کردند طبیعت طرف کوانتوم را گرفته، نه اینشتین.' },
       { y:1981, n:'ریچارد فاینمن', icon:'🎱', t:'فاینمن گفت شبیه‌سازیِ طبیعت با کامپیوترهای معمولی عملاً شدنی نیست، چون طبیعت کوانتومی است. پیشنهادش این بود: به‌جای جنگیدن با آن، کامپیوتری بسازیم که خودش از قوانین کوانتوم کار کند.' },
@@ -2113,7 +2193,7 @@
       },
       { name:'اصل عدم‌قطعیت هایزنبرگ', eq:'Δx · Δp ≥ ħ/2',
         terms:[['Δx','نامعلومیِ موقعیت'],['Δp','نامعلومیِ تکانه'],['ħ','ثابتِ پلانکِ کاهیده']],
-        text:'Δx عدم‌قطعیت مکان، Δp عدم‌قطعیت تکانه، ħ ثابت پلانکِ کاهش‌یافته. هرچه یکی را دقیق‌تر بدانی، آن‌یکی نامعین‌تر می‌شود — همان دایره و ذره‌ی بی‌قرار در بخش «اصل عدم قطعیت». اینجا مستقیماً Δx را عوض کن و ببین حداقل Δp چقدر مجبور است بزرگ شود.',
+        text:'Δx عدم‌قطعیت مکان، Δp عدم‌قطعیت تکانه، ħ ثابت پلانکِ کاهش‌یافته. هرچه یکی را دقیق‌تر بدانی، آن‌یکی نامعین‌تر می‌شود — همان دایره و ذره‌ی بی‌قرار در بخش «اصل عدم قطعیت هایزنبرگ». اینجا مستقیماً Δx را عوض کن و ببین حداقل Δp چقدر مجبور است بزرگ شود.',
         live:`
           <div class="slider-group">
             <label><span>مکان دقیق‌تر</span><span>مکان کم‌دقیق‌تر</span></label>
@@ -6432,6 +6512,34 @@ d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function
     put(oE,fa(E.toFixed(2))+' eV'); put(oN,fa(n)); put(oT,fa(tot.toFixed(1))+' eV');
   }
   requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function(){
+  function relayout(){ requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); }); }); }
+  function wire(head, isOpen, setOpen){
+    head.setAttribute('role','button'); head.tabIndex = 0; head.setAttribute('aria-expanded', String(isOpen()));
+    function go(){ setOpen(!isOpen()); head.setAttribute('aria-expanded', String(isOpen())); if(isOpen()) relayout(); }
+    head.addEventListener('click', go);
+    head.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); go(); } });
+  }
+  /* whole sections */
+  document.querySelectorAll('section.concept').forEach(function(sec){
+    var head = sec.querySelector(':scope > .concept-head'); if(!head) return;
+    var h2 = head.querySelector('h2');
+    var ch = document.createElement('span'); ch.className = 'sec-chev'; ch.setAttribute('aria-hidden','true'); ch.textContent = '▾'; h2.appendChild(ch);
+    wire(head, function(){ return !sec.classList.contains('sec-collapsed'); }, function(o){ sec.classList.toggle('sec-collapsed', !o); });
+  });
+  /* numbered sub-steps inside "پله‌های انرژی": wrap each step's content, start closed */
+  document.querySelectorAll('#sec-levels > .step-h').forEach(function(h){
+    var body = document.createElement('div'); body.className = 'step-body';
+    var n = h.nextElementSibling;
+    while(n && !n.classList.contains('step-h') && n.id !== 'lvMore'){ var nx = n.nextElementSibling; body.appendChild(n); n = nx; }
+    h.after(body);
+    h.classList.add('sub-toggle','sub-collapsed');
+    var ch = document.createElement('span'); ch.className = 'sub-chev'; ch.setAttribute('aria-hidden','true'); ch.textContent = '▾'; h.appendChild(ch);
+    wire(h, function(){ return !h.classList.contains('sub-collapsed'); }, function(o){ h.classList.toggle('sub-collapsed', !o); });
+  });
 })();
 </script>
 </body>
