@@ -1275,6 +1275,17 @@
       <div class="bq-hint">صحنه را بکش تا بچرخد · روی هر سکه بزن</div>
       <div class="qubit-result" id="bitResult">بیت همیشه یکی از دو رو است (شیر یا خط)؛ کیوبیت مثل سکه‌ای است که در جعبه‌ی بسته می‌چرخد: تا جعبه را باز نکنی (اندازه نگیری)، در حالتی بین ۰ و ۱ است.</div>
     </div>
+
+    <div class="demo" id="blochDemo" style="margin-top:14px">
+      <h3 class="step-h" style="margin-top:0">🧭 کره‌ی بلاخ: نقشه‌ی همه‌ی حالت‌های یک کیوبیت</h3>
+      <p class="concept-desc" style="margin-bottom:10px">هر حالتِ یک کیوبیت یک نقطه روی سطح این کره است. قطب شمال حالتِ |۰⟩ و قطب جنوب حالتِ |۱⟩ است. هرچه نقطه از قطب شمال پایین‌تر بیاید، احتمالِ دیدنِ ۱ بیشتر می‌شود و روی استوا هر دو با احتمالِ ۵۰٪ دیده می‌شوند. چرخش نقطه دورِ محورِ عمودی («فاز») احتمال‌ها را عوض نمی‌کند، ولی در محاسبه نقش دارد. همین کره برای اسپینِ ½ (مثلاً الکترون) هم کار می‌کند: قطب شمال و جنوب یعنی اسپینِ رو به بالا و رو به پایین.</p>
+      <canvas class="demo-canvas" id="blochCv" style="height:280px;touch-action:none;cursor:grab" aria-label="کره‌ی بلاخ؛ با کشیدن بچرخانید"></canvas>
+      <div class="slider-group"><label><span>زاویه‌ی θ (از قطب شمال)</span><span class="mono c-wave" id="blThV">—</span></label><input type="range" id="blTh" min="0" max="180" value="60"></div>
+      <div class="slider-group"><label><span>فاز φ (دور محور عمودی)</span><span class="mono c-collapse" id="blPhV">—</span></label><input type="range" id="blPh" min="0" max="360" value="40"></div>
+      <div class="row"><button class="act ghost" data-bl="0,0">|۰⟩</button><button class="act ghost" data-bl="180,0">|۱⟩</button><button class="act ghost" data-bl="90,0">|+⟩ (استوا)</button><button class="act ghost" data-bl="90,180">|−⟩ (استوا)</button></div>
+      <div class="readouts"><div class="readout"><div class="rl">احتمالِ دیدنِ ۰</div><div class="rv mono c-wave" id="blP0">—</div></div><div class="readout"><div class="rl">احتمالِ دیدنِ ۱</div><div class="rv mono c-collapse" id="blP1">—</div></div></div>
+      <div class="bq-hint">صحنه را بکش تا بچرخد</div>
+    </div>
 </section>
 
   <!-- 2. SUPERPOSITION -->
@@ -1301,16 +1312,6 @@
       <div class="qubit-result" id="qubitResult"></div>
     </div>
 
-    <div class="demo" id="blochDemo" style="margin-top:14px">
-      <h3 class="step-h" style="margin-top:0">🧭 کره‌ی بلاخ: نقشه‌ی همه‌ی حالت‌های یک کیوبیت</h3>
-      <p class="concept-desc" style="margin-bottom:10px">هر حالتِ یک کیوبیت یک نقطه روی سطح این کره است. قطب شمال حالتِ |۰⟩ و قطب جنوب حالتِ |۱⟩ است. هرچه نقطه از قطب شمال پایین‌تر بیاید، احتمالِ دیدنِ ۱ بیشتر می‌شود و روی استوا هر دو با احتمالِ ۵۰٪ دیده می‌شوند. چرخش نقطه دورِ محورِ عمودی («فاز») احتمال‌ها را عوض نمی‌کند، ولی در محاسبه نقش دارد. همین کره برای اسپینِ ½ (مثلاً الکترون) هم کار می‌کند: قطب شمال و جنوب یعنی اسپینِ رو به بالا و رو به پایین.</p>
-      <canvas class="demo-canvas" id="blochCv" style="height:280px;touch-action:none;cursor:grab" aria-label="کره‌ی بلاخ؛ با کشیدن بچرخانید"></canvas>
-      <div class="slider-group"><label><span>زاویه‌ی θ (از قطب شمال)</span><span class="mono c-wave" id="blThV">—</span></label><input type="range" id="blTh" min="0" max="180" value="60"></div>
-      <div class="slider-group"><label><span>فاز φ (دور محور عمودی)</span><span class="mono c-collapse" id="blPhV">—</span></label><input type="range" id="blPh" min="0" max="360" value="40"></div>
-      <div class="row"><button class="act ghost" data-bl="0,0">|۰⟩</button><button class="act ghost" data-bl="180,0">|۱⟩</button><button class="act ghost" data-bl="90,0">|+⟩ (استوا)</button><button class="act ghost" data-bl="90,180">|−⟩ (استوا)</button></div>
-      <div class="readouts"><div class="readout"><div class="rl">احتمالِ دیدنِ ۰</div><div class="rv mono c-wave" id="blP0">—</div></div><div class="readout"><div class="rl">احتمالِ دیدنِ ۱</div><div class="rv mono c-collapse" id="blP1">—</div></div></div>
-      <div class="bq-hint">صحنه را بکش تا بچرخد</div>
-    </div>
   </section>
 
   <!-- 7. SCHRÖDINGER'S CAT -->
@@ -5599,7 +5600,7 @@ function createCatScene(canvas, H){
     function span(txt,col){ return '<span style="color:rgb('+col.join(',')+')">'+txt+'</span>'; }
     function syncDom(){
       rdBit.innerHTML = span(FACE_TXT[bit.face], FACE_COL[bit.face]);
-      rdQ.innerHTML = qb.mode === 'super' || qb.mode === 'rise' ? span('۰ و ۱ هم‌زمان', EN) : qb.mode === 'collapse' ? span('در حال فروپاشی…', EN) : span(FACE_TXT[qb.out], FACE_COL[qb.out]);
+      rdQ.innerHTML = qb.mode === 'super' || qb.mode === 'rise' ? span('مقداری بین ۰ و ۱', EN) : qb.mode === 'collapse' ? span('در حال فروپاشی…', EN) : span(FACE_TXT[qb.out], FACE_COL[qb.out]);
       rd0.textContent = toFa(qb.n0); rd1.textContent = toFa(qb.n1);
     }
     let lastBusy = '';
@@ -5885,7 +5886,7 @@ function createCatScene(canvas, H){
       if(dB > dQ){ drawBit(); drawQubit(); } else { drawQubit(); drawBit(); }
       drawParts();
       label(BX,'بیت کلاسیک',FACE_TXT[bit.face],FACE_COL[bit.face],bit.pop);
-      const qsup = qb.mode === 'super' || qb.mode === 'rise', qtxt = qsup ? '۰ و ۱ هم‌زمان' : qb.mode === 'collapse' ? '…' : FACE_TXT[qb.out];
+      const qsup = qb.mode === 'super' || qb.mode === 'rise', qtxt = qsup ? 'مقداری بین ۰ و ۱' : qb.mode === 'collapse' ? '…' : FACE_TXT[qb.out];
       label(QX,'کیوبیت',qtxt,qsup || qb.mode === 'collapse' ? EN : FACE_COL[qb.out],qb.pop);
       g.restore();
     }
