@@ -27,7 +27,7 @@
   #flashOverlay{ position:fixed; inset:0; z-index:49; pointer-events:none; opacity:0; mix-blend-mode:screen; transition:opacity .09s ease-out; }
   #flashOverlay.on{ transition:opacity .02s ease-out; }
 
-  header{ padding:38px 20px 22px; max-width:720px; margin:0 auto; text-align:center; position:relative; }
+  header{ padding:68px 20px 22px; max-width:720px; margin:0 auto; text-align:center; position:relative; }
   header .kicker{ font-size:13px; color:var(--wave); font-weight:700; margin-bottom:10px; }
   header h1{ font-size:clamp(24px,6vw,34px); font-weight:800; margin:0 0 12px; }
   header p{ font-size:15px; color:var(--muted); max-width:560px; margin:0 auto; }
@@ -35,7 +35,7 @@
     background:var(--panel2); border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:14px; }
   .qdef b{ color:var(--wave); }
   #soundBtn,#musicBtn{
-    position:absolute; top:38px; left:20px; width:38px; height:38px; border-radius:50%;
+    position:absolute; top:16px; left:20px; width:38px; height:38px; border-radius:50%;
     background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer;
     font-size:16px; display:flex; align-items:center; justify-content:center;
   }
@@ -656,10 +656,8 @@
 <header>
   <button id="soundBtn" title="صدا">🔊</button>
   <button id="musicBtn" title="موسیقی">🎵</button>
-  <div class="kicker">Ψ از صفر تا صد کوانتوم</div>
   <h1>مفاهیم کوانتوم را با دست خودت لمس کن</h1>
   <div class="qdef"><b>فیزیک کوانتوم</b> نظریه‌ای است که رفتار طبیعت را در مقیاس اتم‌ها و ذرات بنیادی توصیف می‌کند. در این مقیاس، انرژی فقط در بسته‌های مجزا (کوانتوم) مبادله می‌شود، ذره‌ها هم‌زمان رفتار موجی دارند، و پیش از اندازه‌گیری سیستم می‌تواند در چند حالت باشد؛ نتیجه‌ی اندازه‌گیری را فقط به‌صورت احتمال می‌شود پیش‌بینی کرد.</div>
-  <p>از اولین ایده‌ی «انرژی بسته‌بندی‌شده» تا کاربردهای امروزی‌اش — چهارده ایستگاه در پنج فصل، هرکدام با یک شبیه‌سازی زنده. اسلایدر را بکش، دکمه را بزن، و هر فروپاشی را با چشم و گوش خودت حس کن.</p>
 </header>
 
 <div class="tabbar">
@@ -1540,7 +1538,7 @@
 
 </details>
 
-<footer class="credit">آزمایشگاه کوانتومی تعاملی — از صفر تا صد<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
+<footer class="credit">آزمایشگاه کوانتومی تعاملی<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
 </main>
 </div>
 
@@ -1692,7 +1690,7 @@
     const eras = [
       { from:1859, icon:'🌱', label:'جرقه‌های اول', range:'۱۸۵۹–۱۹۱۳' },
       { from:1921, icon:'🚀', label:'انفجارِ نظریه', range:'۱۹۲۱–۱۹۲۸' },
-      { from:1935, icon:'🌀', label:'کشمکش فلسفی و اولین فناوری‌ها', range:'۱۹۳۵–۱۹۶۴' },
+      { from:1935, icon:'🌀', label:'کشمکش فلسفی', range:'۱۹۳۵–۱۹۶۴' },
       { from:1981, icon:'💻', label:'تولدِ فناوریِ کوانتومی', range:'۱۹۸۱–۱۹۹۵' },
       { from:2019, icon:'🔭', label:'از آزمایشگاه تا امروز', range:'۲۰۱۹–۲۰۲۶' },
     ];
@@ -1768,6 +1766,7 @@
       if(!drawn){ drawn = false; revealCurve(); return; }
       layoutCurve();
       path.style.transition = 'none'; path.style.strokeDasharray = 'none'; path.style.strokeDashoffset = '0';
+      requestAnimationFrame(()=>{ path.style.transition = 'opacity .35s ease'; path.style.opacity = '1'; });
     }
     let relayoutT;
     function scheduleRelayout(){ clearTimeout(relayoutT); relayoutT = setTimeout(()=>requestAnimationFrame(relayoutCurve), 420); }
@@ -1782,6 +1781,8 @@
         else if(items.indexOf(el)===openIdx){ el.classList.remove('active'); openIdx = -1; }
       });
       tone(open?420:300, 0.07, 'sine', 0.05);
+      path.style.transition = 'none'; path.style.opacity = '0';
+      if(!items.some(el=>!el.classList.contains('tl-hide'))) path.setAttribute('d','');
       scheduleRelayout();
     }
     eras.forEach(era=>{
