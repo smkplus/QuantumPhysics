@@ -656,7 +656,7 @@
 <header>
   <button id="soundBtn" title="صدا">🔊</button>
   <button id="musicBtn" title="موسیقی">🎵</button>
-  <h1>مفاهیم کوانتوم را با دست خودت لمس کن</h1>
+  <h1>آزمایشگاه فیزیک کوانتوم تعاملی</h1>
   <div class="qdef"><b>فیزیک کوانتوم</b> نظریه‌ای است که رفتار طبیعت را در مقیاس اتم‌ها و ذرات بنیادی توصیف می‌کند. در این مقیاس، انرژی فقط در بسته‌های مجزا (کوانتوم) مبادله می‌شود، ذره‌ها هم‌زمان رفتار موجی دارند، و پیش از اندازه‌گیری سیستم می‌تواند در چند حالت باشد؛ نتیجه‌ی اندازه‌گیری را فقط به‌صورت احتمال می‌شود پیش‌بینی کرد.</div>
 </header>
 
@@ -2598,7 +2598,7 @@
       W = rect.width;
       canvas.width = Math.round(W*dpr); canvas.height = Math.round(H*dpr);
       ctx.setTransform(dpr,0,0,dpr,0,0);
-      A = Math.max(120, Math.min(230, W*0.38));
+      A = Math.max(120, Math.min(280, W*0.58, W-190));
       cx = A/2 + 4; cy = H/2;
       rMax = Math.min(A/2 - 8, H/2 - 18);
       LX0 = A + 16; LX1 = W - 14;
@@ -6747,20 +6747,20 @@ d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function
     var W=fit(); if(!W) return;
     var f=+fR.value, I=+iR.value, E=HC*f, c=col(f), step=17*E, maxK=Math.floor((H-50)/step);
     if(k>maxK) k=maxK;
-    var cy=H/2, sx=52, rx=W-130, y0=H-26, lx0=W-84, lx1=W-34, i, a;
+    var cy=H/2, sx=74, rx=W-130, y0=H-26, lx0=W-84, lx1=W-34, i, a;
     rot+=dt*.4; acc+=dt*I*.5;
-    while(acc>=1){ acc-=1; ph.push({x:sx+46,y:cy+(Math.random()-.5)*24,f:f,c:col(f),w:44-(f-400)/390*28}); }
+    while(acc>=1){ acc-=1; ph.push({x:sx+66,y:cy+(Math.random()-.5)*24,f:f,c:col(f),w:44-(f-400)/390*28}); }
     g.fillStyle='#06060b'; g.fillRect(0,0,W,H);
     var tt=(I-1)/9; if(lv===null) lv=tt; lv+=(tt-lv)*Math.min(1,dt*6);
-    var gr=48+70*lv, gl=g.createRadialGradient(sx,cy,10,sx,cy,gr);
-    gl.addColorStop(0,'rgba(255,190,70,'+(.12+.58*lv).toFixed(2)+')'); gl.addColorStop(1,'rgba(255,150,40,0)');
+    var gr=76+100*lv, gl=g.createRadialGradient(sx,cy,16,sx,cy,gr);
+    gl.addColorStop(0,'rgba(255,190,70,'+(.2+.6*lv).toFixed(2)+')'); gl.addColorStop(1,'rgba(255,150,40,0)');
     g.fillStyle=gl; g.beginPath(); g.arc(sx,cy,gr,0,TAU); g.fill();
-    g.strokeStyle='rgba(255,196,80,.8)'; g.lineWidth=2.4; g.lineCap='round';
-    for(i=0;i<14;i++){ a=rot+i*TAU/14; var l=40+5*Math.sin(now/300+i*2);
-      g.beginPath(); g.moveTo(sx+Math.cos(a)*35,cy+Math.sin(a)*35); g.lineTo(sx+Math.cos(a)*l,cy+Math.sin(a)*l); g.stroke(); }
-    var sg=g.createRadialGradient(sx-8,cy-8,3,sx,cy,30);
+    g.strokeStyle='rgba(255,196,80,.8)'; g.lineWidth=3.2; g.lineCap='round';
+    for(i=0;i<14;i++){ a=rot+i*TAU/14; var l=62+7*Math.sin(now/300+i*2);
+      g.beginPath(); g.moveTo(sx+Math.cos(a)*52,cy+Math.sin(a)*52); g.lineTo(sx+Math.cos(a)*l,cy+Math.sin(a)*l); g.stroke(); }
+    var sg=g.createRadialGradient(sx-12,cy-12,4,sx,cy,44);
     sg.addColorStop(0,'#fff3b0'); sg.addColorStop(1,'#ff9a2e');
-    g.fillStyle=sg; g.beginPath(); g.arc(sx,cy,29,0,TAU); g.fill();
+    g.fillStyle=sg; g.beginPath(); g.arc(sx,cy,43,0,TAU); g.fill();
     for(var j=ph.length-1;j>=0;j--){
       var p=ph[j]; p.x+=150*dt;
       if(p.x>=rx-16){ ph.splice(j,1); n++; tot+=p.f*HC; k=(k>=maxK)?0:k+1; flash=1; lastC=p.c; continue; }
@@ -6774,7 +6774,7 @@ d.addEventListener('toggle',function(){if(d.open){requestAnimationFrame(function
     g.lineWidth=2; g.strokeStyle=flash>0?lastC:'#3a3a55'; g.shadowColor=lastC; g.shadowBlur=flash*18; g.stroke(); g.shadowBlur=0;
     g.fillStyle='#8b8ea3'; g.beginPath(); g.arc(rx,cy,3,0,TAU); g.fill();
     g.font='11px Vazirmatn, sans-serif'; g.textAlign='center'; g.fillStyle='#8b8ea3';
-    g.fillText('خورشید',sx,cy+62); g.fillText('گیرنده',rx,cy+34); g.fillText('نردبانِ انرژی',(lx0+lx1)/2+8,14);
+    g.fillText('خورشید',sx,cy+86); g.fillText('گیرنده',rx,cy+34); g.fillText('نردبانِ انرژی',(lx0+lx1)/2+8,14);
     var top=y0-maxK*step;
     g.strokeStyle='rgba(255,255,255,.12)'; g.lineWidth=2; g.beginPath();
     g.moveTo(lx0+4,y0+8); g.lineTo(lx0+4,top-10); g.moveTo(lx1-4,y0+8); g.lineTo(lx1-4,top-10); g.stroke();
