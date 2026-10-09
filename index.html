@@ -179,7 +179,8 @@
   .cat-key .dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-inline-end:6px; }
   .cat-key .dot.alive{ background:var(--alive); box-shadow:0 0 8px var(--alive); }
   .cat-key .dot.dead{ background:var(--dead); box-shadow:0 0 8px var(--dead); }
-  button.act.fix{ background:linear-gradient(135deg,var(--wave),var(--entangle)); color:#04121a; border-color:transparent; font-weight:800; box-shadow:0 6px 22px -8px rgba(98,214,255,.6); }
+  button.act[hidden]{ display:none !important; }
+  .act.fix{ background:linear-gradient(135deg,var(--wave),var(--entangle)); color:#04121a; border-color:transparent; font-weight:800; box-shadow:0 6px 22px -8px rgba(98,214,255,.6); }
   .act.fix:hover{ color:#04121a; border-color:transparent; box-shadow:0 6px 26px -4px rgba(98,214,255,.8); }
   .act.fix.need{ animation:fixGlow 1.6s ease-in-out infinite; }
   @keyframes fixGlow{ 0%,100%{ box-shadow:0 6px 20px -8px rgba(98,214,255,.5); } 50%{ box-shadow:0 0 0 3px rgba(98,214,255,.25), 0 8px 30px -4px rgba(199,146,234,.85); } }
@@ -768,6 +769,11 @@
     <div class="demo" id="plDemo">
       <div class="pl-hero" id="plHero"><span class="pl-h">h</span><span class="pl-eq">=</span><b class="pl-big" id="plHbig">—</b><span class="pl-sub" id="plHsub"></span></div>
       <canvas class="demo-canvas" id="plCanvas" style="touch-action:pan-y;cursor:crosshair"></canvas>
+      <div class="row" style="margin-bottom:12px">
+        <button class="act fix" id="plAuto">🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن</button>
+        <button class="act ghost" id="plClassic">🕰️ پیش از پلانک (h=۰)</button>
+        <button class="act ghost" id="plReal">💡 ثابت پلانک</button>
+      </div>
       <div class="slider-group">
         <label dir="ltr"><span>h = ۰ (کلاسیک)</span><span id="plHv" class="mono">—</span><span>ثابت پلانک ✓</span></label>
         <input type="range" id="plS" dir="ltr" min="0" max="100" step="1" value="0">
@@ -779,11 +785,6 @@
       <div class="slider-group">
         <label dir="ltr"><span>فرکانس کم (فروسرخ)</span><span id="plFv" class="mono">—</span><span>فرکانس زیاد (فرابنفش)</span></label>
         <input type="range" id="plF" dir="ltr" min="50" max="1600" step="5" value="1250">
-      </div>
-      <div class="row" style="margin-bottom:12px">
-        <button class="act fix" id="plAuto">🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن</button>
-        <button class="act ghost" id="plClassic">🕰️ پیش از پلانک (h=۰)</button>
-        <button class="act ghost" id="plReal">💡 ثابت پلانک</button>
       </div>
       <div class="readouts">
         <div class="readout"><div class="rl">نسبت به ثابت پلانک</div><div class="rv mono c-ent" id="plHval" dir="ltr">—</div></div>
@@ -3812,6 +3813,7 @@
       requestAnimationFrame(frame);
       const dt = Math.min(.05,(now-tm)/1000); tm = now;
       if(auto){ s = Math.min(100, s+dt*28); $('plS').value = s; dirty = true; if(s>=100){ auto = false; $('plAuto').textContent = '🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن'; } }
+      { const hide = Math.abs(s-100)<.5; if($('plAuto').hidden !== hide) $('plAuto').hidden = hide; }
       if(!vis) return;
       W = cv.clientWidth; if(!W) return;
       if(cv._w !== W){ const d = Math.max(2,devicePixelRatio||1); cv.width = W*d; cv.height = H*d; cv.style.height = H+'px'; cv._w = W; g.setTransform(d,0,0,d,0,0); g.direction = 'ltr'; }
@@ -3841,23 +3843,30 @@
         g.globalAlpha = 1; };
       stack(fp,1,48,true);
 
+      /* ناحیه‌ی مشکل: فاصله‌ی منحنیِ فعلی تا منحنیِ واقعی */
+      const exA = .25*Math.min(1,(1-a)*2.5), xsE = [], fOf = x => (x-x0)/(x1-x0)*FMAX; for(let x=x0; x<=x1; x+=2) xsE.push(x);
+      if(exA>.012){
+        g.beginPath(); xsE.forEach((x,i2) => { const yc = Math.max(yt,Y(pl(fOf(x),a,T))); i2 ? g.lineTo(x,yc) : g.moveTo(x,yc); });
+        for(let i2=xsE.length-1;i2>=0;i2--) g.lineTo(xsE[i2],Y(pl(fOf(xsE[i2]),1,T)));
+        g.closePath(); g.fillStyle = 'rgba(255,92,92,'+exA.toFixed(3)+')'; g.fill();
+      }
+      g.setLineDash([5,4]); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 1.5; g.beginPath();
+      xsE.forEach((x,i2) => { const yy = Y(pl(fOf(x),1,T)); i2 ? g.lineTo(x,yy) : g.moveTo(x,yy); }); g.stroke(); g.setLineDash([]);
+      { const lx = x1-8; g.save(); g.textAlign = 'right'; g.textBaseline = 'middle'; g.font = '700 11px Vazirmatn, sans-serif';
+        const t1 = 'خطای کلاسیک', t2 = 'منحنیِ واقعی', w1 = g.measureText(t1).width, w2 = g.measureText(t2).width;
+        g.fillStyle = '#ff6b6b'; g.fillText(t1,lx,yt+12); g.setLineDash([4,3]); g.strokeStyle = '#ff6b6b'; g.lineWidth = 1.8; g.beginPath(); g.moveTo(lx-w1-6,yt+12); g.lineTo(lx-w1-22,yt+12); g.stroke();
+        g.fillStyle = 'rgba(255,255,255,.85)'; g.fillText(t2,lx,yt+29); g.strokeStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.moveTo(lx-w2-6,yt+29); g.lineTo(lx-w2-22,yt+29); g.stroke(); g.setLineDash([]); g.restore(); }
       let lastX = x0; const curve = fn => { g.beginPath(); g.moveTo(x0,yb);
         for(let x=x0; x<=x1; x+=2){ const y = Y(fn((x-x0)/(x1-x0)*FMAX)); lastX = x; if(y<yt){ g.lineTo(x,yt); break; } g.lineTo(x,y); } };
       g.setLineDash([6,4]); curve(f => rj(f,T)); g.strokeStyle = '#ff6b6b'; g.lineWidth = 1.8; g.stroke(); g.setLineDash([]);
-      g.fillStyle = '#ff6b6b'; g.font = '700 11px Vazirmatn, sans-serif'; g.textAlign = 'left'; g.fillText('پیش‌بینیِ کلاسیک → ∞',x0+8,yt+12);
       curve(f => pl(f,a,T)); g.lineTo(lastX,yb); g.closePath(); g.fillStyle = 'rgba(98,214,255,.16)'; g.fill();
       curve(f => pl(f,a,T)); g.strokeStyle = '#62d6ff'; g.lineWidth = 2.6; g.shadowColor = '#62d6ff'; g.shadowBlur = 8; g.stroke(); g.shadowBlur = 0;
 
       const px = X(fp); g.strokeStyle = 'rgba(255,255,255,.55)'; g.lineWidth = 1; g.setLineDash([3,3]); g.beginPath(); g.moveTo(px,yt); g.lineTo(px,yb); g.stroke(); g.setLineDash([]);
       g.beginPath(); g.arc(px,Math.max(yt,Y(pl(fp,a,T))),5,0,Math.PI*2); g.fillStyle = '#fff'; g.fill();
 
-      if(PT.length<260) for(let i=0;i<7;i++){ const x = x0+Math.random()*(x1-x0), f = (x-x0)/(x1-x0)*FMAX, v = pl(f,a,T)/ymax;
-        if(Math.random() < Math.min(1,v)*.9) PT.push({x:x, y:v>=1 ? yt+2 : Y(v), vx:(Math.random()-.5)*(v>=1?1.6:.5), vy:-(.3+Math.random()*(v>=1?2.4:1.1)), l:1,
-          c:'hsl('+(f<VIS0 ? 0 : f>UV0 ? 275 : Math.round((f-VIS0)/(UV0-VIS0)*270))+',100%,'+(f<VIS0?52:64)+'%)'}); }
-      for(let i=PT.length-1;i>=0;i--){ const p = PT[i]; p.x += p.vx; p.y += p.vy; p.l -= .017;
-        if(p.l<=0 || p.y<2){ PT.splice(i,1); continue; } g.globalAlpha = p.l; g.fillStyle = p.c; g.beginPath(); g.arc(p.x,p.y,1.9,0,Math.PI*2); g.fill(); }
       g.globalAlpha = 1;
-      if(a<.03){ const k = .5+.5*Math.sin(now/120), cr = Math.round(150+105*k), cg = Math.round(48+59*k), cb = Math.round(48+59*k);
+      if(a<.03){ const k = .5+.5*Math.sin(now/120), cr = Math.round(165+90*k), cg = Math.round(60+47*k), cb = Math.round(60+47*k);
         const fs = Math.round(clamp((x1-x0)*.06,17,24)); g.save(); g.font = '800 '+fs+'px Vazirmatn, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
         g.shadowColor = 'rgba(6,6,11,.95)'; g.shadowBlur = 7; g.fillStyle = 'rgb('+cr+','+cg+','+cb+')'; g.fillText('⚠ فاجعه‌ی فرابنفش!',(x0+x1)/2,(yt+yb)/2); g.restore(); }
       $('plAuto').classList.toggle('need', a<.03 && !auto);
