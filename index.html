@@ -400,6 +400,7 @@
   }
 
   .step-h{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:800; margin:30px 0 8px; }
+  .step-h .sh-ico{ flex:0 0 auto; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; font-size:17px; border-radius:10px; background:rgba(98,214,255,.1); border:1px solid rgba(98,214,255,.3); }
   .step-h .no{ display:inline; direction:ltr; unicode-bidi:isolate; color:var(--wave); font-weight:800; font-size:inherit; background:none; border:0; padding:0; min-width:0; height:auto; }
 
   .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
@@ -699,9 +700,10 @@
   <!-- 0. QUANTIZATION -->
   <section class="concept" id="sec-levels">
     <div class="concept-head"><h2><span class="sec-no" dir="ltr">۲</span>⚡ پله‌های انرژی</h2></div>
-    <p class="concept-desc">«کوانتوم» یعنی «بسته». ایده‌ی بنیادی این است: انرژی را نمی‌شود به هر اندازه‌ی دلخواه داد یا گرفت؛ فقط در بسته‌های مشخص مبادله می‌شود، مثل پله‌های یک نردبان، نه شیبِ یک رمپ. آشناترین بسته، خودِ نور است: <b>فوتون</b> (کوانتومِ نور) یک ذره‌ی بنیادی است و نور و همه‌ی امواج الکترومغناطیسی — از رادیو و ریزموج تا نور مرئی، فرابنفش و پرتو ایکس — از بسته‌های مجزای آن ساخته شده‌اند. اندازه‌ی هر بسته را فرکانسِ نور تعیین می‌کند: <b class="mono">E = hf</b>.</p>
+    <p class="concept-desc">«کوانتوم» یعنی «بسته». ایده‌ی بنیادی این است: انرژی را نمی‌شود به هر اندازه‌ی دلخواه داد یا گرفت؛ فقط در بسته‌های مشخص مبادله می‌شود، مثل پله‌های یک نردبان، نه شیبِ یک رمپ. آشناترین بسته، خودِ نور است: <b>فوتون</b> (کوانتومِ نور) یک ذره‌ی بنیادی است و نور و همه‌ی امواج الکترومغناطیسی — از رادیو و ریزموج تا نور مرئی، فرابنفش و پرتو ایکس — از بسته‌های مجزای آن ساخته شده‌اند. اندازه‌ی هر بسته را فرکانسِ نور تعیین می‌کند:</p>
+    <div class="eq-anat" style="margin:0 0 18px"><span class="ea e">E<sub>فوتون</sub></span><span class="op">=</span><span class="ea k">h<sub>ثابت پلانک</sub></span><span class="op">·</span><span class="ea v">f<sub>فرکانس</sub></span></div>
 
-    <h3 class="step-h">☀️ نورِ خورشید، بارانی از بسته‌های انرژی</h3>
+    <h3 class="step-h"><span class="sh-ico">☀️</span>نورِ خورشید، بارانی از بسته‌های انرژی</h3>
     <p class="concept-desc">نورِ خورشید پیوسته به نظر می‌رسد، ولی در واقع باران بی‌پایانی از فوتون‌هاست. (خورشید همه‌ی رنگ‌ها را می‌فرستد؛ این‌جا برای آزمایش یک رنگ را جدا کرده‌ایم.) هر فوتون یک «پله‌ی کامل» انرژی به گیرنده می‌دهد؛ نه نصفِ پله، نه یک‌ونیم پله. <b>رنگِ نور</b> را از قرمز به بنفش ببر: فرکانس بالا می‌رود و هر پله بلندتر می‌شود. <b>شدتِ نور</b> را زیاد کن: بسته‌ها بیشتر می‌شوند، ولی هر بسته همان اندازه‌ی قبلی می‌ماند.</p>
     <div class="demo" id="sunDemo">
       <canvas class="demo-canvas" id="sunCanvas" style="height:240px"></canvas>
@@ -724,9 +726,15 @@
       <div class="note-box">قرمز یعنی پله‌ی کوتاه (فوتونِ کم‌انرژی) و بنفش یعنی پله‌ی بلند. شدتِ بیشتر یعنی فوتون‌های بیشتر، نه فوتونِ قوی‌تر. انرژیِ کل همیشه مضرب صحیحی از <span class="mono">hf</span> است.</div>
     </div>
 
-    <h3 class="step-h">⚛️ الکترون هم فقط روی پله‌ها می‌نشیند</h3>
-    <p class="concept-desc">فوتون‌ها از کجا می‌آیند؟ یکی از راه‌هایش اتم است. الکترونِ دور هسته مثل کسی روی نردبان است: فقط روی پله‌ها می‌ایستد، نه هیچ‌جای وسط. وقتی از پله‌ی بالا به پایین می‌پرد، تفاوتِ انرژیِ دو پله یک فوتون می‌شود: <b class="mono">E<sub>فوتون</sub> = E<sub>بالا</sub> − E<sub>پایین</sub></b>. به همین دلیل رنگِ نورِ هر اتم اثرانگشتِ اوست (مثل نورِ لامپ نئون). روی یک پله بزن (یا دکمه را فشار بده): فوتونی می‌آید و اگر انرژی‌اش دقیقاً به اندازه‌ی فاصله‌ی دو پله باشد، الکترون آن را می‌بلعد و بالا می‌پرد؛ بعد دوباره می‌افتد و یک فوتون پس می‌دهد.</p>
+    <h3 class="step-h"><span class="sh-ico">⚛️</span>الکترون هم فقط روی پله‌ها می‌نشیند</h3>
+    <p class="concept-desc" style="margin-bottom:6px">الکترون‌های دور هسته فقط مجازند روی پله‌های مشخصی از انرژی بایستند؛ فضای خالی بین پله‌ها برای آن‌ها وجود خارجی ندارد. اما فوتون‌ها در این میان چه‌کاره‌اند؟ فوتون‌ها «بلیتِ» جابه‌جایی بین این پله‌ها هستند:</p>
+    <ul class="concept-desc" style="padding-inline-start:18px;margin:0 0 12px;line-height:1.85">
+      <li><b>صعود:</b> اگر فوتونی از راه برسد که انرژی‌اش دقیقاً برابر با فاصله‌ی دو پله باشد، الکترون آن را جذب می‌کند و با یک جهش به پله‌ی بالاتر می‌رود.</li>
+      <li><b>سقوط:</b> الکترون نمی‌تواند برای همیشه در پله‌ی بالا بماند؛ به محض اینکه به پله‌ی پایین برگردد، اختلاف انرژیِ این دو پله را به شکل یک فوتونِ جدید بیرون می‌فرستد.</li>
+    </ul>
     <div class="demo">
+      <div class="eq-anat"><span class="ea e">E<sub>فوتون</sub></span><span class="op">=</span><span class="ea k">E<sub>بالا</sub></span><span class="op">−</span><span class="ea v">E<sub>پایین</sub></span></div>
+      <div class="eq-legend"><div class="k"><b>E<sub>n</sub> = −۱۳٫۶ eV / n²</b> انرژیِ پله‌ی n در اتمِ هیدروژن</div></div>
       <canvas class="demo-canvas" id="levelsCanvas"></canvas>
       <div class="row">
         <button class="act" id="exciteBtn">تحریک الکترون</button>
@@ -741,7 +749,7 @@
     <details id="lvMore">
       <summary>📚 دانستنی: بسته‌ها چقدر بزرگ‌اند؟ <small>(برای کنجکاوها)</small><span class="chev">▾</span></summary>
       <div class="lvm-body">
-        <div class="eq-line" style="color:var(--collapse)">E = h · f</div>
+        <div class="eq-anat"><span class="ea e">E<sub>فوتون</sub></span><span class="op">=</span><span class="ea k">h<sub>ثابت پلانک</sub></span><span class="op">·</span><span class="ea v">f<sub>فرکانس</sub></span></div>
         <div class="note-box"><b>h</b> ثابتِ پلانک است: ≈ <span dir="ltr">۶٫۶۲۶×۱۰<sup>−۳۴</sup> J·s</span> ≈ <span dir="ltr">۴٫۱۳۶×۱۰<sup>−۱۵</sup> eV·s</span>. هرچه فرکانس بالاتر، فوتون پرانرژی‌تر.</div>
         <div class="note-box"><b>رادیوی FM</b> (≈ ۱۰۰ MHz): ≈ <span dir="ltr">۴×۱۰<sup>−۷</sup> eV</span> — پله‌هایش آن‌قدر ریز است که موج کاملاً پیوسته به نظر می‌رسد.</div>
         <div class="note-box"><b>نور قرمز</b> (≈ ۴۳۰ THz): ≈ ۱٫۸ eV · <b>نور بنفش</b> (≈ ۷۵۰ THz): ≈ ۳٫۱ eV.</div>
@@ -2592,10 +2600,11 @@
 
     /* ---------- geometry ---------- */
     let W=0, A=0, cx=0, cy=0, rMax=0, LX0=0, LX1=0, yB=0, yT=0;
+    let BL=1;
     function size(){
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio||1;
-      W = rect.width;
+      const dpr = Math.min(2,window.devicePixelRatio||1);
+      W = rect.width; BL = W>520 ? 1 : 0;
       canvas.width = Math.round(W*dpr); canvas.height = Math.round(H*dpr);
       ctx.setTransform(dpr,0,0,dpr,0,0);
       A = Math.max(120, Math.min(280, W*0.68, W-120));
@@ -2606,6 +2615,7 @@
     }
     size(); addEventListener('resize', size);
     const __lvVis = __inView(canvas);
+    if(window.ResizeObserver) new ResizeObserver(()=>{ if(Math.abs(canvas.getBoundingClientRect().width - W) > 1) size(); }).observe(canvas);
     const levelY = l => yB - lerpArr(FR,l)*(yB-yT);
 
     /* ---------- state ---------- */
@@ -2722,7 +2732,7 @@
       if(Le<=1) return;
       const px = -p.dy, py = p.dx, segs = Math.max(16, Math.round(Le/2));
       ctx.save();
-      ctx.lineWidth = 2.2; ctx.lineJoin='round'; ctx.strokeStyle = p.color; ctx.shadowColor = p.color; ctx.shadowBlur = 12;
+      ctx.lineWidth = 2.2; ctx.lineJoin='round'; ctx.strokeStyle = p.color; ctx.shadowColor = p.color; ctx.shadowBlur = BL*12;
       ctx.beginPath();
       for(let i=0;i<=segs;i++){
         const u = i/segs, s = -Le*(1-u);
@@ -2744,7 +2754,7 @@
       const lam = clamp(a.wl/80,5,14);
       ctx.save();
       ctx.globalAlpha = clamp(a.life,0,1);
-      ctx.strokeStyle = a.color; ctx.fillStyle = a.color; ctx.shadowColor = a.color; ctx.shadowBlur = 8; ctx.lineWidth = 2;
+      ctx.strokeStyle = a.color; ctx.fillStyle = a.color; ctx.shadowColor = a.color; ctx.shadowBlur = BL*8; ctx.lineWidth = 2;
       ctx.beginPath();
       const steps = Math.max(6, Math.floor(body/2));
       for(let i=0;i<=steps;i++){
@@ -2835,10 +2845,10 @@
         const hov = hoverLv===n && state==='idle' && n>=2;
         ctx.save(); ctx.lineCap='round';
         if(settled){
-          ctx.strokeStyle='#62d6ff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur=12; ctx.lineWidth=2.4;
+          ctx.strokeStyle='#62d6ff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur = BL*12; ctx.lineWidth=2.4;
           ctx.globalAlpha = exc ? .85+.15*Math.sin(now/90) : 1;
         } else if(hov){
-          ctx.strokeStyle='#a8ecff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur=10; ctx.lineWidth=2.6;
+          ctx.strokeStyle='#a8ecff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur = BL*10; ctx.lineWidth=2.6;
         } else {
           const br = (state==='idle' && n>=2) ? .1*Math.sin(now/500+n) : 0;
           ctx.strokeStyle = n===1 ? 'rgba(255,255,255,.4)' : `rgba(150,190,255,${.42+br})`; ctx.lineWidth=1.8;
@@ -2863,7 +2873,7 @@
       g = ctx.createRadialGradient(mx,my,0,mx,my,13);
       g.addColorStop(0,'rgba(98,214,255,.6)'); g.addColorStop(1,'rgba(98,214,255,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(mx,my,13,0,6.2832); ctx.fill();
-      ctx.fillStyle='#fff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur=10;
+      ctx.fillStyle='#fff'; ctx.shadowColor='#62d6ff'; ctx.shadowBlur = BL*10;
       ctx.beginPath(); ctx.arc(mx,my,4.2,0,6.2832); ctx.fill(); ctx.shadowBlur=0;
 
       /* rings + photons on top */
@@ -2886,7 +2896,6 @@
     function frame(now){
       requestAnimationFrame(frame);
       if(!__lvVis.v){ last = now; return; }
-      if(Math.abs(canvas.getBoundingClientRect().width - W) > 1) size();
       const dt = Math.min((now-last)/1000,.05); last = now;
       update(dt); draw(now);
     }
