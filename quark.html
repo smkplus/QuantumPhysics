@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>🧩 کوارک‌ها: درونِ پروتون | آزمایشگاه فیزیک کوانتوم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0a12; --panel:#14141f; --panel2:#101019; --border:#252536;
+    --ink:#e8e6f0; --muted:#8b8ea3;
+    --wave:#62d6ff; --collapse:#ffb454; --entangle:#c792ea; --alive:#7ee08a; --dead:#ff6b6b;
+    color-scheme: dark;
+  }
+  *,*::before,*::after{ box-sizing:border-box; min-width:0; }
+  html{ width:100%; max-width:100vw; overflow-x:hidden; -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  body{
+    margin:0; width:100%; max-width:100vw; overflow-x:hidden; position:relative;
+    background:var(--void); color:var(--ink); font-family:'Vazirmatn',sans-serif; line-height:1.8;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  img,svg,canvas{ max-width:100%; }
+
+  canvas#fxCanvas{ position:fixed; inset:0; z-index:50; pointer-events:none; width:100%; height:100%; }
+  #flashOverlay{ position:fixed; inset:0; z-index:49; pointer-events:none; opacity:0; mix-blend-mode:screen; transition:opacity .09s ease-out; }
+  #flashOverlay.on{ transition:opacity .02s ease-out; }
+
+  header{ padding:68px 20px 22px; max-width:720px; margin:0 auto; text-align:center; position:relative; }
+  header .kicker{ font-size:13px; color:var(--wave); font-weight:700; margin-bottom:10px; }
+  header h1{ font-size:clamp(24px,6vw,34px); font-weight:800; margin:0 0 12px; }
+  header p{ font-size:15px; color:var(--muted); max-width:560px; margin:0 auto; }
+  .qdef{ max-width:600px; margin:0 auto 16px; padding:14px 18px; text-align:right; font-size:14.5px; line-height:2; color:var(--ink);
+    background:var(--panel2); border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:14px; }
+  .qdef b{ color:var(--wave); }
+  #soundBtn,#musicBtn{
+    position:absolute; top:16px; left:20px; width:38px; height:38px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer;
+    font-size:16px; display:flex; align-items:center; justify-content:center;
+  }
+  #musicBtn{ left:66px; }
+  #soundBtn.off,#musicBtn.off{ opacity:.5; }
+
+  main{ max-width:720px; margin:0 auto; padding:6px 18px 70px; }
+
+  section.concept{ padding-top:34px; }
+  section.concept:not(:first-child){ border-top:1px solid var(--border); margin-top:34px; }
+  .concept-head h2{ font-size:clamp(18px,4.6vw,22px); font-weight:800; margin:0 0 10px; display:flex; align-items:center; gap:9px; }
+  .concept-desc{ font-size:14px; color:#c7c3da; margin:0 0 18px; }
+
+  .demo{ background:var(--panel2); border:1px solid var(--border); border-radius:14px; padding:16px; transition:box-shadow .3s ease, border-color .3s ease, transform .3s ease; }
+  .demo:hover{ border-color:#31314a; box-shadow:0 10px 30px -14px rgba(0,0,0,.6); }
+  .demo.pulse{ animation:demoPulse .6s cubic-bezier(.2,.9,.15,1); }
+  @keyframes demoPulse{
+    0%{ box-shadow:0 0 0 1px rgba(255,255,255,0); transform:scale(1); }
+    22%{ box-shadow:0 0 0 1.5px var(--pulse-c,var(--wave)), 0 0 42px -4px var(--pulse-c,var(--wave)); transform:scale(1.008); }
+    100%{ box-shadow:0 0 0 1px rgba(255,255,255,0); transform:scale(1); }
+  }
+
+  .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .slider-group{ margin-bottom:12px; }
+  .slider-group label{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted); margin-bottom:6px; }
+  input[type=range]{ width:100%; -webkit-appearance:none; appearance:none; height:5px; border-radius:4px; background:#20202f; outline:none; transition:background .2s ease; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--wave); cursor:pointer; box-shadow:0 0 8px rgba(98,214,255,.6); transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease; }
+  input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:var(--wave); border:none; box-shadow:0 0 8px rgba(98,214,255,.6); cursor:pointer; transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease; }
+  input[type=range]:active::-webkit-slider-thumb{ transform:scale(1.35); box-shadow:0 0 18px rgba(98,214,255,.9); }
+  input[type=range]:active::-moz-range-thumb{ transform:scale(1.35); box-shadow:0 0 18px rgba(98,214,255,.9); }
+
+  button.act{
+    font-family:inherit; font-size:13.5px; font-weight:700; cursor:pointer;
+    padding:9px 16px; border-radius:11px; border:1px solid var(--border);
+    background:#181826; color:var(--ink); transition:transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease, box-shadow .18s ease, color .18s ease;
+  }
+  button.act:hover{ border-color:var(--wave); transform:translateY(-2px); box-shadow:0 4px 18px -4px rgba(98,214,255,.45); }
+  button.act:active{ transform:translateY(1px) scale(.95); box-shadow:0 0 10px -2px rgba(98,214,255,.5); }
+  button.act.ghost{ background:transparent; color:var(--muted); }
+  button.act.ghost:hover{ color:var(--ink); border-color:var(--muted); }
+  button.act.on{ border-color:var(--collapse); color:var(--collapse); box-shadow:0 0 16px -4px rgba(255,180,84,.55); }
+
+  .readouts{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .readout{ flex:1 1 130px; background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:9px 12px; }
+  .readout .rl{ font-size:11px; color:var(--muted); margin-bottom:3px; }
+  .readout .rv{ font-size:14px; font-weight:700; transition:transform .2s ease; }
+  .readout .rv.bump{ transform:scale(1.25); }
+  .c-wave{ color:var(--wave); } .c-collapse{ color:var(--collapse); } .c-ent{ color:var(--entangle); }
+  .c-alive{ color:var(--alive); } .c-dead{ color:var(--dead); }
+
+  canvas.demo-canvas{ display:block; width:100%; height:200px; border-radius:10px; background:#06060b; border:1px solid var(--border); margin-bottom:12px; }
+  #levelsCanvas.demo-canvas{ height:300px; touch-action:manipulation; }
+  .lv-status{ margin-top:10px; padding:9px 12px; min-height:20px; background:#0c0c14; border:1px solid var(--border); border-radius:10px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+
+  /* superposition */
+  .qubit-stage{ display:flex; align-items:center; justify-content:center; gap:26px; padding:14px 0 18px; }
+  .blob{ width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .35s ease, box-shadow .35s ease; animation:blobBreathe 2.6s ease-in-out infinite; cursor:default; }
+  .blob:hover{ animation-play-state:paused; transform:scale(1.09); }
+  .blob.b0{ background:radial-gradient(circle at 35% 30%, rgba(98,214,255,.9), rgba(98,214,255,.25)); color:#04202b; box-shadow:0 0 22px -4px rgba(98,214,255,.55); }
+  .blob.b1{ background:radial-gradient(circle at 35% 30%, rgba(255,180,84,.9), rgba(255,180,84,.25)); color:#2b1704; box-shadow:0 0 22px -4px rgba(255,180,84,.55); }
+  @keyframes blobBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.045); } }
+  .qubit-plus{ font-size:20px; color:var(--muted); }
+  .prob-bars{ display:flex; flex-direction:column; gap:8px; margin-bottom:6px; }
+  .prob-bar-row{ display:flex; align-items:center; gap:10px; }
+  .prob-bar-row .lab{ width:56px; font-size:12.5px; font-family:'JetBrains Mono',monospace; flex:0 0 auto; }
+  .prob-bar-track{ flex:1; height:9px; border-radius:5px; background:#20202f; overflow:hidden; }
+  .prob-bar-fill{ height:100%; border-radius:5px; transition:width .4s cubic-bezier(.2,.9,.15,1); }
+  .prob-bar-fill.p0{ background:var(--wave); box-shadow:0 0 10px rgba(98,214,255,.55); } .prob-bar-fill.p1{ background:var(--collapse); box-shadow:0 0 10px rgba(255,180,84,.55); }
+  .qubit-result{ text-align:center; font-size:13.5px; color:var(--muted); min-height:20px; margin-top:6px; }
+
+  /* entanglement + spin badges */
+  .ent-stage{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:8px 6px 18px; }
+  .ent-particle{ flex:1; text-align:center; }
+  .ent-loc{ font-size:11.5px; color:var(--muted); margin-bottom:8px; }
+  .ent-badge{ width:64px; height:64px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; background:#1a1a29; border:2px dashed var(--border); color:var(--muted); transition:transform .3s cubic-bezier(.34,1.56,.64,1), border-color .25s ease, color .25s ease, background .25s ease, box-shadow .3s ease; font-family:'JetBrains Mono',monospace; }
+  .ent-badge.set{ border-style:solid; }
+  .ent-badge.up{ border-color:var(--entangle); color:var(--entangle); background:rgba(199,146,234,.12); box-shadow:0 0 24px -5px rgba(199,146,234,.7); }
+  .ent-badge.down{ border-color:var(--wave); color:var(--wave); background:rgba(98,214,255,.12); box-shadow:0 0 24px -5px rgba(98,214,255,.7); }
+  .ent-badge.flash{ transform:scale(1.35); }
+  .ent-link{ flex:0 0 auto; font-size:12px; color:var(--muted); text-align:center; }
+  .ent-link .ln{ width:36px; height:2px; background:linear-gradient(90deg, var(--wave), var(--entangle)); margin:6px auto; border-radius:2px; animation:linkGlow 1.6s ease-in-out infinite; }
+  @keyframes linkGlow{ 0%,100%{ opacity:.5; } 50%{ opacity:1; box-shadow:0 0 10px rgba(199,146,234,.6); } }
+
+  /* entanglement lab */
+  #entDemo canvas{ display:block; width:100%; }
+  #entCv{ touch-action:pan-y; cursor:grab; }
+  .ent-note{ margin-top:12px; padding:10px 12px; border-radius:10px; font-size:12.5px; color:#c7c3da; background:rgba(199,146,234,.07); border:1px solid rgba(199,146,234,.25); }
+  .ent-streak{ color:var(--collapse); font-weight:800; }
+
+  /* spin */
+  .spin-wrap{ position:relative; width:64px; height:64px; margin:0 auto; }
+  .spin-axis{ position:absolute; top:50%; left:50%; width:120px; height:2px; margin-top:-1px; margin-left:-60px; border-radius:2px; background:linear-gradient(90deg, transparent, rgba(199,146,234,.6) 30%, rgba(199,146,234,.6) 70%, transparent); transition:transform .4s cubic-bezier(.34,1.56,.64,1), background .3s ease; pointer-events:none; z-index:0; }
+  .spin-axis.x{ transform:rotate(0deg); background:linear-gradient(90deg, transparent, rgba(98,214,255,.6) 30%, rgba(98,214,255,.6) 70%, transparent); }
+  .spin-axis.z{ transform:rotate(90deg); }
+  .spin-wrap .ent-badge{ position:relative; z-index:1; }
+  .spin-badge svg{ display:block; filter:drop-shadow(0 0 5px currentColor); }
+  .spin-badge.measuring{ animation:spinSnap .5s cubic-bezier(.36,.07,.19,.97); }
+  @keyframes spinSnap{
+    0%{ transform:scale(1) rotate(0deg); }
+    20%{ transform:scale(.82) rotate(-16deg); }
+    48%{ transform:scale(1.18) rotate(12deg); }
+    72%{ transform:scale(.94) rotate(-5deg); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+
+  /* schrodinger's cat */
+  .cat-stage{ display:flex; justify-content:center; padding:10px 0 20px; }
+  .cat-box{ position:relative; width:190px; height:190px; border-radius:22px; overflow:hidden; background:radial-gradient(circle at 30% 20%, #23233a, #0f0f18 75%); border:2px solid var(--border); box-shadow:inset 0 0 30px rgba(0,0,0,.5), 0 12px 34px -12px rgba(0,0,0,.7); transition:box-shadow .3s ease, transform .3s ease; }
+  .cat-box:hover{ transform:translateY(-2px); box-shadow:inset 0 0 30px rgba(0,0,0,.5), 0 18px 40px -12px rgba(0,0,0,.8); }
+  .cat-box.shaking{ animation:catShake .4s ease; }
+  @keyframes catShake{ 0%,100%{ transform:translateX(0) rotate(0); } 20%{ transform:translateX(-4px) rotate(-1.5deg); } 40%{ transform:translateX(4px) rotate(1.5deg); } 60%{ transform:translateX(-3px) rotate(-1deg); } 80%{ transform:translateX(3px) rotate(1deg); } }
+  .cat-ghosts{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .cat-ghost{ position:absolute; font-size:66px; animation:flicker 1.7s ease-in-out infinite; filter:drop-shadow(0 0 10px rgba(126,224,138,.35)); }
+  .cat-ghost.dead{ animation-delay:.85s; filter:drop-shadow(0 0 10px rgba(255,107,107,.35)); }
+  @keyframes flicker{ 0%,100%{ opacity:.16; transform:scale(.88) rotate(-4deg); } 50%{ opacity:.55; transform:scale(1.05) rotate(3deg); } }
+  .cat-lid{ position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:linear-gradient(160deg,#181826,#0a0a12); transition:transform .5s cubic-bezier(.2,.9,.15,1.35), opacity .4s ease; }
+  .cat-lid .q{ font-size:38px; color:var(--muted); }
+  .cat-lid .lidtxt{ font-size:11.5px; color:var(--muted); }
+  .cat-lid.open{ transform:translateY(-115%) rotate(-6deg); opacity:0; pointer-events:none; }
+  .cat-reveal{ position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; font-size:84px; opacity:0; transform:scale(.25) rotate(-20deg); transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+  .cat-reveal.show{ opacity:1; transform:scale(1) rotate(0); }
+  .cat-reveal.alive{ filter:drop-shadow(0 0 22px rgba(126,224,138,.6)); }
+  .cat-reveal.dead{ filter:drop-shadow(0 0 22px rgba(255,107,107,.6)); }
+
+  /* bit vs qubit · 3D coins */
+  canvas.bq-canvas{ display:block; width:100%; border-radius:12px; cursor:grab; touch-action:pan-y; user-select:none; -webkit-user-select:none; background:#07070d; }
+  canvas.bq-canvas:active{ cursor:grabbing; }
+  .bq-btns{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+  .bq-read{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; font-size:12.5px; color:var(--muted); }
+  .bq-read span.chip{ background:#0c0c14; border:1px solid var(--border); border-radius:999px; padding:3px 12px; }
+  .bq-hint{ text-align:center; font-size:11.5px; color:var(--muted); margin-top:8px; }
+
+  /* schrodinger's cat 3D */
+  canvas.cat3d-canvas{ cursor:grab; touch-action:pan-y; user-select:none; -webkit-user-select:none; }
+  .chain{ list-style:none; margin:0 0 10px; padding:0; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+  .chain li{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); background:#0c0c14; border:1px solid var(--border); border-radius:999px; padding:3px 10px 3px 8px; transition:color .25s ease, border-color .25s ease, background .25s ease; }
+  .chain li b{ width:18px; height:18px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; background:#1b1b2b; color:var(--muted); transition:background .25s ease, color .25s ease; }
+  .chain li.on{ color:var(--collapse); border-color:rgba(255,180,84,.6); background:rgba(255,180,84,.08); }
+  .chain li.on b{ background:var(--collapse); color:#14141f; }
+  .cat-key{ display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:center; font-size:11.5px; color:var(--muted); }
+  .cat-key .dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-inline-end:6px; }
+  .cat-key .dot.alive{ background:var(--alive); box-shadow:0 0 8px var(--alive); }
+  .cat-key .dot.dead{ background:var(--dead); box-shadow:0 0 8px var(--dead); }
+  button.act[hidden]{ display:none !important; }
+  .act.fix{ background:linear-gradient(135deg,var(--wave),var(--entangle)); color:#04121a; border-color:transparent; font-weight:800; box-shadow:0 6px 22px -8px rgba(98,214,255,.6); }
+  .act.fix:hover{ color:#04121a; border-color:transparent; box-shadow:0 6px 26px -4px rgba(98,214,255,.8); }
+  .act.fix.need{ animation:fixGlow 1.6s ease-in-out infinite; }
+  @keyframes fixGlow{ 0%,100%{ box-shadow:0 6px 20px -8px rgba(98,214,255,.5); } 50%{ box-shadow:0 0 0 3px rgba(98,214,255,.25), 0 8px 30px -4px rgba(199,146,234,.85); } }
+  .act:disabled{ opacity:.4; cursor:default; transform:none; box-shadow:none; border-color:var(--border); }
+
+  /* applications */
+  .app-grid{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:14px; }
+  .app-chip{
+    font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
+    padding:10px 14px; border-radius:11px; border:1px solid var(--border);
+    background:#181826; color:var(--ink); transition:transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease, box-shadow .18s ease;
+  }
+  .app-chip:hover{ border-color:var(--wave); transform:translateY(-2px); box-shadow:0 4px 16px -6px rgba(98,214,255,.5); }
+  .app-chip:active{ transform:translateY(1px) scale(.96); }
+  .app-chip.active{ border-color:var(--collapse); color:var(--collapse); background:rgba(255,180,84,.08); box-shadow:0 0 18px -6px rgba(255,180,84,.6); }
+
+  /* double slit · 3D */
+  .ds-stage{ position:relative; }
+  canvas.ds-canvas{ touch-action:pan-y; cursor:grab; margin-bottom:10px; }
+  canvas.ds-canvas:active{ cursor:grabbing; }
+  .ds-hint{ position:absolute; top:10px; right:12px; font-size:11px; color:var(--muted); pointer-events:none; opacity:.8; }
+  .ds-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .ds-chips .app-chip{ padding:7px 11px; font-size:12.5px; }
+  .ds-chips .app-chip[data-w="A"].active{ border-color:var(--wave); color:var(--wave); background:rgba(98,214,255,.08); box-shadow:0 0 18px -6px rgba(98,214,255,.6); }
+  .ds-chips .app-chip[data-w="sum"].active, .ds-chips .app-chip[data-c].active{ border-color:var(--entangle); color:var(--entangle); background:rgba(199,146,234,.09); box-shadow:0 0 18px -6px rgba(199,146,234,.6); }
+
+  .tun-layers{ margin:2px 0 12px; }
+  .tun-layers-title{ display:block; font-size:12.5px; color:var(--ink); font-weight:700; margin-bottom:7px; }
+  .tun-layers-title small{ color:var(--muted); font-weight:400; }
+  .tun-layers-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tun-layer{ font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); background:#0c0c14;
+    border:1px solid var(--border); border-radius:999px; padding:7px 14px 7px 12px; transition:all .15s; opacity:.75; }
+  .tun-layer small{ font-weight:400; font-size:11px; }
+  .tun-layer::before{ content:"○ "; }
+  .tun-layer.active::before{ content:"● "; }
+  .tun-layer.active{ opacity:1; }
+  .tun-layer.wave.active{ color:var(--wave); border-color:var(--wave); background:rgba(98,214,255,.09); }
+  .tun-layer.prob.active{ color:var(--collapse); border-color:var(--collapse); background:rgba(255,180,84,.09); }
+  .tun-layer.dot.active{ color:var(--ink); border-color:var(--ink); background:rgba(255,255,255,.07); }
+  .tun-layer:hover{ opacity:1; }
+  #tunFormulaBox{ margin-bottom:14px; }
+  #tunFormulaBox > summary{ cursor:pointer; list-style:none; direction:rtl; text-align:right; font-family:'Vazirmatn',sans-serif;
+    font-size:12.5px; font-weight:700; color:var(--wave); background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:9px 13px; }
+  #tunFormulaBox > summary::-webkit-details-marker{ display:none; }
+  #tunFormulaBox > summary::before{ content:"▸ "; }
+  #tunFormulaBox[open] > summary::before{ content:"▾ "; }
+  #tunFormulaBox[open] > summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #tunFormulaBox[open] > #tunFormula{ margin-bottom:0; border-top:0; border-top-left-radius:0; border-top-right-radius:0; }
+  #tunChanceLine{ direction:rtl; text-align:right; font-family:'Vazirmatn',sans-serif; color:var(--ink); font-size:13px; line-height:1.9; margin:0 0 10px; }
+  .ds-cap{ font-size:13px; color:var(--muted); line-height:1.95; background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:10px 13px; margin-bottom:12px; min-height:4.2em; }
+  .ds-cap b{ color:var(--ink); }
+  #dsPlot.demo-canvas{ height:150px; }
+  .ds-rate{ margin-bottom:12px; }
+  .ds-rate-head{ display:flex; justify-content:space-between; align-items:baseline; font-size:12.5px; color:var(--muted); margin-bottom:8px; }
+  .ds-rate-head b{ color:var(--ink); font-size:13px; }
+  .ds-rate-box{ direction:ltr; }
+  input#dsRate{ height:10px; border-radius:6px; margin:6px 0 0;
+    background:linear-gradient(to right, transparent calc(11px + (100% - 22px)*var(--p,.3)), rgba(6,6,11,.78) calc(11px + (100% - 22px)*var(--p,.3))), linear-gradient(to right,#62d6ff,#7ee08a,#ffe17a,#ffb454,#ff6b6b); }
+  input#dsRate::-webkit-slider-thumb{ width:22px; height:22px; background:var(--tc,#62d6ff); border:2px solid #0a0a12; box-shadow:0 0 14px var(--tc,#62d6ff); }
+  input#dsRate::-moz-range-thumb{ width:18px; height:18px; background:var(--tc,#62d6ff); border:2px solid #0a0a12; box-shadow:0 0 14px var(--tc,#62d6ff); }
+  .ds-scale{ display:flex; justify-content:space-between; direction:ltr; font-size:11px; color:var(--muted); margin-top:2px; }
+  .ds-rate-note{ font-size:12px; color:var(--muted); margin-top:7px; line-height:1.8; min-height:3.4em; }
+  .ds-probe{ display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; margin-bottom:12px; }
+  #dsPhasor.demo-canvas{ width:150px; height:150px; flex:0 0 150px; margin-bottom:0; }
+  .ds-probe-side{ flex:1 1 240px; min-width:0; }
+
+  /* history timeline · a growing vertical stem, nodes that get bigger as the field grows */
+  @keyframes tlFade{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+  .tl-wrap{ position:relative; padding-inline-start:6px; contain:layout style; }
+  .tl-svg{ position:absolute; inset:0; z-index:0; overflow:visible; pointer-events:none; }
+  .tl-path{ fill:none; stroke-width:3; stroke-linecap:round; }
+  .tl-item{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;
+    opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.15,1); }
+  .tl-item.reveal{ opacity:1; transform:translateY(0); }
+  .tl-gutter{ flex:0 0 56px; display:flex; justify-content:center; padding-top:2px; transition:transform .4s cubic-bezier(.2,.9,.15,1); }
+  .tl-node2{ width:var(--r); height:var(--r); border-radius:50%; flex:0 0 auto; cursor:pointer;
+    background:radial-gradient(circle at 32% 28%, rgb(var(--c-rgb)), rgba(var(--c-rgb),.5));
+    box-shadow:0 0 0 5px var(--void), 0 0 14px -2px rgba(var(--c-rgb),.85);
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+  .tl-item:hover .tl-node2{ transform:scale(1.1); }
+  .tl-item.active .tl-node2{ transform:scale(1.22); box-shadow:0 0 0 5px var(--void), 0 0 22px 0px rgba(var(--c-rgb),1); }
+  .tl-card{ flex:1; min-width:0; background:#12121c; border:1px solid var(--border); border-radius:14px;
+    padding:11px 14px; cursor:pointer; transition:border-color .25s ease, box-shadow .3s ease; }
+  .tl-item.active .tl-card{ border-color:rgba(var(--c-rgb),.6); box-shadow:0 0 0 1px rgba(var(--c-rgb),.3) inset, 0 12px 28px -16px rgba(var(--c-rgb),.55); }
+  .tl-card-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .tl-badge{ font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:rgb(var(--c-rgb));
+    background:rgba(var(--c-rgb),.14); border:1px solid rgba(var(--c-rgb),.4); border-radius:6px; padding:2px 6px; flex:0 0 auto; }
+  .tl-yr{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:14.5px; color:var(--ink); }
+  .tl-nm{ font-size:12px; color:var(--muted); }
+  .tl-chev{ margin-inline-start:auto; color:var(--muted); font-size:11px; transition:transform .3s ease, color .3s ease; flex:0 0 auto; }
+  .tl-item.active .tl-chev{ transform:rotate(180deg); color:rgb(var(--c-rgb)); }
+  .tl-card-body{ font-size:12.5px; color:var(--muted); line-height:1.9; margin-top:0; max-height:0; overflow:hidden;
+    transition:max-height .35s ease, margin-top .35s ease, padding-top .35s ease; border-top:0 dashed var(--border); }
+  .tl-item.active .tl-card-body{ margin-top:8px; padding-top:8px; border-top-width:1px; max-height:400px; animation:tlFade .3s ease; }
+
+  .tl-stats{ display:flex; justify-content:center; gap:26px; margin-bottom:20px; flex-wrap:wrap; }
+  .tl-stat{ text-align:center; }
+  .tl-stat-num{ display:block; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:23px;
+    background:linear-gradient(90deg,var(--wave),var(--entangle) 55%,var(--collapse)); -webkit-background-clip:text;
+    background-clip:text; color:transparent; }
+  .tl-stat-lbl{ font-size:10.5px; color:var(--muted); }
+  .tl-era{ display:flex; align-items:center; gap:8px; justify-content:center; margin:24px auto 16px; padding:7px 15px;
+    border-radius:999px; background:rgba(var(--c-rgb),.13); border:1px solid rgba(var(--c-rgb),.45);
+    font-size:12px; font-weight:700; color:rgb(var(--c-rgb)); width:fit-content; position:relative; z-index:1; }
+  .tl-era{ cursor:pointer; user-select:none; transition:background .25s ease; }
+  .tl-era:hover{ background:rgba(var(--c-rgb),.22); }
+  .tl-era{ padding:8px 10px 8px 15px; gap:9px; box-shadow:0 0 0 1px rgba(var(--c-rgb),.12), 0 6px 18px -10px rgba(var(--c-rgb),.6); }
+  .tl-era-cnt{ font-size:10.5px; font-weight:600; opacity:.8; padding-inline-start:9px; border-inline-start:1px solid rgba(var(--c-rgb),.4); }
+  .tl-era-chev{ width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px;
+    background:rgba(var(--c-rgb),.22); border:1px solid rgba(var(--c-rgb),.55); transition:transform .3s ease; }
+  .tl-era.collapsed{ margin:10px auto; }
+  .tl-era:not(.collapsed) .tl-era-chev{ transform:rotate(180deg); }
+  .tl-item.tl-hide{ display:none; }
+  .tl-item.tl-enter{ animation:tlFade .35s ease; }
+  .tl-era-range{ font-size:10.5px; opacity:.75; font-weight:600; }
+
+  /* ===== tabs ===== */
+  .tabbar{ position:sticky; top:0; z-index:40; display:flex; justify-content:center; gap:8px;
+    padding:10px 16px; margin:0 auto 6px; max-width:720px; backdrop-filter:blur(14px);
+    background:linear-gradient(180deg, rgba(10,10,18,.88), rgba(10,10,18,.55)); }
+  .tab-btn{ font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; flex:1; max-width:230px;
+    padding:11px 14px; border-radius:13px; border:1px solid var(--border); background:#14141f; color:var(--muted);
+    display:flex; align-items:center; justify-content:center; gap:6px; transition:all .25s cubic-bezier(.2,.9,.15,1); }
+  .tab-btn.active{ color:#04121a; background:linear-gradient(135deg, var(--wave), var(--entangle));
+    border-color:transparent; box-shadow:0 6px 22px -8px rgba(98,214,255,.55); }
+  .view{ display:none; }
+  .view.active{ display:block; animation:viewIn .35s cubic-bezier(.2,.9,.15,1); }
+  @keyframes viewIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ===== formula-alphabet tab ===== */
+  #viewFormulas{ max-width:720px; margin:0 auto; padding:10px 18px 70px; }
+  .fa-hero{ text-align:center; padding:20px 6px 22px; }
+  .fa-kicker{ font-family:'JetBrains Mono',monospace; letter-spacing:3px; font-size:12px; color:var(--entangle); margin-bottom:10px; opacity:.85; }
+  .fa-title{ font-size:clamp(24px,7vw,32px); font-weight:800; margin:0 0 10px;
+    background:linear-gradient(90deg, var(--wave), var(--entangle) 60%, var(--collapse));
+    -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% auto;
+    animation:faShine 6s linear infinite; }
+  @keyframes faShine{ to{ background-position:200% center; } }
+  .fa-sub{ font-size:14px; color:var(--muted); max-width:520px; margin:0 auto; }
+
+  .glossary-hint{ text-align:center; font-size:11.5px; color:var(--muted); margin:-8px 0 14px; }
+  .glossary{ display:grid; grid-template-columns:repeat(auto-fill, minmax(122px,1fr)); gap:12px; padding:4px 2px 26px; }
+  .gcard{ perspective:1000px; height:136px; }
+  .gcard-inner{ position:relative; width:100%; height:100%; cursor:pointer;
+    transition:transform .6s cubic-bezier(.34,1.56,.64,1); transform-style:preserve-3d; }
+  .gcard.flipped .gcard-inner{ transform:rotateY(180deg); }
+  .gcard:hover .gcard-inner{ transform:translateY(-3px); }
+  .gcard.flipped:hover .gcard-inner{ transform:rotateY(180deg) translateY(-3px); }
+  .gface{ position:absolute; inset:0; backface-visibility:hidden; border-radius:16px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:10px 9px;
+    border:1px solid rgba(var(--c-rgb),.4);
+    background:linear-gradient(160deg, rgba(var(--c-rgb),.16), rgba(255,255,255,0) 62%), #12121c;
+    box-shadow:0 0 0 rgba(var(--c-rgb),0); transition:box-shadow .3s ease, border-color .3s ease; }
+  .gcard:hover .gface{ border-color:rgba(var(--c-rgb),.85); box-shadow:0 8px 26px -10px rgba(var(--c-rgb),.55); }
+  .gfront .icon{ font-size:25px; margin-bottom:6px; filter:drop-shadow(0 0 8px rgba(var(--c-rgb),.65)); animation:gfloat 3.6s ease-in-out infinite; }
+  @keyframes gfloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+  .gfront .sym{ font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:800; color:rgb(var(--c-rgb)); margin-bottom:4px; direction:ltr; }
+  .gfront .lbl{ font-size:10.5px; color:var(--muted); line-height:1.3; }
+  .gback{ transform:rotateY(180deg); gap:7px; }
+  .gback .mn{ font-size:10px; color:var(--ink); line-height:1.55; }
+  .gback .jump{ font-size:10.5px; font-weight:700; color:rgb(var(--c-rgb)); padding:4px 9px; border-radius:8px;
+    border:1px solid rgba(var(--c-rgb),.55); transition:transform .15s ease, background .2s ease; white-space:nowrap; }
+  .gback .jump:hover, .gback .jump:active{ transform:translateY(-1px); background:rgba(var(--c-rgb),.18); }
+  .gcard.flash .gface{ animation:gflash .7s ease; }
+  @keyframes gflash{ 0%,100%{ box-shadow:0 0 0 rgba(var(--c-rgb),0); } 40%{ box-shadow:0 0 26px 3px rgba(var(--c-rgb),.9); } }
+
+  .formula-grid{ display:flex; flex-direction:column; gap:14px; }
+  .f-card{ position:relative; overflow:hidden; cursor:pointer; border-radius:18px; padding:18px 20px;
+    background:linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,0) 55%), #12121c;
+    border:1px solid var(--border); border-inline-start:3px solid var(--accent, var(--wave));
+    opacity:0; transform:translateY(14px); transition:transform .5s cubic-bezier(.2,.9,.15,1), opacity .5s ease,
+      border-color .2s ease, box-shadow .3s ease; }
+  .f-card.reveal{ opacity:1; transform:translateY(0); }
+  .f-card:hover{ box-shadow:0 10px 30px -14px rgba(0,0,0,.6); }
+  .f-card.active{ box-shadow:0 0 0 1px var(--accent,var(--wave)) inset, 0 14px 34px -16px rgba(0,0,0,.65); }
+  .f-head-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .f-idx-badge{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:11px; color:var(--accent,var(--wave));
+    background:rgba(255,255,255,.06); border:1px solid var(--accent,var(--wave)); border-radius:7px; padding:3px 7px; flex:0 0 auto; }
+  .f-name{ font-size:12.5px; color:var(--muted); }
+  .f-eq{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(19px,5.5vw,23px); direction:ltr; text-align:center;
+    padding:10px 0 4px; color:var(--accent,var(--wave)); }
+  .f-eq sup{ font-size:11px; } .f-eq sub{ font-size:11px; }
+  .f-chevron{ margin-inline-start:auto; color:var(--muted); font-size:12px; transition:transform .3s ease; flex:0 0 auto; }
+  .f-card.active .f-chevron{ transform:rotate(180deg); color:var(--accent,var(--wave)); }
+  .f-explain{ font-size:12.5px; color:var(--muted); line-height:1.9; margin-top:8px; padding-top:12px; border-top:1px dashed var(--border); display:none; }
+  .f-card.active .f-explain{ display:block; animation:tlFade .3s ease; }
+  .f-terms{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+  .f-term{ font-size:10.5px; background:#171726; border:1px solid var(--border); border-radius:7px; padding:4px 8px; color:var(--muted); }
+  .f-term b{ color:var(--ink); font-family:'JetBrains Mono',monospace; }
+
+  /* formula live widgets */
+  .f-live{ margin-top:12px; padding-top:12px; border-top:1px dashed var(--border); }
+  .f-live .slider-group{ margin-bottom:10px; }
+  .f-live-row{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .f-swatch{ width:46px; height:46px; border-radius:50%; flex:0 0 auto; background:#181826; border:1px solid var(--border); transition:background .2s ease, box-shadow .2s ease; }
+  .f-live-readouts{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .f-live-line{ font-size:12.5px; color:var(--muted); }
+  .f-live-line b{ font-weight:700; color:var(--ink); }
+  .f-compare{ font-size:12px; color:var(--muted); margin-top:2px; }
+  .f-bar-track{ height:10px; border-radius:6px; background:#20202f; overflow:hidden; margin-bottom:8px; }
+  .f-bar-fill{ height:100%; border-radius:6px; background:var(--wave); width:0.4%; transition:width .3s ease, background .3s ease; }
+  .f-dot-box{ position:relative; width:100%; height:60px; border-radius:10px; background:#06060b; border:1px solid var(--border); overflow:hidden; margin-top:6px; display:flex; align-items:center; justify-content:center; }
+  .f-dot{ width:12px; height:12px; border-radius:50%; background:var(--collapse); box-shadow:0 0 12px var(--collapse); }
+  .f-wave-canvas{ display:block; width:100%; height:90px; border-radius:10px; background:#06060b; border:1px solid var(--border); margin-bottom:10px; }
+  .f-toggle-row button.act.on{ border-color:var(--wave); color:var(--wave); box-shadow:0 0 16px -4px rgba(98,214,255,.55); }
+
+  footer.credit{ text-align:center; font-size:12px; color:var(--muted); padding:34px 0 20px; }
+  .credit-card{ display:block; width:fit-content; max-width:100%; margin:14px auto 0; text-align:center; }
+  .credit-card .cc-row{ display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:0 8px; }
+  .credit-card .cc-thanks{ margin-top:2px; }
+  .credit-card .cc-by,.credit-card .cc-by2{ font-size:12.5px; color:var(--muted); }
+  .credit-card .cc-name{
+    font-size:16px; font-weight:800; line-height:1.7;
+    background:linear-gradient(90deg,var(--wave),var(--entangle)); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:var(--wave);
+  }
+
+  .step-h{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:800; margin:30px 0 8px; }
+  .step-h .sh-ico{ flex:0 0 auto; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; font-size:17px; border-radius:10px; background:rgba(98,214,255,.1); border:1px solid rgba(98,214,255,.3); }
+  .step-h .no{ display:inline; direction:ltr; unicode-bidi:isolate; color:var(--wave); font-weight:800; font-size:inherit; background:none; border:0; padding:0; min-width:0; height:auto; }
+
+  .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
+  #sec-quark .zoom-tabs{ flex-wrap:wrap; }
+  #sec-quark .zoom-tab{ flex:1 1 auto; }
+  .zoom-tab{ flex:1; display:flex; align-items:center; justify-content:center; gap:7px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
+    color:var(--muted); background:transparent; border:0; border-radius:10px; padding:9px 6px; transition:all .15s; }
+  .zoom-tab .no{ width:20px; height:20px; font-size:11px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; border:1px solid currentColor; flex:0 0 auto; }
+  .zoom-tab:hover{ color:var(--ink); }
+  .zoom-tab.active{ color:#04121a; background:linear-gradient(135deg, var(--wave), var(--entangle)); }
+  .zoom-panel{ display:none; }
+  .zoom-panel.active{ display:block; }
+  .zoom-panel > .step-h{ margin-top:0; }
+  @media (max-width:520px){ .zoom-tab{ font-size:12px; gap:5px; } .zoom-tab .no{ display:none; } }
+  .q-slots{ display:flex; gap:10px; justify-content:center; margin:0 0 12px; }
+  .q-slot{ font-family:'JetBrains Mono',monospace; cursor:pointer; background:#0c0c14; color:var(--ink); border:1px solid var(--border); border-radius:12px; padding:8px 20px; font-size:20px; font-weight:800; line-height:1.3; transition:border-color .15s; }
+  .q-slot small{ display:block; font-family:'Vazirmatn',sans-serif; font-size:11px; font-weight:400; color:var(--muted); }
+  .q-slot:hover{ border-color:var(--wave); }
+  .q-goalbar{ margin-bottom:12px; }
+  #qProg{ display:block; font-size:12.5px; color:var(--muted); margin-bottom:7px; }
+  .q-goals{ display:flex; flex-wrap:wrap; gap:8px; }
+  .q-goal{ font-size:12.5px; padding:6px 12px; border-radius:999px; border:1px dashed var(--border); color:var(--muted); background:#0c0c14; }
+  .q-goal.found{ border:1px solid var(--collapse); color:var(--collapse); background:rgba(255,180,84,.09); font-weight:700; }
+  .q-pal{ display:flex; flex-wrap:wrap; gap:10px; align-items:stretch; margin:12px 0 4px; }
+  .q-tok{ flex:1 1 150px; display:flex; align-items:center; gap:12px; cursor:pointer; font-family:inherit; color:var(--ink); text-align:right; background:#0c0c14; border:1px solid var(--border); border-radius:14px; padding:10px 14px; transition:transform .12s,border-color .12s; }
+  .q-tok:hover{ border-color:var(--wave); transform:translateY(-2px); }
+  .q-tok:active{ transform:scale(.97); }
+  .q-tok b{ width:42px; height:42px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-family:'JetBrains Mono',monospace; font-size:21px; font-weight:800; color:#0a0a12; background:radial-gradient(circle at 32% 30%,#fff,#c9ccd8 40%,rgba(0,0,0,.55)); }
+  .q-tok span{ font-size:13.5px; font-weight:700; }
+  .q-tok small{ display:block; font-weight:400; font-size:11.5px; color:var(--muted); }
+  .q-clr{ font-family:inherit; cursor:pointer; color:var(--muted); background:transparent; border:1px solid var(--border); border-radius:14px; padding:0 16px; font-size:13px; }
+  .q-clr:hover{ color:var(--ink); border-color:var(--ink); }
+  .q-table{ width:100%; border-collapse:collapse; font-size:13px; text-align:center; margin-bottom:12px; }
+  .q-table th,.q-table td{ border:1px solid var(--border); padding:9px 6px; line-height:1.7; }
+  .q-table th{ color:var(--muted); font-weight:400; background:#0c0c14; }
+  .q-table b{ font-family:'JetBrains Mono',monospace; font-size:17px; color:var(--wave); }
+  .qd{ display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; margin-bottom:4px; border-radius:50%; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:21px; color:#0a0a12;
+    background:radial-gradient(circle at 32% 30%, #fff, var(--qc,#ff6b6b) 38%, rgba(0,0,0,.55) 100%); box-shadow:0 0 14px -2px var(--qc,#ff6b6b); }
+  .q-table small{ color:var(--muted); }
+  .eq-line{ direction:ltr; text-align:center; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(12.5px,3.8vw,16px); color:var(--wave); padding:4px 6px 12px; line-height:1.7; }
+  .found-title{ font-size:14px; font-weight:800; margin:8px 0 10px; }
+  .found-msg{ font-size:13px; font-weight:700; color:var(--collapse); min-height:44px; margin:-2px 0 12px; line-height:1.9; }
+  .sum-legend{ font-size:12px; color:var(--muted); margin:-2px 0 14px; line-height:1.9; }
+  .note-box{ margin-top:14px; font-size:13px; color:#c7c3da; background:#0c0c14; border:1px solid var(--border); border-inline-start:3px solid var(--collapse); border-radius:10px; padding:10px 14px; }
+  .eq-anat{ direction:ltr; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px 10px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(12.5px,3.8vw,16px); margin:0 0 10px; }
+  .eq-anat .ea{ padding:5px 10px; border-radius:8px; border:1px solid currentColor; background:rgba(255,255,255,.03); }
+  .eq-anat .ea.k{ color:var(--wave); } .eq-anat .ea.v{ color:var(--entangle); } .eq-anat .ea.e{ color:var(--collapse); }
+  .eq-anat .op{ color:var(--muted); }
+  .eq-legend{ font-size:12.5px; color:#c7c3da; line-height:1.95; margin:0 0 14px; }
+  .eq-legend div{ padding-inline-start:12px; border-inline-start:3px solid var(--border); margin-bottom:6px; }
+  .eq-legend .k{ border-color:var(--wave); } .eq-legend .v{ border-color:var(--entangle); } .eq-legend .e{ border-color:var(--collapse); }
+  .orb-chips{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:12px; direction:ltr; }
+  .orb-chip{ font:600 13px 'JetBrains Mono',monospace; padding:6px 11px; border-radius:999px; background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer; transition:color .2s,border-color .2s,box-shadow .2s; }
+  .orb-chip:hover{ color:var(--ink); border-color:var(--muted); }
+  .orb-chip.active{ color:var(--wave); border-color:var(--wave); box-shadow:0 0 14px -4px rgba(98,214,255,.6); }
+  .orb-chip:focus-visible{ outline:2px solid var(--wave); outline-offset:2px; }
+  canvas#orbCanvas{ cursor:grab; touch-action:pan-y; } canvas#orbCanvas:active{ cursor:grabbing; }
+  #plT{ height:7px; background:linear-gradient(90deg,#2f6bff,#8a7bff 30%,#ff7a5c 65%,#ff2e2e); }
+  #plT::-webkit-slider-thumb{ background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #plT::-moz-range-thumb{ background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #plF{ height:7px; background:linear-gradient(90deg,#6a1a1a,#ff3b3b 25%,#ff9a2e 30%,#ffe94d 35%,#4dff6a 39%,#3ec8ff 42%,#4a5bff 45%,#8a3bff 47%,#4b2a8a); }
+  #plF::-webkit-slider-thumb{ background:#7ee08a; box-shadow:0 0 12px rgba(126,224,138,.9); }
+  #plF::-moz-range-thumb{ background:#7ee08a; box-shadow:0 0 12px rgba(126,224,138,.9); }
+  #plDemo sup{ font-size:.62em; line-height:0; vertical-align:super; margin-inline-start:1px; }
+  .pl-unit{ font-size:.55em; font-weight:700; color:var(--muted); text-shadow:none; white-space:nowrap; }
+  .pl-hero{ display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap; gap:4px 12px; direction:ltr; margin:2px 0 12px; text-align:center; }
+  .pl-hero .pl-h{ font:italic 800 36px 'JetBrains Mono',monospace; color:var(--collapse); text-shadow:0 0 16px rgba(255,180,84,.7); }
+  .pl-hero .pl-eq{ font:700 26px 'JetBrains Mono',monospace; color:var(--muted); }
+  .pl-big{ font:800 clamp(20px,6.2vw,32px) 'JetBrains Mono',monospace; color:var(--hc,#62d6ff); text-shadow:0 0 20px var(--hc,#62d6ff); display:inline-block; }
+  .pl-sub{ flex:1 0 100%; font-size:12.5px; color:var(--hc,#8b8ea3); direction:rtl; }
+  .pl-hwrap{ position:relative; padding-bottom:22px; }
+  .pl-tick{ position:absolute; bottom:0; transform:translateX(-50%); text-align:center; font-size:11px; color:var(--wave); pointer-events:none; line-height:1.2; }
+  .pl-tick i{ display:block; width:2px; height:9px; margin:0 auto 2px; background:var(--wave); box-shadow:0 0 8px var(--wave); }
+
+  /* ===== proton / neutron + quark cards ===== */
+  .qp-answer{ font-size:14px; line-height:2; color:#e8e6f0; background:#0c0c14; border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:12px; padding:10px 14px; margin-bottom:14px; }
+  .qp-answer .mono{ direction:ltr; display:inline-block; color:var(--wave); font-weight:800; }
+  .qp-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+  .qp-card{ text-align:center; background:#12121c; border:1px solid var(--border); border-radius:16px; padding:12px 10px 14px; }
+  .qp-card h4{ margin:0; font-size:18px; font-weight:800; }
+  .qp-card svg{ width:100%; max-width:230px; height:auto; display:block; margin:4px auto 0; animation:gfloat 3.2s ease-in-out infinite; }
+  .qp-gl{ stroke:rgba(255,255,255,.45); stroke-width:2; stroke-dasharray:5 5; animation:qpFlow 1s linear infinite; }
+  @keyframes qpFlow{ to{ stroke-dashoffset:-20; } }
+  .qp-eq{ direction:ltr; font:800 20px 'JetBrains Mono',monospace; color:var(--wave); margin-top:4px; }
+  .qp-sum{ direction:ltr; font:600 14px 'JetBrains Mono',monospace; color:#c7c3da; margin-top:4px; }
+  .qp-sum b{ color:var(--collapse); font-size:17px; }
+  .qp-card p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); line-height:1.9; }
+  .qs-grid{ direction:ltr; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .qs-grp{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:18px 0 8px; }
+  .qs-grp:first-child{ margin-top:6px; }
+  .qs-grp b{ font-size:15px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-grp span{ font-size:12px; color:var(--muted); }
+  .qs-legend{ font-size:12px; color:var(--muted); margin:0 0 4px; }
+  .qs-legend b{ color:var(--ink); }
+  .qs-card{ font-family:inherit; color:var(--ink); cursor:pointer; text-align:center; padding:10px 6px 9px; border-radius:16px; border:2px solid rgba(var(--c-rgb),.4); background:#12121c;
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, box-shadow .25s ease; }
+  .qs-card:hover{ transform:translateY(-3px); border-color:rgba(var(--c-rgb),.9); }
+  .qs-card:active{ transform:scale(.96); }
+  .qs-card.sel{ border-color:rgb(var(--c-rgb)); box-shadow:0 0 22px -6px rgba(var(--c-rgb),.8); background:rgba(var(--c-rgb),.08); }
+  .qs-card .qd,.qs-top .qd{ --qc:rgb(var(--c-rgb)); }
+  .qs-card .qd{ width:48px; height:48px; font-size:24px; margin:0 auto 4px; }
+  .qd.sm{ font-size:19px !important; }
+  .qd sub{ font-size:.55em; line-height:0; }
+  .qs-card.sel .qd{ animation:gfloat 2.4s ease-in-out infinite; }
+  .qs-vals{ direction:ltr; font:600 10.5px/1.55 'JetBrains Mono',monospace; color:#c7c3da; margin-bottom:5px; }
+  .qs-nm{ font-size:13.5px; font-weight:800; line-height:1.5; }
+  .qs-en{ font-size:11px; color:var(--muted); direction:ltr; }
+  @media (min-width:560px){
+    .qs-card{ display:grid; grid-template-columns:1fr auto; grid-template-areas:"v d" "n n" "e e"; align-items:center; padding:10px 12px; }
+    .qs-vals{ grid-area:v; text-align:left; margin:0; font-size:11px; }
+    .qs-card .qd{ grid-area:d; margin:0; }
+    .qs-nm{ grid-area:n; margin-top:6px; }
+    .qs-en{ grid-area:e; }
+  }
+  .qs-detail{ margin:10px 0 4px; scroll-margin-top:70px; border:1px solid rgba(var(--c-rgb),.5); border-radius:14px; background:#0c0c14; padding:14px; }
+  .qs-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .qs-top .qd{ width:54px; height:54px; font-size:28px; margin:0; flex:0 0 auto; }
+  .qs-top h4{ margin:0; font-size:20px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-top small{ display:block; color:var(--muted); direction:ltr; text-align:right; font-size:12px; }
+  .qs-props{ display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; }
+  .qs-props div{ background:#12121c; border:1px solid var(--border); border-radius:10px; padding:7px 10px; }
+  .qs-props span{ display:block; font-size:11px; color:var(--muted); }
+  .qs-props b{ font:700 13.5px 'JetBrains Mono',monospace; direction:ltr; display:inline-block; }
+  .qs-props b.fa{ font-family:inherit; direction:rtl; }
+  .qs-txt{ margin:12px 0 0; font-size:13.5px; line-height:2; color:#d9d6ea; }
+  .qs-txt b{ color:var(--collapse); }
+
+  /* ===== chapters & navigation ===== */
+  .chapter + .chapter{ margin-top:56px; }
+  .chapter-head{ display:flex; align-items:center; gap:14px; padding:16px 18px; margin-top:22px; border-radius:16px;
+    border:1px solid rgba(var(--ch),.3); background:linear-gradient(135deg,rgba(var(--ch),.14),rgba(var(--ch),.03)); }
+  .chapter-head .no{ flex:0 0 auto; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; font-weight:800; color:#04121a; background:rgb(var(--ch)); }
+  .chapter-head h2{ margin:0; font-size:clamp(17px,4.4vw,20px); font-weight:800; }
+  .chapter-head p{ margin:2px 0 0; font-size:12.5px; color:var(--muted); line-height:1.7; }
+  .chapter > .chapter-head + section.concept{ border-top:0; margin-top:0; padding-top:26px; }
+
+  /* collapsible chapters */
+  details.chapter > summary.chapter-head{ cursor:pointer; list-style:none; user-select:none; -webkit-tap-highlight-color:transparent; transition:border-color .2s ease, transform .15s ease; }
+  details.chapter > summary.chapter-head::-webkit-details-marker{ display:none; }
+  details.chapter > summary.chapter-head:hover{ border-color:rgba(var(--ch),.6); }
+  details.chapter > summary.chapter-head:active{ transform:scale(.99); }
+  details.chapter > summary.chapter-head > div{ flex:1 1 auto; }
+  .ch-chev{ flex:0 0 auto; font-size:20px; color:rgb(var(--ch)); transition:transform .25s ease; }
+  details.chapter:not([open]) .ch-chev{ transform:rotate(90deg); }
+  details.chapter[open] > summary.chapter-head{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  details.chapter + details.chapter{ margin-top:18px; }
+
+  /* orbital "danestani" */
+  #orbMore{ margin-top:18px; }
+  #orbMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #orbMore>summary::-webkit-details-marker{ display:none; }
+  #orbMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.45); }
+  #orbMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #orbMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #orbMore[open]>summary .chev{ transform:rotate(180deg); }
+  #orbMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #orbMore>.orbm-body{ padding-top:16px; }
+
+  /* sub-options that belong to the "what is spin" tab */
+  #spinDemo .sp-sub{ margin:-2px 0 14px; padding:12px 10px 10px; border:1px solid rgba(98,214,255,.28); border-radius:12px; background:rgba(98,214,255,.05); }
+  #spinDemo .sp-sub > .row:last-child{ margin-top:2px; }
+
+  /* energy steps: sun + photons */
+  #catMore{ margin-top:4px; margin-bottom:6px; }
+  #catMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(199,146,234,.10),rgba(98,214,255,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #catMore>summary::-webkit-details-marker{ display:none; }
+  #catMore>summary:hover{ border-color:var(--entangle); box-shadow:0 4px 18px -6px rgba(199,146,234,.5); }
+  #catMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #catMore>summary .chev{ margin-inline-start:auto; color:var(--entangle); transition:transform .25s ease; }
+  #catMore[open]>summary .chev{ transform:rotate(180deg); }
+  #catMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(199,146,234,.5); }
+  .cat-story-wrap{ display:flex; flex-direction:column; gap:10px; padding:12px; border:1px solid rgba(199,146,234,.5); border-top:0; border-radius:0 0 14px 14px; background:var(--panel2); }
+  .cat-story{ padding:12px 14px; border-radius:12px; background:rgba(var(--c),.07); border:1px solid rgba(var(--c),.28); border-inline-start:4px solid rgb(var(--c)); }
+  .cat-story-h{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:13.5px; color:rgb(var(--c)); margin-bottom:6px; }
+  .cat-story-ic{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:rgba(var(--c),.18); border:1px solid rgba(var(--c),.45); }
+  .cat-story p{ margin:0 0 8px; font-size:13.5px; line-height:1.95; color:#c7c3da; }
+  .cat-story p:last-child{ margin-bottom:0; }
+  @keyframes catIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:none; } }
+  #catMore[open] .cat-story{ animation:catIn .3s ease both; }
+  #catMore[open] .cat-story:nth-child(2){ animation-delay:.05s; }
+  #catMore[open] .cat-story:nth-child(3){ animation-delay:.1s; }
+  #catMore[open] .cat-story:nth-child(4){ animation-delay:.15s; }
+  #ucMore{ margin-top:4px; margin-bottom:14px; }
+  #ucMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(255,180,84,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #ucMore>summary::-webkit-details-marker{ display:none; }
+  #ucMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.5); }
+  #ucMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #ucMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #ucMore[open]>summary .chev{ transform:rotate(180deg); }
+  #ucMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(255,180,84,.5); }
+  .uc-wrap{ display:flex; flex-direction:column; gap:10px; padding:12px; border:1px solid rgba(255,180,84,.5); border-top:0; border-radius:0 0 14px 14px; background:var(--panel2); }
+  .uc-card{ padding:12px 14px; border-radius:12px; background:rgba(var(--c),.07); border:1px solid rgba(var(--c),.28); border-inline-start:4px solid rgb(var(--c)); }
+  .uc-h{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:13.5px; color:rgb(var(--c)); margin-bottom:6px; }
+  .uc-ic{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:rgba(var(--c),.18); border:1px solid rgba(var(--c),.45); }
+  .uc-card p{ margin:0; font-size:13.5px; line-height:1.95; color:#c7c3da; }
+  #ucMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #ucMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #ucMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #tuMore{ margin-top:4px; margin-bottom:14px; }
+  #tuMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(98,214,255,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #tuMore>summary::-webkit-details-marker{ display:none; }
+  #tuMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.5); }
+  #tuMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #tuMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #tuMore[open]>summary .chev{ transform:rotate(180deg); }
+  #tuMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(98,214,255,.5); }
+  #tuMore .uc-wrap{ border-color:rgba(98,214,255,.5); }
+  #tuMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #tuMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #tuMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #unMore{ margin-top:4px; margin-bottom:14px; }
+  #unMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(199,146,234,.10),rgba(255,180,84,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #unMore>summary::-webkit-details-marker{ display:none; }
+  #unMore>summary:hover{ border-color:var(--entangle); box-shadow:0 4px 18px -6px rgba(199,146,234,.5); }
+  #unMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #unMore>summary .chev{ margin-inline-start:auto; color:var(--entangle); transition:transform .25s ease; }
+  #unMore[open]>summary .chev{ transform:rotate(180deg); }
+  #unMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(199,146,234,.5); }
+  #unMore .uc-wrap{ border-color:rgba(199,146,234,.5); }
+  #unMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #unMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #unMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  .sec-no{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:26px; padding:0 9px; box-sizing:border-box; border-radius:13px; font-size:12.5px; font-weight:800; line-height:1; flex:0 0 auto; direction:ltr; unicode-bidi:isolate; color:rgb(var(--ch)); background:rgba(var(--ch),.14); border:1px solid rgba(var(--ch),.7); }
+  /* plain section headings: always visible, no box, no toggle */
+  section.concept > .concept-head{ margin-bottom:10px; }
+  section.concept > .concept-head h2{ margin:0; }
+  #lvMore{ margin-top:18px; }
+  #lvMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #lvMore>summary::-webkit-details-marker{ display:none; }
+  #lvMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.45); }
+  #lvMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #lvMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #lvMore[open]>summary .chev{ transform:rotate(180deg); }
+  #lvMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #lvMore>.lvm-body{ padding-top:14px; }
+  #sec-levels .step-h{ margin-top:26px; }
+
+  #sunF,#sunI{ height:7px; }
+  #sunF{ background:linear-gradient(90deg,hsl(0,100%,50%) 0%,hsl(30,100%,52%) 20.5%,hsl(52,100%,55%) 28.2%,hsl(100,85%,50%) 35.9%,hsl(150,90%,48%) 53.8%,hsl(190,100%,52%) 69.2%,hsl(225,100%,62%) 89.7%,hsl(270,90%,58%) 100%); }
+  #sunF::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunF::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunI{ background:linear-gradient(90deg,#241d0e,#7a5a14 45%,#ffcf4a); }
+  #sunI::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+  #sunI::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+
+/* ===== multi-page additions ===== */
+.pgbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:8px; padding:10px 16px; max-width:720px; margin:0 auto;
+  backdrop-filter:blur(14px); background:linear-gradient(180deg, rgba(10,10,18,.92), rgba(10,10,18,.6)); }
+.pgbar .sp{ flex:1; }
+.pgbar #soundBtn,.pgbar #musicBtn{ position:static; width:38px; height:38px; flex:0 0 auto; }
+.back-btn{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:13px; cursor:pointer; text-decoration:none;
+  border:1px solid rgba(var(--ch,98,214,255),.45); background:rgba(var(--ch,98,214,255),.12); color:var(--ink);
+  font-family:inherit; font-size:13.5px; font-weight:700; transition:transform .15s ease, background .2s ease; -webkit-tap-highlight-color:transparent; }
+.back-btn:hover{ background:rgba(var(--ch,98,214,255),.22); }
+.back-btn:active{ transform:scale(.97); }
+.back-btn .ar{ font-size:16px; line-height:1; }
+.back-bottom{ display:flex; justify-content:center; padding:6px 18px 0; }
+.hub-grid{ display:grid; gap:10px; margin:14px 0 0; }
+.hub-card{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px; background:var(--panel); border:1px solid var(--border);
+  color:var(--ink); text-decoration:none; transition:border-color .2s ease, transform .15s ease, background .2s ease; -webkit-tap-highlight-color:transparent; }
+.hub-card:hover{ border-color:rgba(var(--ch),.65); background:var(--panel2); transform:translateY(-2px); }
+.hub-card:active{ transform:scale(.99); }
+.hub-card .hc-t{ flex:1 1 auto; }
+.hub-card .hc-t b{ display:block; font-size:15px; font-weight:800; line-height:1.7; }
+.hub-card .hc-t span{ display:block; font-size:12.5px; color:var(--muted); line-height:1.7; }
+.hub-card .hc-ar{ flex:0 0 auto; font-size:20px; color:rgb(var(--ch)); }
+.hub-wrap{ max-width:720px; margin:0 auto; padding:6px 18px 40px; }
+.hub-wrap .chapter-head{ margin-top:34px; }
+.hub-wrap .chapter-head:first-child{ margin-top:6px; }
+</style>
+</head>
+<body style="--ch:255,180,84">
+<audio id="bgMusic" src="music.mp3" loop playsinline preload="none"></audio>
+<canvas id="fxCanvas"></canvas>
+<div id="flashOverlay"></div>
+
+<div class="pgbar">
+  <a class="back-btn" href="index.html"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a>
+  <span class="sp"></span>
+  <button id="soundBtn" title="صدا">🔊</button>
+  <button id="musicBtn" title="موسیقی">🎵</button>
+</div>
+
+<main>
+  <section class="concept" id="sec-quark">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۳</span>🧩 کوارک‌ها: درونِ پروتون</h2></div>
+    <p class="concept-desc">پروتون و نوترون هم ذرات بنیادی نیستند: هرکدام از سه <b>کوارک</b> ساخته شده‌اند (شش نوع کوارک داریم: بالا، پایین، افسون، شگفت، سر و ته؛ ولی پروتون و نوترون فقط از «بالا» و «پایین» ساخته شده‌اند) که با نیروی هسته‌ای قوی، به‌واسطه‌ی ذراتی به‌نام گلوئون، به هم چسبیده‌اند. هر شش نوع کوارک اسپین ½ دارند (مثل الکترون و بقیه‌ی لپتون‌ها)، و علاوه بر آن علاوه بر بار الکتریکی، یک «بار رنگ» هم دارند: سرخ، سبز یا آبی — ربطی به رنگِ واقعی ندارد، فقط نام‌گذاری است. هر ذره‌ی پایدار باید روی‌هم‌رفته «بی‌رنگ» باشد.</p>
+    <div class="zoom-tabs" role="tablist">
+      <button type="button" role="tab" class="zoom-tab active" data-tab="1" aria-selected="true"><span class="no">۱</span>زوم</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="2" aria-selected="false"><span class="no">۲</span>پروتون و نوترون</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="3" aria-selected="false"><span class="no">۳</span>جدا کردنِ کوارک‌ها</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="4" aria-selected="false"><span class="no">۴</span>ذره‌های بنیادی</button>
+      <button type="button" role="tab" class="zoom-tab" data-tab="5" aria-selected="false"><span class="no">۵</span>شتاب‌دهنده</button>
+    </div>
+    <div class="zoom-panel active" data-panel="1">
+      <div class="demo">
+        <canvas class="demo-canvas" id="qZoom" style="height:200px"></canvas>
+        <div class="slider-group">
+          <label style="direction:ltr"><span>اتم</span><span>کوارک</span></label>
+          <input type="range" id="qZr" min="0" max="1000" value="0" style="direction:ltr">
+        </div>
+        <div class="row"><button class="act" id="qZp">▶ زوم خودکار</button></div>
+        <div class="readouts">
+          <div class="readout"><div class="rl">اندازه‌ی میدان دید</div><div class="rv mono c-wave" id="qZs" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout" style="flex:2 1 220px"><div class="rl">چه می‌بینی؟</div><div class="rv c-collapse" id="qZw" style="font-size:13px">—</div></div>
+        </div>
+        <div class="note-box">از اتم شروع کن و اسلایدر را به راست بکش: ابرِ الکترون، هسته، پروتون و در آخر کوارک‌ها. کوارک‌ها تا جایی که می‌شناسیم نقطه‌ای‌اند و اندازه‌ی قابل‌اندازه‌گیری ندارند.</div>
+      </div>
+    </div>
+    <div class="zoom-panel" data-panel="2">
+      <div class="demo qp">
+        <div class="qp-answer">پروتون و نوترون از <b>سه کوارک</b> ساخته شده‌اند: پروتون <span class="mono">u u d</span> و نوترون <span class="mono">u d d</span>. کوارک‌ها را گلوئون‌ها (خط‌چین‌های متحرک) به هم می‌چسبانند.</div>
+        <div class="qp-cards">
+          <div class="qp-card">
+            <h4>پروتون</h4>
+            <svg viewBox="0 0 200 150" aria-hidden="true"><circle cx="100" cy="82" r="72" fill="none" stroke="rgba(255,180,84,.45)" stroke-width="1.5" stroke-dasharray="5 5"/><line class="qp-gl" x1="100" y1="36" x2="50" y2="112"/><line class="qp-gl" x1="50" y1="112" x2="150" y2="112"/><line class="qp-gl" x1="150" y1="112" x2="100" y2="36"/><circle cx="100" cy="36" r="22" fill="#ff6b6b"/><circle cx="93" cy="28" r="7" fill="#fff" opacity=".4"/><text x="100" y="44" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="50" cy="112" r="22" fill="#7ee08a"/><circle cx="43" cy="104" r="7" fill="#fff" opacity=".4"/><text x="50" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="150" cy="112" r="22" fill="#62d6ff"/><circle cx="143" cy="104" r="7" fill="#fff" opacity=".4"/><text x="150" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text></svg>
+            <div class="qp-eq">u + u + d</div>
+            <div class="qp-sum">⅔ + ⅔ − ⅓ = <b>+۱</b></div>
+            <p>دو کوارک بالا و یک پایین. پایدار است و هسته‌ی هیدروژن را می‌سازد. جرم ≈ ۹۳۸٫۳ MeV</p>
+          </div>
+          <div class="qp-card">
+            <h4>نوترون</h4>
+            <svg viewBox="0 0 200 150" aria-hidden="true"><circle cx="100" cy="82" r="72" fill="none" stroke="rgba(255,180,84,.45)" stroke-width="1.5" stroke-dasharray="5 5"/><line class="qp-gl" x1="100" y1="36" x2="50" y2="112"/><line class="qp-gl" x1="50" y1="112" x2="150" y2="112"/><line class="qp-gl" x1="150" y1="112" x2="100" y2="36"/><circle cx="100" cy="36" r="22" fill="#ff6b6b"/><circle cx="93" cy="28" r="7" fill="#fff" opacity=".4"/><text x="100" y="44" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">u</text><circle cx="50" cy="112" r="22" fill="#7ee08a"/><circle cx="43" cy="104" r="7" fill="#fff" opacity=".4"/><text x="50" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text><circle cx="150" cy="112" r="22" fill="#62d6ff"/><circle cx="143" cy="104" r="7" fill="#fff" opacity=".4"/><text x="150" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="800" font-size="22" fill="#0a0a12">d</text></svg>
+            <div class="qp-eq">u + d + d</div>
+            <div class="qp-sum">⅔ − ⅓ − ⅓ = <b>۰</b></div>
+            <p>یک کوارک بالا و دو پایین. بیرونِ هسته حدود ۱۵ دقیقه عمر می‌کند. جرم ≈ ۹۳۹٫۶ MeV</p>
+          </div>
+        </div>
+        <div class="note-box">کوارک بالا (u) بارِ +⅔ و کوارک پایین (d) بارِ −⅓ دارد؛ جمعِ بارها همان بارِ ذره را می‌دهد. هر سه کوارک یک «رنگ» دارند (سرخ، سبز، آبی) که روی‌هم‌رفته بی‌رنگ می‌شود. ذره‌های سه‌کوارکی را «باریون» می‌گویند.</div>
+      </div>
+    </div>
+    <div class="zoom-panel" data-panel="3">
+      <div class="demo">
+        <canvas class="demo-canvas" id="qCanvas2" style="height:170px"></canvas>
+        <div class="slider-group">
+          <label style="direction:ltr"><span>نزدیک</span><span>دور</span></label>
+          <input type="range" id="qDist" min="20" max="300" value="40" style="direction:ltr">
+        </div>
+        <div class="row"><button class="act" id="qAuto">▶ جدا کردن خودکار</button></div>
+        <div class="readouts">
+          <div class="readout"><div class="rl">فاصله</div><div class="rv mono c-wave" id="qD" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout"><div class="rl">انرژیِ ذخیره در میدان</div><div class="rv mono c-collapse" id="qE" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout" style="flex:2 1 220px"><div class="rl">وضعیت</div><div class="rv" id="qState" style="font-size:13px">—</div></div>
+        </div>
+        <div class="note-box">برخلاف نیروی الکتریکی، نیروی قوی با فاصله ضعیف نمی‌شود: «لوله‌ی گلوئونی» بین دو کوارک کشیده می‌شود و انرژی‌اش تقریباً ۱ گیگاالکترون‌ولت به‌ازای هر فمتومتر بالا می‌رود. وقتی انرژی به‌اندازه‌ی ساختن یک جفت کوارک–پادکوارک شد، لوله می‌شکند و به‌جای یک کوارکِ آزاد، دو ذره‌ی تازه پدید می‌آید. تا امروز هیچ کوارکِ آزادی دیده نشده. (مقیاس‌ها شماتیک‌اند.)</div>
+      </div>
+    </div>
+    <div class="zoom-panel" data-panel="4">
+      <div class="demo qs" id="qsDemo">
+        <p class="concept-desc" style="margin-bottom:6px">همه‌ی ذره‌های بنیادیِ شناخته‌شده در یک نگاه (مدل استاندارد). روی هر کارت بزن تا ویژگی‌هایش را ببینی.</p>
+        <div class="qs-legend">روی هر کارت از بالا به پایین: <b>جرم</b> · <b>بار</b> · <b>اسپین</b></div>
+        <div class="qs-detail" id="qsDetail"></div>
+        <div id="qsGroups"></div>
+        <div class="note-box">مادّه از «فرمیون‌ها» (اسپین ½: کوارک‌ها و لپتون‌ها) ساخته شده و نیروها با «بوزون‌ها» (اسپین ۱) منتقل می‌شوند: ۶ کوارک + ۶ لپتون + ۴ بوزون حامل نیرو + هیگز = ۱۷ ذره. گرانش در این جدول نیست. هر کوارک و لپتون یک پادذره هم دارد. مادّه‌ی معمولی فقط از u، d و الکترون ساخته شده.</div>
+      </div>
+    </div>
+    <div class="zoom-panel" data-panel="5">
+      <div class="demo">
+        <canvas class="demo-canvas" id="qAcc" style="height:270px"></canvas>
+        <div style="display:flex;gap:6px 16px;flex-wrap:wrap;font-size:12px;opacity:.9;margin:6px 2px 10px"><span><b style="color:#62d6ff">●</b> الکترونی که صاف رد شد یا کم منحرف شد</span><span><b style="color:#ffb454">●</b> ضربه‌ی سخت: الکترون به کوارک خورد و زاویه‌ی بزرگ گرفت</span><span>کمانِ سمت راست = آشکارساز؛ هر نقطه یک الکترونِ ثبت‌شده</span><span>آهنربای هدایت: باریکه را باریک نگه می‌دارد و به سمت هدف نشانه می‌گیرد</span></div>
+        <div class="slider-group">
+          <label style="direction:ltr"><span>انرژی کم (۰٫۵ GeV)</span><span>انرژی زیاد (۲۰ GeV)</span></label>
+          <input type="range" id="qAccE" min="5" max="200" step="5" value="150" style="direction:ltr">
+        </div>
+        <div class="row"><button class="act" id="qAccGo">⚡ شلیک الکترون</button><button class="act ghost" id="qAccAuto">🔁 شلیک پیوسته</button><button class="act ghost" id="qAccSlow">🐢 حرکت آهسته</button><button class="act ghost" id="qAccClr">↺ پاک‌کردن</button></div>
+        <div class="readouts">
+          <div class="readout"><div class="rl">انرژی الکترون</div><div class="rv mono c-collapse" id="qAE" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout"><div class="rl">طول‌موجِ الکترون</div><div class="rv mono c-wave" id="qAL" style="direction:ltr;text-align:right">—</div></div>
+          <div class="readout"><div class="rl">شلیک‌ها / ضربه‌ی سخت</div><div class="rv mono" id="qAN">۰ / ۰</div></div>
+          <div class="readout" style="flex:2 1 220px"><div class="rl">وضعیت</div><div class="rv" id="qAS" style="font-size:13px">منتظر شلیک</div></div>
+        </div>
+        <div class="note-box" id="qAR" style="border-color:rgba(255,180,84,.55)">نتیجه‌گیریِ هر شلیک اینجا نوشته می‌شود.</div>
+        <div class="note-box">این همان منطقِ آزمایشِ رادرفورد است، این‌بار برای پروتون. الکترون‌ها را در شتاب‌دهنده‌ی خطیِ SLAC (حدود ۳٫۲ کیلومتر) تا حدود ۲۰ GeV شتاب دادند و به هدفِ هیدروژنِ مایع زدند. با انرژیِ کم، طول‌موجِ الکترون از پروتون بزرگ‌تر است: پروتون مثل ابری نرم دیده می‌شود و الکترون فقط کمی منحرف می‌شود. با انرژیِ زیاد، طول‌موج بسیار کوچک‌تر از پروتون می‌شود و الکترون «درونش» را می‌بیند: بیشترشان صاف رد می‌شوند، اما گاهی یکی تند برمی‌گردد و پروتون خرد می‌شود؛ یعنی درونش مرکزهایی نقطه‌ای و سخت هست. الکترون با تبادلِ یک فوتونِ مجازی (γ*، موجِ زردِ کوتاه) به آن کوارک ضربه می‌زند. این «پراکندگیِ ناکشسانِ عمیق» را گروهِ SLAC–MIT از اواخر دهه‌ی ۱۹۶۰ اندازه گرفت (فریدمن، کندال، تیلور؛ نوبل ۱۹۹۰). (مقیاس‌ها شماتیک‌اند.)</div>
+      </div>
+    </div>
+    <div class="note-box" style="margin-top:12px"><b>جرم از کجا می‌آید؟</b> جرمِ سه کوارکِ پروتون روی‌هم‌رفته حدود ۱٪ جرمِ آن است. بقیه انرژیِ حرکتِ کوارک‌ها و میدانِ گلوئونی است که بنا بر E = mc² خودش را به‌صورت جرم نشان می‌دهد. کوارک‌ها را گل-من و تسوایگ در ۱۹۶۴ پیشنهاد کردند و آزمایش‌های پراکندگیِ الکترون در SLAC، حدود ۱۹۶۸، ساختارِ سه‌تایی درونِ پروتون را نشان داد.</div>
+  </section>
+<footer class="credit">آزمایشگاه فیزیک کوانتوم تعاملی<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
+</main>
+
+<div class="back-bottom"><a class="back-btn" href="index.html"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a></div>
+<script>window.__inView=function(el){var o={v:true};if(el&&"IntersectionObserver" in window){try{new IntersectionObserver(function(e){o.v=e[e.length-1].isIntersecting;}).observe(el);}catch(_){}}return o;};</script>
+<script>
+  /* background music: music.mp3 (same folder) */
+  (function(){
+    const btn = document.getElementById('musicBtn');
+    const audio = document.getElementById('bgMusic');
+    const VOL = 0.8;
+    let on = (function(){try{return localStorage.getItem('qlab_music')!=='off';}catch(e){return true;}})(), ready = true, playing = false, fadeT;
+    audio.volume = 0;
+    if(!on){ btn.classList.add('off'); btn.textContent='🔇'; }
+    try{ const t0=parseFloat(sessionStorage.getItem('qlab_music_t')||'0'); if(t0>0) audio.addEventListener('loadedmetadata',function(){ try{ audio.currentTime = t0 % (audio.duration||(t0+1)); }catch(e){} },{once:true}); }catch(e){}
+    addEventListener('pagehide',function(){ try{ sessionStorage.setItem('qlab_music_t', String(audio.currentTime||0)); }catch(e){} });
+
+    function fadeTo(v, ms, done){
+      clearInterval(fadeT);
+      const from = audio.volume, t0 = performance.now();
+      fadeT = setInterval(()=>{
+        const p = Math.min(1,(performance.now()-t0)/ms);
+        audio.volume = from + (v-from)*p;
+        if(p>=1){ clearInterval(fadeT); if(done) done(); }
+      }, 50);
+    }
+
+    function tryStart(){
+      if(!on || playing || !ready) return;
+      const pr = audio.play();
+      if(pr && pr.then) pr.then(()=>{ playing = true; fadeTo(VOL, 2000); }).catch(()=>{});
+      else { playing = true; fadeTo(VOL, 2000); }
+    }
+
+    tryStart();
+
+    btn.addEventListener('click', ()=>{
+      if(on && !playing){ tryStart(); return; }
+      on = !on; try{localStorage.setItem('qlab_music', on?'on':'off');}catch(e){}
+      btn.classList.toggle('off', !on);
+      btn.textContent = on ? '🎵' : '🔇';
+      if(on) tryStart(); else fadeTo(0, 500, ()=>{ audio.pause(); playing = false; });
+    });
+
+    const GESTURES = ['pointerdown','pointerup','touchend','keydown','click'];
+    const firstGesture = e=>{
+      if(e.target.closest && e.target.closest('#musicBtn')) return;
+      tryStart();
+      if(playing) GESTURES.forEach(ev=> document.removeEventListener(ev, firstGesture, true));
+    };
+    GESTURES.forEach(ev=> document.addEventListener(ev, firstGesture, true));
+
+    document.addEventListener('visibilitychange', ()=>{
+      if(!playing || !on) return;
+      if(document.hidden) audio.pause(); else audio.play().catch(()=>{});
+    });
+  })();
+</script>
+<script>
+(function(){
+  var sec=document.getElementById('sec-quark'); if(!sec) return;
+  var TAU=Math.PI*2, $=function(i){return document.getElementById(i)};
+  var FA='۰۱۲۳۴۵۶۷۸۹', fa=function(n){return String(n).replace(/[0-9]/g,function(c){return FA[+c]}).replace('.','٫')};
+  function fit(cv,H){var W=cv.clientWidth; if(!W) return 0;
+    if(cv._w!==W){var d=Math.max(2,window.devicePixelRatio||1); cv.width=W*d; cv.height=H*d; cv.style.height=H+'px'; cv._w=W; var g=cv.getContext('2d'); g.setTransform(d,0,0,d,0,0); g.direction='ltr';} return W;}
+  // tabs
+  var tabs=[].slice.call(sec.querySelectorAll('.zoom-tab')), panels=[].slice.call(sec.querySelectorAll('.zoom-panel'));
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){var on=x===t; x.classList.toggle('active',on); x.setAttribute('aria-selected',on);});
+    panels.forEach(function(p){p.classList.toggle('active',p.dataset.panel===t.dataset.tab);});});});
+  var RED='#ff6b6b', GRN='#7ee08a', BLU='#62d6ff', COL=[RED,GRN,BLU];
+  function disk(g,x,y,r,c,txt){var gr=g.createRadialGradient(x-r*.3,y-r*.3,r*.1,x,y,r);gr.addColorStop(0,'#fff');gr.addColorStop(.35,c);gr.addColorStop(1,'rgba(0,0,0,.55)');
+    g.beginPath();g.arc(x,y,r,0,TAU);g.fillStyle=gr;g.fill(); if(txt){g.fillStyle='#0a0a12';g.font='800 '+(r*.95)+'px JetBrains Mono, monospace';g.textAlign='center';g.textBaseline='middle';g.fillText(txt,x,y+1);}}
+  // ---- 0: zoom lens
+  var zc=$('qZoom'), zg=zc.getContext('2d'), zr=$('qZr'), z=0, zAuto=false, EXP=[-10,-14,-15,-18], lt=0;
+  var ZN=['یک اتم — ابرِ الکترون دورِ هسته','هسته — پروتون‌ها و نوترون‌ها','یک پروتون — درونش سه کوارک','کوارک‌ها — نقطه‌ای و بی‌ساختار'];
+  var cl=[];for(var ci=0;ci<240;ci++){var rr=-(Math.log(1-Math.random())+Math.log(1-Math.random())+Math.log(1-Math.random()))/2,th=Math.random()*TAU;cl.push([rr*Math.cos(th),rr*Math.sin(th)]);}
+  var sup=function(n){return String(n).replace('-','⁻').replace(/[0-9]/g,function(c){return '⁰¹²³⁴⁵⁶⁷⁸⁹'[+c]})};
+  function focus(b,sc){zg.save();zg.setLineDash([4/sc,3/sc]);zg.strokeStyle='rgba(255,255,255,.8)';zg.lineWidth=1.4/sc;zg.strokeRect(-b,-b,2*b,2*b);zg.restore();}
+  function tri(R,rad,t){return [0,1,2].map(function(i){var a=t*.4+i*TAU/3-Math.PI/2;return [rad*Math.cos(a),rad*Math.sin(a)];});}
+  function glu(g,P,sc,t,amp){[[0,1],[1,2],[2,0]].forEach(function(pr){var a=P[pr[0]],b=P[pr[1]],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;g.beginPath();
+    for(var j=0;j<=24;j++){var u=j/24,o=amp*Math.sin(u*TAU*3-t*7)*Math.sin(u*Math.PI);var x=a[0]+dx*u+nx*o,y=a[1]+dy*u+ny*o;j?g.lineTo(x,y):g.moveTo(x,y);}g.strokeStyle='rgba(255,255,255,.4)';g.lineWidth=1.4/sc;g.stroke();});}
+  var scenes=[
+    function(R,sc,t){
+      cl.forEach(function(p,i){var br=1+.06*Math.sin(t*1.3+i);zg.fillStyle='rgba(98,214,255,'+(.12+.3*Math.abs(Math.sin(t*1.6+i*1.7)))+')';zg.beginPath();zg.arc(p[0]*R*.8*br+R*.012*Math.sin(t*2+i),p[1]*R*.8*br+R*.012*Math.cos(t*1.7+i),1.5/sc,0,TAU);zg.fill();});
+      var f=Math.floor(t*7);for(var e=0;e<2;e++){var q=cl[(f*37+e*101)%cl.length],ph=(t*7)%1,al=1-ph*.8;var gl=zg.createRadialGradient(q[0]*R*.8,q[1]*R*.8,0,q[0]*R*.8,q[1]*R*.8,R*.09);gl.addColorStop(0,'rgba(255,255,255,'+al+')');gl.addColorStop(.3,'rgba(98,214,255,'+al*.7+')');gl.addColorStop(1,'rgba(98,214,255,0)');zg.fillStyle=gl;zg.beginPath();zg.arc(q[0]*R*.8,q[1]*R*.8,R*.09,0,TAU);zg.fill();}
+      var pl=1+.15*Math.sin(t*3);disk(zg,0,0,R*.03*pl,'#ffb454');focus(R*.07,sc);},
+    function(R,sc){[[0,0],[.17,0],[-.17,0],[.085,.147],[-.085,.147],[.085,-.147],[-.085,-.147]].forEach(function(p,i){disk(zg,p[0]*R,p[1]*R,R*.085,i%2?'#b8bccc':'#ff8f8f');});focus(R*.1,sc);},
+    function(R,sc,t){var g=zg.createRadialGradient(0,0,0,0,0,R*.55);g.addColorStop(0,'rgba(255,143,143,.35)');g.addColorStop(1,'rgba(255,143,143,0)');zg.fillStyle=g;zg.beginPath();zg.arc(0,0,R*.55,0,TAU);zg.fill();
+      var P=tri(R,R*.22,t);glu(zg,P,sc,t,R*.02);P.forEach(function(p,i){disk(zg,p[0],p[1],R*.07,COL[i]);});focus(R*.1,sc);},
+    function(R,sc,t){var P=tri(R,R*.5,t);glu(zg,P,sc,t,R*.05);for(var k=0;k<30;k++){var a=k*2.4+t*(1+k%3),r=R*(.15+.5*((k*37)%10)/10);zg.fillStyle='rgba(255,255,255,'+(.15+.25*Math.abs(Math.sin(t*3+k)))+')';zg.beginPath();zg.arc(r*Math.cos(a),r*Math.sin(a),1.6/sc,0,TAU);zg.fill();}
+      P.forEach(function(p,i){disk(zg,p[0],p[1],R*.17,COL[i]);});}];
+  function setZ(v){z=Math.max(0,Math.min(1,v));zr.value=Math.round(z*1000);var sg=Math.min(2,Math.floor(z*3)),f=z*3-sg,e=EXP[sg]+(EXP[sg+1]-EXP[sg])*f;
+    $('qZs').textContent=(z>.999?'< ':'≈ ')+'10'+sup(Math.round(e))+' m';$('qZw').textContent=ZN[Math.min(3,Math.round(z*3))];}
+  function draw0(t){var W=fit(zc,200);if(!W)return;var H=200,cx=W/2,cy=H/2,R=H*.34,LR=H*.47;zg.clearRect(0,0,W,H);zg.save();zg.beginPath();zg.arc(cx,cy,LR,0,TAU);zg.clip();zg.fillStyle='#0a0a12';zg.fillRect(0,0,W,H);
+    scenes.forEach(function(fn,i){var d=z-i/3,a=Math.max(0,Math.min(1,(.333-Math.abs(d))/.18));if(a<=0)return;var sc=Math.exp(d*8)*[1,2.7,2.4,1][i];zg.save();zg.translate(cx,cy);zg.scale(sc,sc);zg.globalAlpha=a;fn(R,sc,t);zg.restore();});
+    zg.restore();zg.beginPath();zg.arc(cx,cy,LR,0,TAU);zg.strokeStyle='rgba(98,214,255,.55)';zg.lineWidth=2;zg.stroke();}
+  zr.addEventListener('input',function(){zAuto=false;$('qZp').textContent='▶ زوم خودکار';setZ(zr.value/1000);});
+  $('qZp').addEventListener('click',function(){if(zAuto)zAuto=false;else{if(z>.999)setZ(0);zAuto=true;}$('qZp').textContent=zAuto?'⏸ توقف':'▶ زوم خودکار';});
+  setZ(0);
+  // ---- 2: confinement
+  var c2=$('qCanvas2'), g2=c2.getContext('2d'), rng=$('qDist'), auto=false, aT0=0, flash=-9, was=false, DB=1.5;
+  function qd(x,y,c,l,bar){disk(g2,x,y,15,c,l); if(bar){g2.beginPath();g2.moveTo(x-5,y-8);g2.lineTo(x+5,y-8);g2.strokeStyle='#0a0a12';g2.lineWidth=1.6;g2.stroke();}}
+  function tube(a,b,y,t){g2.beginPath();g2.moveTo(a,y);g2.lineTo(b,y);g2.lineWidth=9;g2.lineCap='round';g2.strokeStyle='rgba(199,146,234,.35)';g2.stroke();
+    g2.setLineDash([9,9]);g2.lineDashOffset=-t*40;g2.lineWidth=3;g2.strokeStyle='rgba(255,255,255,.75)';g2.stroke();g2.setLineDash([]);}
+  function draw2(t){var W=fit(c2,170); if(!W) return; var H=170,y=H/2,cx=W/2,sc=(W-120)/3,d=rng.value/100,xl=cx-d*sc/2,xr=cx+d*sc/2,br=d>=DB,L=.5*sc; g2.clearRect(0,0,W,H);
+    if(br&&!was) flash=t; was=br;
+    if(!br){tube(xl,xr,y,t); qd(xl,y,RED,'q'); qd(xr,y,BLU,'q',1);}
+    else{tube(xl,xl+L,y,t); tube(xr-L,xr,y,t); qd(xl,y,RED,'q'); qd(xl+L,y,BLU,'q',1); qd(xr-L,y,RED,'q'); qd(xr,y,BLU,'q',1);
+      g2.fillStyle='#ffb454';g2.font='12px Vazirmatn, sans-serif';g2.textAlign='center';g2.fillText('مزون ۱',xl+L/2,y-32);g2.fillText('مزون ۲',xr-L/2,y-32);
+      var f=t-flash; if(f<.8){g2.beginPath();g2.arc(cx,y,f*110,0,TAU);g2.strokeStyle='rgba(255,180,84,'+(1-f/.8)+')';g2.lineWidth=3;g2.stroke();}}
+    $('qD').textContent=fa(d.toFixed(2))+' fm'; $('qE').textContent=br?'صرفِ ساختن جفت':fa(d.toFixed(1))+' GeV';
+    $('qState').textContent=br?'لوله شکست: به‌جای کوارکِ آزاد، دو ذره‌ی تازه (مزون)':'اسیر در لوله‌ی گلوئونی — جدا نمی‌شود';}
+  $('qAuto').addEventListener('click',function(){auto=!auto; if(auto){aT0=performance.now()/1000; rng.value=20;} $('qAuto').textContent=auto?'⏸ توقف':'▶ جدا کردن خودکار';});
+  rng.addEventListener('input',function(){auto=false;$('qAuto').textContent='▶ جدا کردن خودکار';});
+  // ---- 5: accelerator (electron -> proton)
+  var c5=$('qAcc'), g5=c5.getContext('2d'), eR=$('qAccE'), SH=[], dots=[], nS=0, nH=0, autoF=false, slow=false, nxt=0, T5=0, lt5=0, shk=0, H5=270;
+  var QP=[[-.2,-.5],[-.45,.35],[.55,0]], QL=['u','u','d'];
+  function lay(W){return {cx:W*.66,cy:H5/2,R:H5*.27,Rd:Math.min(W*.32-6,H5*.47),L1:Math.min(W*.36,W*.66-H5*.27-82),x0:12};}
+  function rrect5(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+  function concl(s){var lam=fa((1.24/s.E).toFixed(2)),h=s.hard?'ضربه‌ی سخت: الکترون با زاویه‌ی بزرگ برگشت. اگر پروتون یک ابرِ نرم و یکنواخت بود این تقریباً هرگز رخ نمی‌داد؛ پس درونش مرکزهای کوچک و سخت هست: کوارک‌ها.':(s.E>=3?'الکترون تقریباً صاف رد شد و به هیچ مرکزِ سختی نخورد. بیشترِ شلیک‌ها همین‌طورند و فقط گاهی یکی به کوارکی می‌خورد؛ برای همین باید شلیکِ زیاد کرد.':'انرژیِ کم: طول‌موجِ الکترون (≈ '+lam+' fm) از پروتون بزرگ‌تر است، پس پروتون را مثل ابری نرم دید و فقط کمی منحرف شد. برای دیدنِ درونش انرژی را بالا ببر.');
+    return 'شلیکِ '+fa(nS)+' ('+fa(s.E.toFixed(1))+' GeV): '+h+' — تا اینجا '+fa(nH)+' ضربه‌ی سخت از '+fa(nS)+' شلیک.';}
+  function fire(t){var W=c5._w||fit(c5,H5); if(!W) return; var L=lay(W),E=eR.value/10,hard=E>=3&&Math.random()<.75,k=Math.floor(Math.random()*3),q=QP[k],qr=L.R*.55,Ta=.4,v=2*L.L1/Ta,
+      qx=L.cx+q[0]*qr,qy=L.cy+q[1]*qr,hx=hard?qx-26:L.cx-L.R*.3,ay=hard?qy:L.cy+(Math.random()-.5)*L.R*1.2,
+      sg=hard?(q[1]?(q[1]<0?-1:1):(Math.random()<.5?-1:1)):(Math.random()<.5?-1:1),
+      ph=sg*(hard?35+Math.random()*40:(E>=3?1+Math.random()*2:5+Math.random()*8))*Math.PI/180,
+      dx=Math.cos(ph),dy=Math.sin(ph),px=hx-L.cx,py=ay-L.cy,b=dx*px+dy*py,s=-b+Math.sqrt(b*b-(px*px+py*py-L.Rd*L.Rd));
+    SH.push({t0:t,L:L,E:E,hard:hard,k:k,qx:qx,qy:qy,hx:hx,ay:ay,ph:ph,Ta:Ta,v:v,th:Ta+(hx-L.x0-L.L1)/v,ts:s/v,ang:Math.atan2(py+dy*s,px+dx*s),fl:0,dn:0,ar:0,
+      sp:[0,1,2,3,4,5,6,7,8,9,10,11,12,13].map(function(){return [(Math.random()-.5)*1.6,50+Math.random()*90,[RED,GRN,BLU,'#ffb454','#b8bccc'][Math.floor(Math.random()*5)]];})});}
+  function pos(s,u){var L=s.L,x; if(u<s.Ta){x=L.x0+L.L1*u*u/(s.Ta*s.Ta);return [x,L.cy];}
+    x=L.x0+L.L1+s.v*(u-s.Ta); if(x<s.hx){var xs=L.x0+L.L1+8,f=Math.max(0,Math.min(1,(x-xs)/(s.hx-xs)));f=f*f*(3-2*f);return [x,L.cy+(s.ay-L.cy)*f];}
+    var e=u-s.th; return [s.hx+Math.cos(s.ph)*s.v*e,s.ay+Math.sin(s.ph)*s.v*e];}
+  function draw5(t){var W=fit(c5,H5); if(!W) return; var dt=Math.min(.05,Math.max(0,t-lt5)); lt5=t; T5+=dt*(slow?.22:1); t=T5;
+    var L=lay(W),g=g5,E=eR.value/10,cx=L.cx,cy=L.cy,R=L.R,qr=R*.55,i,j,pl=0,n=Math.floor(L.L1/11);
+    if(autoF&&t>=nxt){fire(t);nxt=t+.14;}
+    SH.forEach(function(s){var e=t-s.t0-s.th; if(s.hard&&e>0) pl=Math.max(pl,Math.exp(-e*7));});
+    g.clearRect(0,0,W,H5);g.save();if(shk>0){g.translate((Math.random()-.5)*shk,(Math.random()-.5)*shk);shk=Math.max(0,shk-dt*45);}
+    g.lineCap='round';g.beginPath();g.arc(cx,cy,L.Rd,-1.6,1.6);g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=6;g.stroke();
+    dots.forEach(function(d){g.beginPath();g.arc(cx+L.Rd*Math.cos(d[0]),cy+L.Rd*Math.sin(d[0]),2.4,0,TAU);g.fillStyle=d[1]?'#ffb454':'#62d6ff';g.fill();});
+    g.fillStyle='rgba(98,214,255,.08)';g.fillRect(L.x0,cy-8,L.L1+14,16);
+    for(i=0;i<n;i++){var a=Math.max(0,Math.sin(t*14-i*.55));g.fillStyle='rgba(98,214,255,'+(.12+.6*a*a)+')';g.fillRect(L.x0+i*11+1,cy-13-3*a,7,26+6*a);}
+    g.strokeStyle='rgba(255,255,255,.2)';g.lineWidth=1;g.setLineDash([3,4]);g.beginPath();g.moveTo(L.x0+L.L1+14,cy);g.lineTo(cx-R,cy);g.stroke();g.setLineDash([]);
+    var g0=L.x0+L.L1+8,gp=cx-R-6-g0;[.18,.55].forEach(function(f){var x=g0+gp*f,mg=g.createLinearGradient(x,cy-27,x,cy+27),pu=.55+.3*Math.sin(t*5);mg.addColorStop(0,'#46507a');mg.addColorStop(.5,'#161a2b');mg.addColorStop(1,'#46507a');
+      g.fillStyle=mg;rrect5(g,x,cy-27,15,54,6);g.fill();g.strokeStyle='rgba(98,214,255,.5)';g.lineWidth=1;g.stroke();
+      g.strokeStyle='rgba(255,180,84,'+pu+')';g.lineWidth=2;[-22,-18,-14,14,18,22].forEach(function(d){g.beginPath();g.moveTo(x+3,cy+d);g.lineTo(x+12,cy+d);g.stroke();});
+      g.fillStyle='#0a0a12';g.fillRect(x-1,cy-4,17,8);});
+    var gr=g.createRadialGradient(cx,cy,0,cx,cy,R*(1+.25*pl));gr.addColorStop(0,'rgba(255,'+Math.round(143+90*pl)+',143,'+((E>=3?.22:.5)+.5*pl)+')');gr.addColorStop(1,'rgba(255,143,143,0)');
+    g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R*(1+.25*pl),0,TAU);g.fill();g.beginPath();g.arc(cx,cy,R,0,TAU);g.strokeStyle='rgba(98,214,255,.55)';g.lineWidth=2;g.stroke();
+    var P=QP.map(function(q,m){return [cx+q[0]*qr+2*Math.sin(t*3+m*2),cy+q[1]*qr+2*Math.cos(t*2.6+m*2)];});
+    g.globalAlpha=E>=3?1:.3;glu(g,P,1,t,3);P.forEach(function(p,m){disk(g,p[0],p[1],9,COL[m],QL[m]);});g.globalAlpha=1;
+    for(i=SH.length-1;i>=0;i--){var s=SH[i],u=t-s.t0,e=u-s.th,p=pos(s,u),tl=Math.min(.09,u),pq=-s.ph*.45,dp=cx+L.Rd*Math.cos(s.ang),dq=cy+L.Rd*Math.sin(s.ang);
+      if(e>0&&!s.fl){s.fl=1;if(s.hard)shk=8;$('qAS').textContent=s.hard?'ضربه‌ی سخت! فوتونِ مجازی به یک کوارکِ نقطه‌ای خورد و پروتون خرد شد':(E>=3?'الکترون از لابه‌لای پروتون رد شد (بیشترشان همین‌طورند)':'پراکندگیِ نرم — پروتون ابری پخش‌شده به‌نظر می‌رسد');}
+      if(!s.dn&&u>s.th+s.ts){s.dn=1;s.ar=t;nS++;if(s.hard)nH++;dots.push([s.ang,s.hard]);if(dots.length>500)dots.shift();$('qAR').textContent=concl(s);}
+      if(!s.dn){var en=Math.min(1,u/s.Ta),col='rgba('+Math.round(98+157*en)+','+Math.round(214+41*en)+',255,',prev=pos(s,u-tl);
+        for(j=1;j<=7;j++){var q2=pos(s,u-tl*(1-j/7));g.strokeStyle=col+(.9*j/7)+')';g.lineWidth=1+3.5*j/7;g.beginPath();g.moveTo(prev[0],prev[1]);g.lineTo(q2[0],q2[1]);g.stroke();prev=q2;}
+        var gl=g.createRadialGradient(p[0],p[1],0,p[0],p[1],12);gl.addColorStop(0,'#fff');gl.addColorStop(.35,col+'.8)');gl.addColorStop(1,col+'0)');g.fillStyle=gl;g.beginPath();g.arc(p[0],p[1],12,0,TAU);g.fill();}
+      else if(t-s.ar<.3){var fa2=1-(t-s.ar)/.3,gd=g.createRadialGradient(dp,dq,0,dp,dq,6+22*(1-fa2));gd.addColorStop(0,'rgba(255,255,255,'+fa2+')');gd.addColorStop(1,'rgba(255,180,84,0)');g.fillStyle=gd;g.beginPath();g.arc(dp,dq,28,0,TAU);g.fill();}
+      if(s.hard&&e>0){
+        if(e<.3){var al=1-e/.3;g.beginPath();for(j=0;j<=14;j++){var f=j/14,x=s.hx+(s.qx-s.hx)*f,y=s.ay+(s.qy-s.ay)*f+4*Math.sin(f*TAU*2.5-e*50)*Math.sin(f*Math.PI);j?g.lineTo(x,y):g.moveTo(x,y);}
+          g.strokeStyle='rgba(255,210,122,'+al+')';g.lineWidth=2.2;g.stroke();g.fillStyle='rgba(255,210,122,'+al+')';g.font='700 12px JetBrains Mono, monospace';g.textAlign='center';g.fillText('γ*',(s.hx+s.qx)/2,s.ay-12);}
+        if(e<.25){var fl2=g.createRadialGradient(s.qx,s.qy,0,s.qx,s.qy,46);fl2.addColorStop(0,'rgba(255,255,255,'+(1-e/.25)+')');fl2.addColorStop(1,'rgba(255,180,84,0)');g.fillStyle=fl2;g.beginPath();g.arc(s.qx,s.qy,46,0,TAU);g.fill();}
+        if(e<.6){g.beginPath();g.arc(s.qx,s.qy,e*160,0,TAU);g.strokeStyle='rgba(255,180,84,'+(1-e/.6)+')';g.lineWidth=2.5;g.stroke();}
+        var qa=Math.max(0,1-e/1.2),qd2=70*e,gx=s.qx+Math.cos(pq)*qd2,gy=s.qy+Math.sin(pq)*qd2;
+        if(qa>0){g.globalAlpha=qa;g.setLineDash([4,4]);g.beginPath();g.moveTo(s.qx,s.qy);g.lineTo(gx,gy);g.strokeStyle='rgba(199,146,234,.9)';g.lineWidth=3;g.stroke();g.setLineDash([]);disk(g,gx,gy,9,COL[s.k],QL[s.k]);g.globalAlpha=1;}
+        if(e>.15){var ds=e-.15;s.sp.forEach(function(a2){var d1=a2[1]*ds,d0=a2[1]*Math.max(0,ds-.07),an=pq+a2[0];g.strokeStyle=a2[2];g.globalAlpha=Math.max(0,1-ds/1.2);g.lineWidth=2.4;g.beginPath();g.moveTo(s.qx+Math.cos(an)*d0,s.qy+Math.sin(an)*d0);g.lineTo(s.qx+Math.cos(an)*d1,s.qy+Math.sin(an)*d1);g.stroke();});g.globalAlpha=1;}
+      }
+      if(u>s.th+s.ts+1.5) SH.splice(i,1);
+    }
+    g.restore();g.font='11px Vazirmatn, sans-serif';g.textAlign='center';g.fillStyle='rgba(255,255,255,.6)';
+    g.fillText('شتاب‌دهنده‌ی خطی (۳٫۲ km)',L.x0+L.L1/2,cy-30);g.fillText('هدفِ پروتون',cx,cy-R-8);g.fillText('آهنربای هدایت',g0+gp*.36+7,cy-34);g.fillText('آشکارساز',W-32,H5-6);
+    $('qAE').textContent=fa(E.toFixed(1))+' GeV';$('qAL').textContent='≈ '+fa((1.24/E).toFixed(2))+' fm';$('qAN').textContent=fa(nS)+' / '+fa(nH);}
+  $('qAccGo').addEventListener('click',function(){fire(T5);});
+  $('qAccAuto').addEventListener('click',function(){autoF=!autoF;nxt=T5;$('qAccAuto').textContent=autoF?'⏸ توقف شلیک':'🔁 شلیک پیوسته';});
+  $('qAccSlow').addEventListener('click',function(){slow=!slow;$('qAccSlow').textContent=slow?'🐇 سرعت عادی':'🐢 حرکت آهسته';});
+  $('qAccClr').addEventListener('click',function(){dots=[];SH=[];nS=nH=0;$('qAR').textContent='نتیجه‌گیریِ هر شلیک اینجا نوشته می‌شود.';});
+  var __qVis=__inView(sec);
+  (function loop(now){requestAnimationFrame(loop); var t=now/1000;
+    if(auto){var u=(t-aT0)/6; rng.value=Math.min(300,20+u*280); if(u>=1){auto=false;$('qAuto').textContent='▶ جدا کردن خودکار';}}
+    var dt=Math.min(.05,t-lt);lt=t;if(zAuto){setZ(z+dt/9);if(z>=1){zAuto=false;$('qZp').textContent='▶ زوم خودکار';}}
+    if(!__qVis.v) return; draw0(t); draw2(t); draw5(t);})(0);
+})();
+</script>
+</script>
+<script>
+(function(){
+  var host=document.getElementById('qsGroups'); if(!host) return;
+  var det=document.getElementById('qsDetail'), cards={}, P={};
+  var G=[
+    {t:'کوارک‌ها',s:'ذره‌های ماده؛ هر چهار نیرو را حس می‌کنند',rgb:'199,146,234',list:[
+      ['u','بالا','up','≈ ۲٫۳ MeV','+۲/۳','½','نسل','۱','شواهد مستقیم ≈ ۱۹۶۸ (SLAC)','سبک‌ترین کوارک است. دو تا از آن در هر پروتون هست، پس بیشترِ مادّه‌ی اطرافِ ما از آن ساخته شده.'],
+      ['c','افسون','charm','≈ ۱٫۲۷۵ GeV','+۲/۳','½','نسل','۲','نوامبر ۱۹۷۴ — ذره‌ی J/ψ','دو گروه هم‌زمان آن را یافتند (SLAC و بروکهیون)؛ به این رویداد «انقلاب نوامبر» می‌گویند.'],
+      ['t','سر','top','≈ ۱۷۳ GeV','+۲/۳','½','نسل','۳','۱۹۹۵ — فرمی‌لب','سنگین‌ترین ذره‌ی بنیادیِ شناخته‌شده؛ تقریباً هم‌وزنِ یک اتم طلا. حدود ۵×۱۰⁻²⁵ ثانیه عمر می‌کند و پیش از ساختنِ ذره‌ی مرکب می‌پاشد.'],
+      ['d','پایین','down','≈ ۴٫۸ MeV','−۱/۳','½','نسل','۱','شواهد مستقیم ≈ ۱۹۶۸ (SLAC)','همراهِ u در نسل ۱. پروتون یک و نوترون دو کوارکِ d دارد. d می‌تواند به u تبدیل شود: همان واپاشیِ بتا.'],
+      ['s','شگفت','strange','≈ ۹۵ MeV','−۱/۳','½','نسل','۲','۱۹۴۷ — پرتوهای کیهانی','ذره‌های «شگفت» سریع ساخته می‌شدند ولی کند می‌پاشیدند؛ از همین‌جا نامش آمد.'],
+      ['b','ته','bottom','≈ ۴٫۱۸ GeV','−۱/۳','½','نسل','۳','۱۹۷۷ — فرمی‌لب (ذره‌ی ϒ)','حدود ۴٫۵ برابرِ پروتون سنگین است. مزون‌های B به دانشمندان کمک می‌کنند تفاوتِ ماده و پادماده را بفهمند.']
+    ]},
+    {t:'لپتون‌ها',s:'ذره‌های ماده؛ نیروی قوی را حس نمی‌کنند',rgb:'126,224,138',list:[
+      ['e','الکترون','electron','≈ ۰٫۵۱۱ MeV','−۱','½','نسل','۱','۱۸۹۷ — جی.جی. تامسون','سبک‌ترین لپتونِ باردار و پایدار. دور هسته می‌چرخد و تمام شیمی را می‌سازد.'],
+      ['μ','میون','muon','≈ ۱۰۵٫۷ MeV','−۱','½','نسل','۲','۱۹۳۶ — پرتوهای کیهانی','حدود ۲۰۷ برابر سنگین‌تر از الکترون و ناپایدار (≈ ۲٫۲ میکروثانیه). هر دقیقه تقریباً یک میون از هر سانتی‌مترمربعِ سطحِ زمین رد می‌شود.'],
+      ['τ','تاو','tau','≈ ۱٫۷۷۷ GeV','−۱','½','نسل','۳','۱۹۷۵ — SLAC (مارتین پرل)','سنگین‌ترین لپتون، حدود ۲ برابرِ پروتون. عمرش فقط ≈ ۳×۱۰⁻¹³ ثانیه است.'],
+      ['ν<sub>e</sub>','نوترینوی الکترونی','electron neutrino','< ۲٫۲ eV','۰','½','نسل','۱','۱۹۵۶ — کاوان و رینز (پیشنهاد پائولی: ۱۹۳۰)','بار ندارد و تقریباً با هیچ‌چیز برهم‌کنش نمی‌کند؛ هر ثانیه حدود ۶۰ میلیارد نوترینوی خورشیدی از هر سانتی‌مترمربعِ بدنِ تو رد می‌شود.'],
+      ['ν<sub>μ</sub>','نوترینوی میونی','muon neutrino','< ۰٫۱۷ MeV','۰','½','نسل','۲','۱۹۶۲ — بروکهیون','همراهِ میون ساخته می‌شود. آزمایش‌های «نوسان» نشان داده‌اند نوترینوها جرمِ بسیار ناچیزی دارند و نوعشان را عوض می‌کنند (نوبل ۲۰۱۵).'],
+      ['ν<sub>τ</sub>','نوترینوی تاویی','tau neutrino','< ۱۵٫۵ MeV','۰','½','نسل','۳','۲۰۰۰ — فرمی‌لب (DONUT)','همراهِ تاو؛ آخرین لپتونی که کشف شد.']
+    ]},
+    {t:'بوزون‌ها',s:'حامل نیروها (و هیگز)',rgb:'255,122,107',list:[
+      ['g','گلوئون','gluon','۰','۰','۱','نیرو','قوی','۱۹۷۹ — DESY (آلمان)','حاملِ نیروی قوی است و کوارک‌ها را به هم می‌چسباند. ۸ نوع دارد و خودش هم «بار رنگ» دارد.'],
+      ['γ','فوتون','photon','۰','۰','۱','نیرو','الکترومغناطیس','۱۹۰۵ پیشنهاد آینشتین — ۱۹۲۳ کامپتون','ذره‌ی نور و حاملِ نیروی الکترومغناطیسی. جرم ندارد، پس همیشه با سرعت نور می‌رود.'],
+      ['Z','بوزون Z','Z boson','≈ ۹۱٫۲ GeV','۰','۱','نیرو','ضعیف','۱۹۸۳ — CERN','حاملِ نیروی ضعیفِ خنثی. حدود ۹۷ برابرِ پروتون سنگین است؛ برای همین نیروی ضعیف بردی بسیار کوتاه دارد.'],
+      ['W','بوزون W','W boson','≈ ۸۰٫۴ GeV','±۱','۱','نیرو','ضعیف','۱۹۸۳ — CERN','حاملِ نیروی ضعیفِ باردار (W⁺ و W⁻). طعمِ کوارک‌ها را عوض می‌کند، مثلاً d → u در واپاشیِ بتا؛ خورشید هم با همین نیرو می‌سوزد.'],
+      ['H','بوزون هیگز','Higgs boson','≈ ۱۲۵ GeV','۰','۰','نقش','دادن جرم','۲۰۱۲ — CERN (LHC)','کوانتای «میدان هیگز» است؛ برهم‌کنشِ ذره‌ها با این میدان به آن‌ها جرم می‌دهد. تنها ذره‌ی بنیادیِ با اسپین ۰ که می‌شناسیم. (نوبل ۲۰۱۳)','255,210,77']
+    ]}
+  ];
+  function mk(g,d){
+    var rgb=d[10]||g.rgb, k=d[0], b=document.createElement('button'); b.type='button'; b.className='qs-card'; b.style.setProperty('--c-rgb',rgb);
+    b.innerHTML='<div class="qs-vals"><div>'+d[3]+'</div><div>'+d[4]+'</div><div>'+d[5]+'</div></div><span class="qd'+(k.length>3?' sm':'')+'">'+k+'</span><div class="qs-nm">'+d[1]+'</div><div class="qs-en">'+d[2]+'</div>';
+    b.addEventListener('click',function(){ show(d); det.scrollIntoView({behavior:'smooth',block:'nearest'}); });
+    cards[d[2]]=b; return b;
+  }
+  G.forEach(function(g){
+    var h=document.createElement('div'); h.className='qs-grp'; h.style.setProperty('--c-rgb',g.rgb); h.innerHTML='<b>'+g.t+'</b><span>'+g.s+'</span>'; host.appendChild(h);
+    var gr=document.createElement('div'); gr.className='qs-grid'; g.list.forEach(function(d){ d.g=g; gr.appendChild(mk(g,d)); }); host.appendChild(gr);
+  });
+  function show(d){
+    var rgb=d[10]||d.g.rgb;
+    Object.keys(cards).forEach(function(x){ cards[x].classList.toggle('sel',x===d[2]); });
+    det.style.setProperty('--c-rgb',rgb);
+    det.innerHTML='<div class="qs-top"><span class="qd'+(d[0].length>3?' sm':'')+'">'+d[0]+'</span><div><h4>'+d[1]+'</h4><small>'+d[2]+'</small></div></div>'+
+      '<div class="qs-props"><div><span>جرم</span><b>'+d[3]+'</b></div><div><span>بار الکتریکی</span><b>'+d[4]+(d[4]==='۰'?'':' e')+'</b></div><div><span>اسپین</span><b>'+d[5]+'</b></div><div><span>'+d[6]+'</span><b class="fa">'+d[7]+'</b></div></div>'+
+      '<p class="qs-txt"><b>کشف:</b> '+d[8]+'<br>'+d[9]+'</p>';
+  }
+  show(G[0].list[0]);
+})();
+</script>
+</script>
+</body>
+</html>

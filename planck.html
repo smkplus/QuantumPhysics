@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>🌡️ فاجعه‌ی فرابنفش: چرا h لازم شد؟ | آزمایشگاه فیزیک کوانتوم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0a12; --panel:#14141f; --panel2:#101019; --border:#252536;
+    --ink:#e8e6f0; --muted:#8b8ea3;
+    --wave:#62d6ff; --collapse:#ffb454; --entangle:#c792ea; --alive:#7ee08a; --dead:#ff6b6b;
+    color-scheme: dark;
+  }
+  *,*::before,*::after{ box-sizing:border-box; min-width:0; }
+  html{ width:100%; max-width:100vw; overflow-x:hidden; -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  body{
+    margin:0; width:100%; max-width:100vw; overflow-x:hidden; position:relative;
+    background:var(--void); color:var(--ink); font-family:'Vazirmatn',sans-serif; line-height:1.8;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  img,svg,canvas{ max-width:100%; }
+
+  canvas#fxCanvas{ position:fixed; inset:0; z-index:50; pointer-events:none; width:100%; height:100%; }
+  #flashOverlay{ position:fixed; inset:0; z-index:49; pointer-events:none; opacity:0; mix-blend-mode:screen; transition:opacity .09s ease-out; }
+  #flashOverlay.on{ transition:opacity .02s ease-out; }
+
+  header{ padding:68px 20px 22px; max-width:720px; margin:0 auto; text-align:center; position:relative; }
+  header .kicker{ font-size:13px; color:var(--wave); font-weight:700; margin-bottom:10px; }
+  header h1{ font-size:clamp(24px,6vw,34px); font-weight:800; margin:0 0 12px; }
+  header p{ font-size:15px; color:var(--muted); max-width:560px; margin:0 auto; }
+  .qdef{ max-width:600px; margin:0 auto 16px; padding:14px 18px; text-align:right; font-size:14.5px; line-height:2; color:var(--ink);
+    background:var(--panel2); border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:14px; }
+  .qdef b{ color:var(--wave); }
+  #soundBtn,#musicBtn{
+    position:absolute; top:16px; left:20px; width:38px; height:38px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer;
+    font-size:16px; display:flex; align-items:center; justify-content:center;
+  }
+  #musicBtn{ left:66px; }
+  #soundBtn.off,#musicBtn.off{ opacity:.5; }
+
+  main{ max-width:720px; margin:0 auto; padding:6px 18px 70px; }
+
+  section.concept{ padding-top:34px; }
+  section.concept:not(:first-child){ border-top:1px solid var(--border); margin-top:34px; }
+  .concept-head h2{ font-size:clamp(18px,4.6vw,22px); font-weight:800; margin:0 0 10px; display:flex; align-items:center; gap:9px; }
+  .concept-desc{ font-size:14px; color:#c7c3da; margin:0 0 18px; }
+
+  .demo{ background:var(--panel2); border:1px solid var(--border); border-radius:14px; padding:16px; transition:box-shadow .3s ease, border-color .3s ease, transform .3s ease; }
+  .demo:hover{ border-color:#31314a; box-shadow:0 10px 30px -14px rgba(0,0,0,.6); }
+  .demo.pulse{ animation:demoPulse .6s cubic-bezier(.2,.9,.15,1); }
+  @keyframes demoPulse{
+    0%{ box-shadow:0 0 0 1px rgba(255,255,255,0); transform:scale(1); }
+    22%{ box-shadow:0 0 0 1.5px var(--pulse-c,var(--wave)), 0 0 42px -4px var(--pulse-c,var(--wave)); transform:scale(1.008); }
+    100%{ box-shadow:0 0 0 1px rgba(255,255,255,0); transform:scale(1); }
+  }
+
+  .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .slider-group{ margin-bottom:12px; }
+  .slider-group label{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted); margin-bottom:6px; }
+  input[type=range]{ width:100%; -webkit-appearance:none; appearance:none; height:5px; border-radius:4px; background:#20202f; outline:none; transition:background .2s ease; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--wave); cursor:pointer; box-shadow:0 0 8px rgba(98,214,255,.6); transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease; }
+  input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:var(--wave); border:none; box-shadow:0 0 8px rgba(98,214,255,.6); cursor:pointer; transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease; }
+  input[type=range]:active::-webkit-slider-thumb{ transform:scale(1.35); box-shadow:0 0 18px rgba(98,214,255,.9); }
+  input[type=range]:active::-moz-range-thumb{ transform:scale(1.35); box-shadow:0 0 18px rgba(98,214,255,.9); }
+
+  button.act{
+    font-family:inherit; font-size:13.5px; font-weight:700; cursor:pointer;
+    padding:9px 16px; border-radius:11px; border:1px solid var(--border);
+    background:#181826; color:var(--ink); transition:transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease, box-shadow .18s ease, color .18s ease;
+  }
+  button.act:hover{ border-color:var(--wave); transform:translateY(-2px); box-shadow:0 4px 18px -4px rgba(98,214,255,.45); }
+  button.act:active{ transform:translateY(1px) scale(.95); box-shadow:0 0 10px -2px rgba(98,214,255,.5); }
+  button.act.ghost{ background:transparent; color:var(--muted); }
+  button.act.ghost:hover{ color:var(--ink); border-color:var(--muted); }
+  button.act.on{ border-color:var(--collapse); color:var(--collapse); box-shadow:0 0 16px -4px rgba(255,180,84,.55); }
+
+  .readouts{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .readout{ flex:1 1 130px; background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:9px 12px; }
+  .readout .rl{ font-size:11px; color:var(--muted); margin-bottom:3px; }
+  .readout .rv{ font-size:14px; font-weight:700; transition:transform .2s ease; }
+  .readout .rv.bump{ transform:scale(1.25); }
+  .c-wave{ color:var(--wave); } .c-collapse{ color:var(--collapse); } .c-ent{ color:var(--entangle); }
+  .c-alive{ color:var(--alive); } .c-dead{ color:var(--dead); }
+
+  canvas.demo-canvas{ display:block; width:100%; height:200px; border-radius:10px; background:#06060b; border:1px solid var(--border); margin-bottom:12px; }
+  #levelsCanvas.demo-canvas{ height:300px; touch-action:manipulation; }
+  .lv-status{ margin-top:10px; padding:9px 12px; min-height:20px; background:#0c0c14; border:1px solid var(--border); border-radius:10px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+
+  /* superposition */
+  .qubit-stage{ display:flex; align-items:center; justify-content:center; gap:26px; padding:14px 0 18px; }
+  .blob{ width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .35s ease, box-shadow .35s ease; animation:blobBreathe 2.6s ease-in-out infinite; cursor:default; }
+  .blob:hover{ animation-play-state:paused; transform:scale(1.09); }
+  .blob.b0{ background:radial-gradient(circle at 35% 30%, rgba(98,214,255,.9), rgba(98,214,255,.25)); color:#04202b; box-shadow:0 0 22px -4px rgba(98,214,255,.55); }
+  .blob.b1{ background:radial-gradient(circle at 35% 30%, rgba(255,180,84,.9), rgba(255,180,84,.25)); color:#2b1704; box-shadow:0 0 22px -4px rgba(255,180,84,.55); }
+  @keyframes blobBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.045); } }
+  .qubit-plus{ font-size:20px; color:var(--muted); }
+  .prob-bars{ display:flex; flex-direction:column; gap:8px; margin-bottom:6px; }
+  .prob-bar-row{ display:flex; align-items:center; gap:10px; }
+  .prob-bar-row .lab{ width:56px; font-size:12.5px; font-family:'JetBrains Mono',monospace; flex:0 0 auto; }
+  .prob-bar-track{ flex:1; height:9px; border-radius:5px; background:#20202f; overflow:hidden; }
+  .prob-bar-fill{ height:100%; border-radius:5px; transition:width .4s cubic-bezier(.2,.9,.15,1); }
+  .prob-bar-fill.p0{ background:var(--wave); box-shadow:0 0 10px rgba(98,214,255,.55); } .prob-bar-fill.p1{ background:var(--collapse); box-shadow:0 0 10px rgba(255,180,84,.55); }
+  .qubit-result{ text-align:center; font-size:13.5px; color:var(--muted); min-height:20px; margin-top:6px; }
+
+  /* entanglement + spin badges */
+  .ent-stage{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:8px 6px 18px; }
+  .ent-particle{ flex:1; text-align:center; }
+  .ent-loc{ font-size:11.5px; color:var(--muted); margin-bottom:8px; }
+  .ent-badge{ width:64px; height:64px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; background:#1a1a29; border:2px dashed var(--border); color:var(--muted); transition:transform .3s cubic-bezier(.34,1.56,.64,1), border-color .25s ease, color .25s ease, background .25s ease, box-shadow .3s ease; font-family:'JetBrains Mono',monospace; }
+  .ent-badge.set{ border-style:solid; }
+  .ent-badge.up{ border-color:var(--entangle); color:var(--entangle); background:rgba(199,146,234,.12); box-shadow:0 0 24px -5px rgba(199,146,234,.7); }
+  .ent-badge.down{ border-color:var(--wave); color:var(--wave); background:rgba(98,214,255,.12); box-shadow:0 0 24px -5px rgba(98,214,255,.7); }
+  .ent-badge.flash{ transform:scale(1.35); }
+  .ent-link{ flex:0 0 auto; font-size:12px; color:var(--muted); text-align:center; }
+  .ent-link .ln{ width:36px; height:2px; background:linear-gradient(90deg, var(--wave), var(--entangle)); margin:6px auto; border-radius:2px; animation:linkGlow 1.6s ease-in-out infinite; }
+  @keyframes linkGlow{ 0%,100%{ opacity:.5; } 50%{ opacity:1; box-shadow:0 0 10px rgba(199,146,234,.6); } }
+
+  /* entanglement lab */
+  #entDemo canvas{ display:block; width:100%; }
+  #entCv{ touch-action:pan-y; cursor:grab; }
+  .ent-note{ margin-top:12px; padding:10px 12px; border-radius:10px; font-size:12.5px; color:#c7c3da; background:rgba(199,146,234,.07); border:1px solid rgba(199,146,234,.25); }
+  .ent-streak{ color:var(--collapse); font-weight:800; }
+
+  /* spin */
+  .spin-wrap{ position:relative; width:64px; height:64px; margin:0 auto; }
+  .spin-axis{ position:absolute; top:50%; left:50%; width:120px; height:2px; margin-top:-1px; margin-left:-60px; border-radius:2px; background:linear-gradient(90deg, transparent, rgba(199,146,234,.6) 30%, rgba(199,146,234,.6) 70%, transparent); transition:transform .4s cubic-bezier(.34,1.56,.64,1), background .3s ease; pointer-events:none; z-index:0; }
+  .spin-axis.x{ transform:rotate(0deg); background:linear-gradient(90deg, transparent, rgba(98,214,255,.6) 30%, rgba(98,214,255,.6) 70%, transparent); }
+  .spin-axis.z{ transform:rotate(90deg); }
+  .spin-wrap .ent-badge{ position:relative; z-index:1; }
+  .spin-badge svg{ display:block; filter:drop-shadow(0 0 5px currentColor); }
+  .spin-badge.measuring{ animation:spinSnap .5s cubic-bezier(.36,.07,.19,.97); }
+  @keyframes spinSnap{
+    0%{ transform:scale(1) rotate(0deg); }
+    20%{ transform:scale(.82) rotate(-16deg); }
+    48%{ transform:scale(1.18) rotate(12deg); }
+    72%{ transform:scale(.94) rotate(-5deg); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+
+  /* schrodinger's cat */
+  .cat-stage{ display:flex; justify-content:center; padding:10px 0 20px; }
+  .cat-box{ position:relative; width:190px; height:190px; border-radius:22px; overflow:hidden; background:radial-gradient(circle at 30% 20%, #23233a, #0f0f18 75%); border:2px solid var(--border); box-shadow:inset 0 0 30px rgba(0,0,0,.5), 0 12px 34px -12px rgba(0,0,0,.7); transition:box-shadow .3s ease, transform .3s ease; }
+  .cat-box:hover{ transform:translateY(-2px); box-shadow:inset 0 0 30px rgba(0,0,0,.5), 0 18px 40px -12px rgba(0,0,0,.8); }
+  .cat-box.shaking{ animation:catShake .4s ease; }
+  @keyframes catShake{ 0%,100%{ transform:translateX(0) rotate(0); } 20%{ transform:translateX(-4px) rotate(-1.5deg); } 40%{ transform:translateX(4px) rotate(1.5deg); } 60%{ transform:translateX(-3px) rotate(-1deg); } 80%{ transform:translateX(3px) rotate(1deg); } }
+  .cat-ghosts{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .cat-ghost{ position:absolute; font-size:66px; animation:flicker 1.7s ease-in-out infinite; filter:drop-shadow(0 0 10px rgba(126,224,138,.35)); }
+  .cat-ghost.dead{ animation-delay:.85s; filter:drop-shadow(0 0 10px rgba(255,107,107,.35)); }
+  @keyframes flicker{ 0%,100%{ opacity:.16; transform:scale(.88) rotate(-4deg); } 50%{ opacity:.55; transform:scale(1.05) rotate(3deg); } }
+  .cat-lid{ position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:linear-gradient(160deg,#181826,#0a0a12); transition:transform .5s cubic-bezier(.2,.9,.15,1.35), opacity .4s ease; }
+  .cat-lid .q{ font-size:38px; color:var(--muted); }
+  .cat-lid .lidtxt{ font-size:11.5px; color:var(--muted); }
+  .cat-lid.open{ transform:translateY(-115%) rotate(-6deg); opacity:0; pointer-events:none; }
+  .cat-reveal{ position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; font-size:84px; opacity:0; transform:scale(.25) rotate(-20deg); transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+  .cat-reveal.show{ opacity:1; transform:scale(1) rotate(0); }
+  .cat-reveal.alive{ filter:drop-shadow(0 0 22px rgba(126,224,138,.6)); }
+  .cat-reveal.dead{ filter:drop-shadow(0 0 22px rgba(255,107,107,.6)); }
+
+  /* bit vs qubit · 3D coins */
+  canvas.bq-canvas{ display:block; width:100%; border-radius:12px; cursor:grab; touch-action:pan-y; user-select:none; -webkit-user-select:none; background:#07070d; }
+  canvas.bq-canvas:active{ cursor:grabbing; }
+  .bq-btns{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+  .bq-read{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; font-size:12.5px; color:var(--muted); }
+  .bq-read span.chip{ background:#0c0c14; border:1px solid var(--border); border-radius:999px; padding:3px 12px; }
+  .bq-hint{ text-align:center; font-size:11.5px; color:var(--muted); margin-top:8px; }
+
+  /* schrodinger's cat 3D */
+  canvas.cat3d-canvas{ cursor:grab; touch-action:pan-y; user-select:none; -webkit-user-select:none; }
+  .chain{ list-style:none; margin:0 0 10px; padding:0; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+  .chain li{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); background:#0c0c14; border:1px solid var(--border); border-radius:999px; padding:3px 10px 3px 8px; transition:color .25s ease, border-color .25s ease, background .25s ease; }
+  .chain li b{ width:18px; height:18px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; background:#1b1b2b; color:var(--muted); transition:background .25s ease, color .25s ease; }
+  .chain li.on{ color:var(--collapse); border-color:rgba(255,180,84,.6); background:rgba(255,180,84,.08); }
+  .chain li.on b{ background:var(--collapse); color:#14141f; }
+  .cat-key{ display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:center; font-size:11.5px; color:var(--muted); }
+  .cat-key .dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-inline-end:6px; }
+  .cat-key .dot.alive{ background:var(--alive); box-shadow:0 0 8px var(--alive); }
+  .cat-key .dot.dead{ background:var(--dead); box-shadow:0 0 8px var(--dead); }
+  button.act[hidden]{ display:none !important; }
+  .act.fix{ background:linear-gradient(135deg,var(--wave),var(--entangle)); color:#04121a; border-color:transparent; font-weight:800; box-shadow:0 6px 22px -8px rgba(98,214,255,.6); }
+  .act.fix:hover{ color:#04121a; border-color:transparent; box-shadow:0 6px 26px -4px rgba(98,214,255,.8); }
+  .act.fix.need{ animation:fixGlow 1.6s ease-in-out infinite; }
+  @keyframes fixGlow{ 0%,100%{ box-shadow:0 6px 20px -8px rgba(98,214,255,.5); } 50%{ box-shadow:0 0 0 3px rgba(98,214,255,.25), 0 8px 30px -4px rgba(199,146,234,.85); } }
+  .act:disabled{ opacity:.4; cursor:default; transform:none; box-shadow:none; border-color:var(--border); }
+
+  /* applications */
+  .app-grid{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:14px; }
+  .app-chip{
+    font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
+    padding:10px 14px; border-radius:11px; border:1px solid var(--border);
+    background:#181826; color:var(--ink); transition:transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease, box-shadow .18s ease;
+  }
+  .app-chip:hover{ border-color:var(--wave); transform:translateY(-2px); box-shadow:0 4px 16px -6px rgba(98,214,255,.5); }
+  .app-chip:active{ transform:translateY(1px) scale(.96); }
+  .app-chip.active{ border-color:var(--collapse); color:var(--collapse); background:rgba(255,180,84,.08); box-shadow:0 0 18px -6px rgba(255,180,84,.6); }
+
+  /* double slit · 3D */
+  .ds-stage{ position:relative; }
+  canvas.ds-canvas{ touch-action:pan-y; cursor:grab; margin-bottom:10px; }
+  canvas.ds-canvas:active{ cursor:grabbing; }
+  .ds-hint{ position:absolute; top:10px; right:12px; font-size:11px; color:var(--muted); pointer-events:none; opacity:.8; }
+  .ds-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .ds-chips .app-chip{ padding:7px 11px; font-size:12.5px; }
+  .ds-chips .app-chip[data-w="A"].active{ border-color:var(--wave); color:var(--wave); background:rgba(98,214,255,.08); box-shadow:0 0 18px -6px rgba(98,214,255,.6); }
+  .ds-chips .app-chip[data-w="sum"].active, .ds-chips .app-chip[data-c].active{ border-color:var(--entangle); color:var(--entangle); background:rgba(199,146,234,.09); box-shadow:0 0 18px -6px rgba(199,146,234,.6); }
+
+  .tun-layers{ margin:2px 0 12px; }
+  .tun-layers-title{ display:block; font-size:12.5px; color:var(--ink); font-weight:700; margin-bottom:7px; }
+  .tun-layers-title small{ color:var(--muted); font-weight:400; }
+  .tun-layers-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tun-layer{ font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); background:#0c0c14;
+    border:1px solid var(--border); border-radius:999px; padding:7px 14px 7px 12px; transition:all .15s; opacity:.75; }
+  .tun-layer small{ font-weight:400; font-size:11px; }
+  .tun-layer::before{ content:"○ "; }
+  .tun-layer.active::before{ content:"● "; }
+  .tun-layer.active{ opacity:1; }
+  .tun-layer.wave.active{ color:var(--wave); border-color:var(--wave); background:rgba(98,214,255,.09); }
+  .tun-layer.prob.active{ color:var(--collapse); border-color:var(--collapse); background:rgba(255,180,84,.09); }
+  .tun-layer.dot.active{ color:var(--ink); border-color:var(--ink); background:rgba(255,255,255,.07); }
+  .tun-layer:hover{ opacity:1; }
+  #tunFormulaBox{ margin-bottom:14px; }
+  #tunFormulaBox > summary{ cursor:pointer; list-style:none; direction:rtl; text-align:right; font-family:'Vazirmatn',sans-serif;
+    font-size:12.5px; font-weight:700; color:var(--wave); background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:9px 13px; }
+  #tunFormulaBox > summary::-webkit-details-marker{ display:none; }
+  #tunFormulaBox > summary::before{ content:"▸ "; }
+  #tunFormulaBox[open] > summary::before{ content:"▾ "; }
+  #tunFormulaBox[open] > summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #tunFormulaBox[open] > #tunFormula{ margin-bottom:0; border-top:0; border-top-left-radius:0; border-top-right-radius:0; }
+  #tunChanceLine{ direction:rtl; text-align:right; font-family:'Vazirmatn',sans-serif; color:var(--ink); font-size:13px; line-height:1.9; margin:0 0 10px; }
+  .ds-cap{ font-size:13px; color:var(--muted); line-height:1.95; background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:10px 13px; margin-bottom:12px; min-height:4.2em; }
+  .ds-cap b{ color:var(--ink); }
+  #dsPlot.demo-canvas{ height:150px; }
+  .ds-rate{ margin-bottom:12px; }
+  .ds-rate-head{ display:flex; justify-content:space-between; align-items:baseline; font-size:12.5px; color:var(--muted); margin-bottom:8px; }
+  .ds-rate-head b{ color:var(--ink); font-size:13px; }
+  .ds-rate-box{ direction:ltr; }
+  input#dsRate{ height:10px; border-radius:6px; margin:6px 0 0;
+    background:linear-gradient(to right, transparent calc(11px + (100% - 22px)*var(--p,.3)), rgba(6,6,11,.78) calc(11px + (100% - 22px)*var(--p,.3))), linear-gradient(to right,#62d6ff,#7ee08a,#ffe17a,#ffb454,#ff6b6b); }
+  input#dsRate::-webkit-slider-thumb{ width:22px; height:22px; background:var(--tc,#62d6ff); border:2px solid #0a0a12; box-shadow:0 0 14px var(--tc,#62d6ff); }
+  input#dsRate::-moz-range-thumb{ width:18px; height:18px; background:var(--tc,#62d6ff); border:2px solid #0a0a12; box-shadow:0 0 14px var(--tc,#62d6ff); }
+  .ds-scale{ display:flex; justify-content:space-between; direction:ltr; font-size:11px; color:var(--muted); margin-top:2px; }
+  .ds-rate-note{ font-size:12px; color:var(--muted); margin-top:7px; line-height:1.8; min-height:3.4em; }
+  .ds-probe{ display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; margin-bottom:12px; }
+  #dsPhasor.demo-canvas{ width:150px; height:150px; flex:0 0 150px; margin-bottom:0; }
+  .ds-probe-side{ flex:1 1 240px; min-width:0; }
+
+  /* history timeline · a growing vertical stem, nodes that get bigger as the field grows */
+  @keyframes tlFade{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+  .tl-wrap{ position:relative; padding-inline-start:6px; contain:layout style; }
+  .tl-svg{ position:absolute; inset:0; z-index:0; overflow:visible; pointer-events:none; }
+  .tl-path{ fill:none; stroke-width:3; stroke-linecap:round; }
+  .tl-item{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;
+    opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.15,1); }
+  .tl-item.reveal{ opacity:1; transform:translateY(0); }
+  .tl-gutter{ flex:0 0 56px; display:flex; justify-content:center; padding-top:2px; transition:transform .4s cubic-bezier(.2,.9,.15,1); }
+  .tl-node2{ width:var(--r); height:var(--r); border-radius:50%; flex:0 0 auto; cursor:pointer;
+    background:radial-gradient(circle at 32% 28%, rgb(var(--c-rgb)), rgba(var(--c-rgb),.5));
+    box-shadow:0 0 0 5px var(--void), 0 0 14px -2px rgba(var(--c-rgb),.85);
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+  .tl-item:hover .tl-node2{ transform:scale(1.1); }
+  .tl-item.active .tl-node2{ transform:scale(1.22); box-shadow:0 0 0 5px var(--void), 0 0 22px 0px rgba(var(--c-rgb),1); }
+  .tl-card{ flex:1; min-width:0; background:#12121c; border:1px solid var(--border); border-radius:14px;
+    padding:11px 14px; cursor:pointer; transition:border-color .25s ease, box-shadow .3s ease; }
+  .tl-item.active .tl-card{ border-color:rgba(var(--c-rgb),.6); box-shadow:0 0 0 1px rgba(var(--c-rgb),.3) inset, 0 12px 28px -16px rgba(var(--c-rgb),.55); }
+  .tl-card-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .tl-badge{ font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:rgb(var(--c-rgb));
+    background:rgba(var(--c-rgb),.14); border:1px solid rgba(var(--c-rgb),.4); border-radius:6px; padding:2px 6px; flex:0 0 auto; }
+  .tl-yr{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:14.5px; color:var(--ink); }
+  .tl-nm{ font-size:12px; color:var(--muted); }
+  .tl-chev{ margin-inline-start:auto; color:var(--muted); font-size:11px; transition:transform .3s ease, color .3s ease; flex:0 0 auto; }
+  .tl-item.active .tl-chev{ transform:rotate(180deg); color:rgb(var(--c-rgb)); }
+  .tl-card-body{ font-size:12.5px; color:var(--muted); line-height:1.9; margin-top:0; max-height:0; overflow:hidden;
+    transition:max-height .35s ease, margin-top .35s ease, padding-top .35s ease; border-top:0 dashed var(--border); }
+  .tl-item.active .tl-card-body{ margin-top:8px; padding-top:8px; border-top-width:1px; max-height:400px; animation:tlFade .3s ease; }
+
+  .tl-stats{ display:flex; justify-content:center; gap:26px; margin-bottom:20px; flex-wrap:wrap; }
+  .tl-stat{ text-align:center; }
+  .tl-stat-num{ display:block; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:23px;
+    background:linear-gradient(90deg,var(--wave),var(--entangle) 55%,var(--collapse)); -webkit-background-clip:text;
+    background-clip:text; color:transparent; }
+  .tl-stat-lbl{ font-size:10.5px; color:var(--muted); }
+  .tl-era{ display:flex; align-items:center; gap:8px; justify-content:center; margin:24px auto 16px; padding:7px 15px;
+    border-radius:999px; background:rgba(var(--c-rgb),.13); border:1px solid rgba(var(--c-rgb),.45);
+    font-size:12px; font-weight:700; color:rgb(var(--c-rgb)); width:fit-content; position:relative; z-index:1; }
+  .tl-era{ cursor:pointer; user-select:none; transition:background .25s ease; }
+  .tl-era:hover{ background:rgba(var(--c-rgb),.22); }
+  .tl-era{ padding:8px 10px 8px 15px; gap:9px; box-shadow:0 0 0 1px rgba(var(--c-rgb),.12), 0 6px 18px -10px rgba(var(--c-rgb),.6); }
+  .tl-era-cnt{ font-size:10.5px; font-weight:600; opacity:.8; padding-inline-start:9px; border-inline-start:1px solid rgba(var(--c-rgb),.4); }
+  .tl-era-chev{ width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px;
+    background:rgba(var(--c-rgb),.22); border:1px solid rgba(var(--c-rgb),.55); transition:transform .3s ease; }
+  .tl-era.collapsed{ margin:10px auto; }
+  .tl-era:not(.collapsed) .tl-era-chev{ transform:rotate(180deg); }
+  .tl-item.tl-hide{ display:none; }
+  .tl-item.tl-enter{ animation:tlFade .35s ease; }
+  .tl-era-range{ font-size:10.5px; opacity:.75; font-weight:600; }
+
+  /* ===== tabs ===== */
+  .tabbar{ position:sticky; top:0; z-index:40; display:flex; justify-content:center; gap:8px;
+    padding:10px 16px; margin:0 auto 6px; max-width:720px; backdrop-filter:blur(14px);
+    background:linear-gradient(180deg, rgba(10,10,18,.88), rgba(10,10,18,.55)); }
+  .tab-btn{ font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; flex:1; max-width:230px;
+    padding:11px 14px; border-radius:13px; border:1px solid var(--border); background:#14141f; color:var(--muted);
+    display:flex; align-items:center; justify-content:center; gap:6px; transition:all .25s cubic-bezier(.2,.9,.15,1); }
+  .tab-btn.active{ color:#04121a; background:linear-gradient(135deg, var(--wave), var(--entangle));
+    border-color:transparent; box-shadow:0 6px 22px -8px rgba(98,214,255,.55); }
+  .view{ display:none; }
+  .view.active{ display:block; animation:viewIn .35s cubic-bezier(.2,.9,.15,1); }
+  @keyframes viewIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ===== formula-alphabet tab ===== */
+  #viewFormulas{ max-width:720px; margin:0 auto; padding:10px 18px 70px; }
+  .fa-hero{ text-align:center; padding:20px 6px 22px; }
+  .fa-kicker{ font-family:'JetBrains Mono',monospace; letter-spacing:3px; font-size:12px; color:var(--entangle); margin-bottom:10px; opacity:.85; }
+  .fa-title{ font-size:clamp(24px,7vw,32px); font-weight:800; margin:0 0 10px;
+    background:linear-gradient(90deg, var(--wave), var(--entangle) 60%, var(--collapse));
+    -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% auto;
+    animation:faShine 6s linear infinite; }
+  @keyframes faShine{ to{ background-position:200% center; } }
+  .fa-sub{ font-size:14px; color:var(--muted); max-width:520px; margin:0 auto; }
+
+  .glossary-hint{ text-align:center; font-size:11.5px; color:var(--muted); margin:-8px 0 14px; }
+  .glossary{ display:grid; grid-template-columns:repeat(auto-fill, minmax(122px,1fr)); gap:12px; padding:4px 2px 26px; }
+  .gcard{ perspective:1000px; height:136px; }
+  .gcard-inner{ position:relative; width:100%; height:100%; cursor:pointer;
+    transition:transform .6s cubic-bezier(.34,1.56,.64,1); transform-style:preserve-3d; }
+  .gcard.flipped .gcard-inner{ transform:rotateY(180deg); }
+  .gcard:hover .gcard-inner{ transform:translateY(-3px); }
+  .gcard.flipped:hover .gcard-inner{ transform:rotateY(180deg) translateY(-3px); }
+  .gface{ position:absolute; inset:0; backface-visibility:hidden; border-radius:16px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:10px 9px;
+    border:1px solid rgba(var(--c-rgb),.4);
+    background:linear-gradient(160deg, rgba(var(--c-rgb),.16), rgba(255,255,255,0) 62%), #12121c;
+    box-shadow:0 0 0 rgba(var(--c-rgb),0); transition:box-shadow .3s ease, border-color .3s ease; }
+  .gcard:hover .gface{ border-color:rgba(var(--c-rgb),.85); box-shadow:0 8px 26px -10px rgba(var(--c-rgb),.55); }
+  .gfront .icon{ font-size:25px; margin-bottom:6px; filter:drop-shadow(0 0 8px rgba(var(--c-rgb),.65)); animation:gfloat 3.6s ease-in-out infinite; }
+  @keyframes gfloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+  .gfront .sym{ font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:800; color:rgb(var(--c-rgb)); margin-bottom:4px; direction:ltr; }
+  .gfront .lbl{ font-size:10.5px; color:var(--muted); line-height:1.3; }
+  .gback{ transform:rotateY(180deg); gap:7px; }
+  .gback .mn{ font-size:10px; color:var(--ink); line-height:1.55; }
+  .gback .jump{ font-size:10.5px; font-weight:700; color:rgb(var(--c-rgb)); padding:4px 9px; border-radius:8px;
+    border:1px solid rgba(var(--c-rgb),.55); transition:transform .15s ease, background .2s ease; white-space:nowrap; }
+  .gback .jump:hover, .gback .jump:active{ transform:translateY(-1px); background:rgba(var(--c-rgb),.18); }
+  .gcard.flash .gface{ animation:gflash .7s ease; }
+  @keyframes gflash{ 0%,100%{ box-shadow:0 0 0 rgba(var(--c-rgb),0); } 40%{ box-shadow:0 0 26px 3px rgba(var(--c-rgb),.9); } }
+
+  .formula-grid{ display:flex; flex-direction:column; gap:14px; }
+  .f-card{ position:relative; overflow:hidden; cursor:pointer; border-radius:18px; padding:18px 20px;
+    background:linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,0) 55%), #12121c;
+    border:1px solid var(--border); border-inline-start:3px solid var(--accent, var(--wave));
+    opacity:0; transform:translateY(14px); transition:transform .5s cubic-bezier(.2,.9,.15,1), opacity .5s ease,
+      border-color .2s ease, box-shadow .3s ease; }
+  .f-card.reveal{ opacity:1; transform:translateY(0); }
+  .f-card:hover{ box-shadow:0 10px 30px -14px rgba(0,0,0,.6); }
+  .f-card.active{ box-shadow:0 0 0 1px var(--accent,var(--wave)) inset, 0 14px 34px -16px rgba(0,0,0,.65); }
+  .f-head-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .f-idx-badge{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:11px; color:var(--accent,var(--wave));
+    background:rgba(255,255,255,.06); border:1px solid var(--accent,var(--wave)); border-radius:7px; padding:3px 7px; flex:0 0 auto; }
+  .f-name{ font-size:12.5px; color:var(--muted); }
+  .f-eq{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(19px,5.5vw,23px); direction:ltr; text-align:center;
+    padding:10px 0 4px; color:var(--accent,var(--wave)); }
+  .f-eq sup{ font-size:11px; } .f-eq sub{ font-size:11px; }
+  .f-chevron{ margin-inline-start:auto; color:var(--muted); font-size:12px; transition:transform .3s ease; flex:0 0 auto; }
+  .f-card.active .f-chevron{ transform:rotate(180deg); color:var(--accent,var(--wave)); }
+  .f-explain{ font-size:12.5px; color:var(--muted); line-height:1.9; margin-top:8px; padding-top:12px; border-top:1px dashed var(--border); display:none; }
+  .f-card.active .f-explain{ display:block; animation:tlFade .3s ease; }
+  .f-terms{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+  .f-term{ font-size:10.5px; background:#171726; border:1px solid var(--border); border-radius:7px; padding:4px 8px; color:var(--muted); }
+  .f-term b{ color:var(--ink); font-family:'JetBrains Mono',monospace; }
+
+  /* formula live widgets */
+  .f-live{ margin-top:12px; padding-top:12px; border-top:1px dashed var(--border); }
+  .f-live .slider-group{ margin-bottom:10px; }
+  .f-live-row{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .f-swatch{ width:46px; height:46px; border-radius:50%; flex:0 0 auto; background:#181826; border:1px solid var(--border); transition:background .2s ease, box-shadow .2s ease; }
+  .f-live-readouts{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .f-live-line{ font-size:12.5px; color:var(--muted); }
+  .f-live-line b{ font-weight:700; color:var(--ink); }
+  .f-compare{ font-size:12px; color:var(--muted); margin-top:2px; }
+  .f-bar-track{ height:10px; border-radius:6px; background:#20202f; overflow:hidden; margin-bottom:8px; }
+  .f-bar-fill{ height:100%; border-radius:6px; background:var(--wave); width:0.4%; transition:width .3s ease, background .3s ease; }
+  .f-dot-box{ position:relative; width:100%; height:60px; border-radius:10px; background:#06060b; border:1px solid var(--border); overflow:hidden; margin-top:6px; display:flex; align-items:center; justify-content:center; }
+  .f-dot{ width:12px; height:12px; border-radius:50%; background:var(--collapse); box-shadow:0 0 12px var(--collapse); }
+  .f-wave-canvas{ display:block; width:100%; height:90px; border-radius:10px; background:#06060b; border:1px solid var(--border); margin-bottom:10px; }
+  .f-toggle-row button.act.on{ border-color:var(--wave); color:var(--wave); box-shadow:0 0 16px -4px rgba(98,214,255,.55); }
+
+  footer.credit{ text-align:center; font-size:12px; color:var(--muted); padding:34px 0 20px; }
+  .credit-card{ display:block; width:fit-content; max-width:100%; margin:14px auto 0; text-align:center; }
+  .credit-card .cc-row{ display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:0 8px; }
+  .credit-card .cc-thanks{ margin-top:2px; }
+  .credit-card .cc-by,.credit-card .cc-by2{ font-size:12.5px; color:var(--muted); }
+  .credit-card .cc-name{
+    font-size:16px; font-weight:800; line-height:1.7;
+    background:linear-gradient(90deg,var(--wave),var(--entangle)); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:var(--wave);
+  }
+
+  .step-h{ display:flex; align-items:center; gap:10px; font-size:16px; font-weight:800; margin:30px 0 8px; }
+  .step-h .sh-ico{ flex:0 0 auto; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; font-size:17px; border-radius:10px; background:rgba(98,214,255,.1); border:1px solid rgba(98,214,255,.3); }
+  .step-h .no{ display:inline; direction:ltr; unicode-bidi:isolate; color:var(--wave); font-weight:800; font-size:inherit; background:none; border:0; padding:0; min-width:0; height:auto; }
+
+  .zoom-tabs{ display:flex; gap:6px; margin:0 0 16px; padding:4px; background:#0c0c14; border:1px solid var(--border); border-radius:14px; }
+  #sec-quark .zoom-tabs{ flex-wrap:wrap; }
+  #sec-quark .zoom-tab{ flex:1 1 auto; }
+  .zoom-tab{ flex:1; display:flex; align-items:center; justify-content:center; gap:7px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
+    color:var(--muted); background:transparent; border:0; border-radius:10px; padding:9px 6px; transition:all .15s; }
+  .zoom-tab .no{ width:20px; height:20px; font-size:11px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; border:1px solid currentColor; flex:0 0 auto; }
+  .zoom-tab:hover{ color:var(--ink); }
+  .zoom-tab.active{ color:#04121a; background:linear-gradient(135deg, var(--wave), var(--entangle)); }
+  .zoom-panel{ display:none; }
+  .zoom-panel.active{ display:block; }
+  .zoom-panel > .step-h{ margin-top:0; }
+  @media (max-width:520px){ .zoom-tab{ font-size:12px; gap:5px; } .zoom-tab .no{ display:none; } }
+  .q-slots{ display:flex; gap:10px; justify-content:center; margin:0 0 12px; }
+  .q-slot{ font-family:'JetBrains Mono',monospace; cursor:pointer; background:#0c0c14; color:var(--ink); border:1px solid var(--border); border-radius:12px; padding:8px 20px; font-size:20px; font-weight:800; line-height:1.3; transition:border-color .15s; }
+  .q-slot small{ display:block; font-family:'Vazirmatn',sans-serif; font-size:11px; font-weight:400; color:var(--muted); }
+  .q-slot:hover{ border-color:var(--wave); }
+  .q-goalbar{ margin-bottom:12px; }
+  #qProg{ display:block; font-size:12.5px; color:var(--muted); margin-bottom:7px; }
+  .q-goals{ display:flex; flex-wrap:wrap; gap:8px; }
+  .q-goal{ font-size:12.5px; padding:6px 12px; border-radius:999px; border:1px dashed var(--border); color:var(--muted); background:#0c0c14; }
+  .q-goal.found{ border:1px solid var(--collapse); color:var(--collapse); background:rgba(255,180,84,.09); font-weight:700; }
+  .q-pal{ display:flex; flex-wrap:wrap; gap:10px; align-items:stretch; margin:12px 0 4px; }
+  .q-tok{ flex:1 1 150px; display:flex; align-items:center; gap:12px; cursor:pointer; font-family:inherit; color:var(--ink); text-align:right; background:#0c0c14; border:1px solid var(--border); border-radius:14px; padding:10px 14px; transition:transform .12s,border-color .12s; }
+  .q-tok:hover{ border-color:var(--wave); transform:translateY(-2px); }
+  .q-tok:active{ transform:scale(.97); }
+  .q-tok b{ width:42px; height:42px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-family:'JetBrains Mono',monospace; font-size:21px; font-weight:800; color:#0a0a12; background:radial-gradient(circle at 32% 30%,#fff,#c9ccd8 40%,rgba(0,0,0,.55)); }
+  .q-tok span{ font-size:13.5px; font-weight:700; }
+  .q-tok small{ display:block; font-weight:400; font-size:11.5px; color:var(--muted); }
+  .q-clr{ font-family:inherit; cursor:pointer; color:var(--muted); background:transparent; border:1px solid var(--border); border-radius:14px; padding:0 16px; font-size:13px; }
+  .q-clr:hover{ color:var(--ink); border-color:var(--ink); }
+  .q-table{ width:100%; border-collapse:collapse; font-size:13px; text-align:center; margin-bottom:12px; }
+  .q-table th,.q-table td{ border:1px solid var(--border); padding:9px 6px; line-height:1.7; }
+  .q-table th{ color:var(--muted); font-weight:400; background:#0c0c14; }
+  .q-table b{ font-family:'JetBrains Mono',monospace; font-size:17px; color:var(--wave); }
+  .qd{ display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; margin-bottom:4px; border-radius:50%; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:21px; color:#0a0a12;
+    background:radial-gradient(circle at 32% 30%, #fff, var(--qc,#ff6b6b) 38%, rgba(0,0,0,.55) 100%); box-shadow:0 0 14px -2px var(--qc,#ff6b6b); }
+  .q-table small{ color:var(--muted); }
+  .eq-line{ direction:ltr; text-align:center; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(12.5px,3.8vw,16px); color:var(--wave); padding:4px 6px 12px; line-height:1.7; }
+  .found-title{ font-size:14px; font-weight:800; margin:8px 0 10px; }
+  .found-msg{ font-size:13px; font-weight:700; color:var(--collapse); min-height:44px; margin:-2px 0 12px; line-height:1.9; }
+  .sum-legend{ font-size:12px; color:var(--muted); margin:-2px 0 14px; line-height:1.9; }
+  .note-box{ margin-top:14px; font-size:13px; color:#c7c3da; background:#0c0c14; border:1px solid var(--border); border-inline-start:3px solid var(--collapse); border-radius:10px; padding:10px 14px; }
+  .eq-anat{ direction:ltr; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px 10px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(12.5px,3.8vw,16px); margin:0 0 10px; }
+  .eq-anat .ea{ padding:5px 10px; border-radius:8px; border:1px solid currentColor; background:rgba(255,255,255,.03); }
+  .eq-anat .ea.k{ color:var(--wave); } .eq-anat .ea.v{ color:var(--entangle); } .eq-anat .ea.e{ color:var(--collapse); }
+  .eq-anat .op{ color:var(--muted); }
+  .eq-legend{ font-size:12.5px; color:#c7c3da; line-height:1.95; margin:0 0 14px; }
+  .eq-legend div{ padding-inline-start:12px; border-inline-start:3px solid var(--border); margin-bottom:6px; }
+  .eq-legend .k{ border-color:var(--wave); } .eq-legend .v{ border-color:var(--entangle); } .eq-legend .e{ border-color:var(--collapse); }
+  .orb-chips{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:12px; direction:ltr; }
+  .orb-chip{ font:600 13px 'JetBrains Mono',monospace; padding:6px 11px; border-radius:999px; background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer; transition:color .2s,border-color .2s,box-shadow .2s; }
+  .orb-chip:hover{ color:var(--ink); border-color:var(--muted); }
+  .orb-chip.active{ color:var(--wave); border-color:var(--wave); box-shadow:0 0 14px -4px rgba(98,214,255,.6); }
+  .orb-chip:focus-visible{ outline:2px solid var(--wave); outline-offset:2px; }
+  canvas#orbCanvas{ cursor:grab; touch-action:pan-y; } canvas#orbCanvas:active{ cursor:grabbing; }
+  #plT{ height:7px; background:linear-gradient(90deg,#2f6bff,#8a7bff 30%,#ff7a5c 65%,#ff2e2e); }
+  #plT::-webkit-slider-thumb{ background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #plT::-moz-range-thumb{ background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #plF{ height:7px; background:linear-gradient(90deg,#6a1a1a,#ff3b3b 25%,#ff9a2e 30%,#ffe94d 35%,#4dff6a 39%,#3ec8ff 42%,#4a5bff 45%,#8a3bff 47%,#4b2a8a); }
+  #plF::-webkit-slider-thumb{ background:#7ee08a; box-shadow:0 0 12px rgba(126,224,138,.9); }
+  #plF::-moz-range-thumb{ background:#7ee08a; box-shadow:0 0 12px rgba(126,224,138,.9); }
+  #plDemo sup{ font-size:.62em; line-height:0; vertical-align:super; margin-inline-start:1px; }
+  .pl-unit{ font-size:.55em; font-weight:700; color:var(--muted); text-shadow:none; white-space:nowrap; }
+  .pl-hero{ display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap; gap:4px 12px; direction:ltr; margin:2px 0 12px; text-align:center; }
+  .pl-hero .pl-h{ font:italic 800 36px 'JetBrains Mono',monospace; color:var(--collapse); text-shadow:0 0 16px rgba(255,180,84,.7); }
+  .pl-hero .pl-eq{ font:700 26px 'JetBrains Mono',monospace; color:var(--muted); }
+  .pl-big{ font:800 clamp(20px,6.2vw,32px) 'JetBrains Mono',monospace; color:var(--hc,#62d6ff); text-shadow:0 0 20px var(--hc,#62d6ff); display:inline-block; }
+  .pl-sub{ flex:1 0 100%; font-size:12.5px; color:var(--hc,#8b8ea3); direction:rtl; }
+  .pl-hwrap{ position:relative; padding-bottom:22px; }
+  .pl-tick{ position:absolute; bottom:0; transform:translateX(-50%); text-align:center; font-size:11px; color:var(--wave); pointer-events:none; line-height:1.2; }
+  .pl-tick i{ display:block; width:2px; height:9px; margin:0 auto 2px; background:var(--wave); box-shadow:0 0 8px var(--wave); }
+
+  /* ===== proton / neutron + quark cards ===== */
+  .qp-answer{ font-size:14px; line-height:2; color:#e8e6f0; background:#0c0c14; border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:12px; padding:10px 14px; margin-bottom:14px; }
+  .qp-answer .mono{ direction:ltr; display:inline-block; color:var(--wave); font-weight:800; }
+  .qp-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+  .qp-card{ text-align:center; background:#12121c; border:1px solid var(--border); border-radius:16px; padding:12px 10px 14px; }
+  .qp-card h4{ margin:0; font-size:18px; font-weight:800; }
+  .qp-card svg{ width:100%; max-width:230px; height:auto; display:block; margin:4px auto 0; animation:gfloat 3.2s ease-in-out infinite; }
+  .qp-gl{ stroke:rgba(255,255,255,.45); stroke-width:2; stroke-dasharray:5 5; animation:qpFlow 1s linear infinite; }
+  @keyframes qpFlow{ to{ stroke-dashoffset:-20; } }
+  .qp-eq{ direction:ltr; font:800 20px 'JetBrains Mono',monospace; color:var(--wave); margin-top:4px; }
+  .qp-sum{ direction:ltr; font:600 14px 'JetBrains Mono',monospace; color:#c7c3da; margin-top:4px; }
+  .qp-sum b{ color:var(--collapse); font-size:17px; }
+  .qp-card p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); line-height:1.9; }
+  .qs-grid{ direction:ltr; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .qs-grp{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:18px 0 8px; }
+  .qs-grp:first-child{ margin-top:6px; }
+  .qs-grp b{ font-size:15px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-grp span{ font-size:12px; color:var(--muted); }
+  .qs-legend{ font-size:12px; color:var(--muted); margin:0 0 4px; }
+  .qs-legend b{ color:var(--ink); }
+  .qs-card{ font-family:inherit; color:var(--ink); cursor:pointer; text-align:center; padding:10px 6px 9px; border-radius:16px; border:2px solid rgba(var(--c-rgb),.4); background:#12121c;
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, box-shadow .25s ease; }
+  .qs-card:hover{ transform:translateY(-3px); border-color:rgba(var(--c-rgb),.9); }
+  .qs-card:active{ transform:scale(.96); }
+  .qs-card.sel{ border-color:rgb(var(--c-rgb)); box-shadow:0 0 22px -6px rgba(var(--c-rgb),.8); background:rgba(var(--c-rgb),.08); }
+  .qs-card .qd,.qs-top .qd{ --qc:rgb(var(--c-rgb)); }
+  .qs-card .qd{ width:48px; height:48px; font-size:24px; margin:0 auto 4px; }
+  .qd.sm{ font-size:19px !important; }
+  .qd sub{ font-size:.55em; line-height:0; }
+  .qs-card.sel .qd{ animation:gfloat 2.4s ease-in-out infinite; }
+  .qs-vals{ direction:ltr; font:600 10.5px/1.55 'JetBrains Mono',monospace; color:#c7c3da; margin-bottom:5px; }
+  .qs-nm{ font-size:13.5px; font-weight:800; line-height:1.5; }
+  .qs-en{ font-size:11px; color:var(--muted); direction:ltr; }
+  @media (min-width:560px){
+    .qs-card{ display:grid; grid-template-columns:1fr auto; grid-template-areas:"v d" "n n" "e e"; align-items:center; padding:10px 12px; }
+    .qs-vals{ grid-area:v; text-align:left; margin:0; font-size:11px; }
+    .qs-card .qd{ grid-area:d; margin:0; }
+    .qs-nm{ grid-area:n; margin-top:6px; }
+    .qs-en{ grid-area:e; }
+  }
+  .qs-detail{ margin:10px 0 4px; scroll-margin-top:70px; border:1px solid rgba(var(--c-rgb),.5); border-radius:14px; background:#0c0c14; padding:14px; }
+  .qs-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .qs-top .qd{ width:54px; height:54px; font-size:28px; margin:0; flex:0 0 auto; }
+  .qs-top h4{ margin:0; font-size:20px; font-weight:800; color:rgb(var(--c-rgb)); }
+  .qs-top small{ display:block; color:var(--muted); direction:ltr; text-align:right; font-size:12px; }
+  .qs-props{ display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; }
+  .qs-props div{ background:#12121c; border:1px solid var(--border); border-radius:10px; padding:7px 10px; }
+  .qs-props span{ display:block; font-size:11px; color:var(--muted); }
+  .qs-props b{ font:700 13.5px 'JetBrains Mono',monospace; direction:ltr; display:inline-block; }
+  .qs-props b.fa{ font-family:inherit; direction:rtl; }
+  .qs-txt{ margin:12px 0 0; font-size:13.5px; line-height:2; color:#d9d6ea; }
+  .qs-txt b{ color:var(--collapse); }
+
+  /* ===== chapters & navigation ===== */
+  .chapter + .chapter{ margin-top:56px; }
+  .chapter-head{ display:flex; align-items:center; gap:14px; padding:16px 18px; margin-top:22px; border-radius:16px;
+    border:1px solid rgba(var(--ch),.3); background:linear-gradient(135deg,rgba(var(--ch),.14),rgba(var(--ch),.03)); }
+  .chapter-head .no{ flex:0 0 auto; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; font-weight:800; color:#04121a; background:rgb(var(--ch)); }
+  .chapter-head h2{ margin:0; font-size:clamp(17px,4.4vw,20px); font-weight:800; }
+  .chapter-head p{ margin:2px 0 0; font-size:12.5px; color:var(--muted); line-height:1.7; }
+  .chapter > .chapter-head + section.concept{ border-top:0; margin-top:0; padding-top:26px; }
+
+  /* collapsible chapters */
+  details.chapter > summary.chapter-head{ cursor:pointer; list-style:none; user-select:none; -webkit-tap-highlight-color:transparent; transition:border-color .2s ease, transform .15s ease; }
+  details.chapter > summary.chapter-head::-webkit-details-marker{ display:none; }
+  details.chapter > summary.chapter-head:hover{ border-color:rgba(var(--ch),.6); }
+  details.chapter > summary.chapter-head:active{ transform:scale(.99); }
+  details.chapter > summary.chapter-head > div{ flex:1 1 auto; }
+  .ch-chev{ flex:0 0 auto; font-size:20px; color:rgb(var(--ch)); transition:transform .25s ease; }
+  details.chapter:not([open]) .ch-chev{ transform:rotate(90deg); }
+  details.chapter[open] > summary.chapter-head{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  details.chapter + details.chapter{ margin-top:18px; }
+
+  /* orbital "danestani" */
+  #orbMore{ margin-top:18px; }
+  #orbMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #orbMore>summary::-webkit-details-marker{ display:none; }
+  #orbMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.45); }
+  #orbMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #orbMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #orbMore[open]>summary .chev{ transform:rotate(180deg); }
+  #orbMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #orbMore>.orbm-body{ padding-top:16px; }
+
+  /* sub-options that belong to the "what is spin" tab */
+  #spinDemo .sp-sub{ margin:-2px 0 14px; padding:12px 10px 10px; border:1px solid rgba(98,214,255,.28); border-radius:12px; background:rgba(98,214,255,.05); }
+  #spinDemo .sp-sub > .row:last-child{ margin-top:2px; }
+
+  /* energy steps: sun + photons */
+  #catMore{ margin-top:4px; margin-bottom:6px; }
+  #catMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(199,146,234,.10),rgba(98,214,255,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #catMore>summary::-webkit-details-marker{ display:none; }
+  #catMore>summary:hover{ border-color:var(--entangle); box-shadow:0 4px 18px -6px rgba(199,146,234,.5); }
+  #catMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #catMore>summary .chev{ margin-inline-start:auto; color:var(--entangle); transition:transform .25s ease; }
+  #catMore[open]>summary .chev{ transform:rotate(180deg); }
+  #catMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(199,146,234,.5); }
+  .cat-story-wrap{ display:flex; flex-direction:column; gap:10px; padding:12px; border:1px solid rgba(199,146,234,.5); border-top:0; border-radius:0 0 14px 14px; background:var(--panel2); }
+  .cat-story{ padding:12px 14px; border-radius:12px; background:rgba(var(--c),.07); border:1px solid rgba(var(--c),.28); border-inline-start:4px solid rgb(var(--c)); }
+  .cat-story-h{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:13.5px; color:rgb(var(--c)); margin-bottom:6px; }
+  .cat-story-ic{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:rgba(var(--c),.18); border:1px solid rgba(var(--c),.45); }
+  .cat-story p{ margin:0 0 8px; font-size:13.5px; line-height:1.95; color:#c7c3da; }
+  .cat-story p:last-child{ margin-bottom:0; }
+  @keyframes catIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:none; } }
+  #catMore[open] .cat-story{ animation:catIn .3s ease both; }
+  #catMore[open] .cat-story:nth-child(2){ animation-delay:.05s; }
+  #catMore[open] .cat-story:nth-child(3){ animation-delay:.1s; }
+  #catMore[open] .cat-story:nth-child(4){ animation-delay:.15s; }
+  #ucMore{ margin-top:4px; margin-bottom:14px; }
+  #ucMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(255,180,84,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #ucMore>summary::-webkit-details-marker{ display:none; }
+  #ucMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.5); }
+  #ucMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #ucMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #ucMore[open]>summary .chev{ transform:rotate(180deg); }
+  #ucMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(255,180,84,.5); }
+  .uc-wrap{ display:flex; flex-direction:column; gap:10px; padding:12px; border:1px solid rgba(255,180,84,.5); border-top:0; border-radius:0 0 14px 14px; background:var(--panel2); }
+  .uc-card{ padding:12px 14px; border-radius:12px; background:rgba(var(--c),.07); border:1px solid rgba(var(--c),.28); border-inline-start:4px solid rgb(var(--c)); }
+  .uc-h{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:13.5px; color:rgb(var(--c)); margin-bottom:6px; }
+  .uc-ic{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:rgba(var(--c),.18); border:1px solid rgba(var(--c),.45); }
+  .uc-card p{ margin:0; font-size:13.5px; line-height:1.95; color:#c7c3da; }
+  #ucMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #ucMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #ucMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #tuMore{ margin-top:4px; margin-bottom:14px; }
+  #tuMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(98,214,255,.10),rgba(199,146,234,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #tuMore>summary::-webkit-details-marker{ display:none; }
+  #tuMore>summary:hover{ border-color:var(--wave); box-shadow:0 4px 18px -6px rgba(98,214,255,.5); }
+  #tuMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #tuMore>summary .chev{ margin-inline-start:auto; color:var(--wave); transition:transform .25s ease; }
+  #tuMore[open]>summary .chev{ transform:rotate(180deg); }
+  #tuMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(98,214,255,.5); }
+  #tuMore .uc-wrap{ border-color:rgba(98,214,255,.5); }
+  #tuMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #tuMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #tuMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  #unMore{ margin-top:4px; margin-bottom:14px; }
+  #unMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(90deg,rgba(199,146,234,.10),rgba(255,180,84,.06)); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #unMore>summary::-webkit-details-marker{ display:none; }
+  #unMore>summary:hover{ border-color:var(--entangle); box-shadow:0 4px 18px -6px rgba(199,146,234,.5); }
+  #unMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #unMore>summary .chev{ margin-inline-start:auto; color:var(--entangle); transition:transform .25s ease; }
+  #unMore[open]>summary .chev{ transform:rotate(180deg); }
+  #unMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; border-color:rgba(199,146,234,.5); }
+  #unMore .uc-wrap{ border-color:rgba(199,146,234,.5); }
+  #unMore[open] .uc-card{ animation:catIn .3s ease both; }
+  #unMore[open] .uc-card:nth-child(2){ animation-delay:.05s; }
+  #unMore[open] .uc-card:nth-child(3){ animation-delay:.1s; }
+  .sec-no{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:26px; padding:0 9px; box-sizing:border-box; border-radius:13px; font-size:12.5px; font-weight:800; line-height:1; flex:0 0 auto; direction:ltr; unicode-bidi:isolate; color:rgb(var(--ch)); background:rgba(var(--ch),.14); border:1px solid rgba(var(--ch),.7); }
+  /* plain section headings: always visible, no box, no toggle */
+  section.concept > .concept-head{ margin-bottom:10px; }
+  section.concept > .concept-head h2{ margin:0; }
+  #lvMore{ margin-top:18px; }
+  #lvMore>summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:13px 16px; border-radius:14px; border:1px solid var(--border); background:var(--panel); color:var(--ink); font-weight:800; font-size:14.5px; transition:border-color .18s ease, box-shadow .18s ease; }
+  #lvMore>summary::-webkit-details-marker{ display:none; }
+  #lvMore>summary:hover{ border-color:var(--collapse); box-shadow:0 4px 18px -6px rgba(255,180,84,.45); }
+  #lvMore>summary small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+  #lvMore>summary .chev{ margin-inline-start:auto; color:var(--collapse); transition:transform .25s ease; }
+  #lvMore[open]>summary .chev{ transform:rotate(180deg); }
+  #lvMore[open]>summary{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  #lvMore>.lvm-body{ padding-top:14px; }
+  #sec-levels .step-h{ margin-top:26px; }
+
+  #sunF,#sunI{ height:7px; }
+  #sunF{ background:linear-gradient(90deg,hsl(0,100%,50%) 0%,hsl(30,100%,52%) 20.5%,hsl(52,100%,55%) 28.2%,hsl(100,85%,50%) 35.9%,hsl(150,90%,48%) 53.8%,hsl(190,100%,52%) 69.2%,hsl(225,100%,62%) 89.7%,hsl(270,90%,58%) 100%); }
+  #sunF::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunF::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+  #sunI{ background:linear-gradient(90deg,#241d0e,#7a5a14 45%,#ffcf4a); }
+  #sunI::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+  #sunI::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+
+/* ===== multi-page additions ===== */
+.pgbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:8px; padding:10px 16px; max-width:720px; margin:0 auto;
+  backdrop-filter:blur(14px); background:linear-gradient(180deg, rgba(10,10,18,.92), rgba(10,10,18,.6)); }
+.pgbar .sp{ flex:1; }
+.pgbar #soundBtn,.pgbar #musicBtn{ position:static; width:38px; height:38px; flex:0 0 auto; }
+.back-btn{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:13px; cursor:pointer; text-decoration:none;
+  border:1px solid rgba(var(--ch,98,214,255),.45); background:rgba(var(--ch,98,214,255),.12); color:var(--ink);
+  font-family:inherit; font-size:13.5px; font-weight:700; transition:transform .15s ease, background .2s ease; -webkit-tap-highlight-color:transparent; }
+.back-btn:hover{ background:rgba(var(--ch,98,214,255),.22); }
+.back-btn:active{ transform:scale(.97); }
+.back-btn .ar{ font-size:16px; line-height:1; }
+.back-bottom{ display:flex; justify-content:center; padding:6px 18px 0; }
+.hub-grid{ display:grid; gap:10px; margin:14px 0 0; }
+.hub-card{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px; background:var(--panel); border:1px solid var(--border);
+  color:var(--ink); text-decoration:none; transition:border-color .2s ease, transform .15s ease, background .2s ease; -webkit-tap-highlight-color:transparent; }
+.hub-card:hover{ border-color:rgba(var(--ch),.65); background:var(--panel2); transform:translateY(-2px); }
+.hub-card:active{ transform:scale(.99); }
+.hub-card .hc-t{ flex:1 1 auto; }
+.hub-card .hc-t b{ display:block; font-size:15px; font-weight:800; line-height:1.7; }
+.hub-card .hc-t span{ display:block; font-size:12.5px; color:var(--muted); line-height:1.7; }
+.hub-card .hc-ar{ flex:0 0 auto; font-size:20px; color:rgb(var(--ch)); }
+.hub-wrap{ max-width:720px; margin:0 auto; padding:6px 18px 40px; }
+.hub-wrap .chapter-head{ margin-top:34px; }
+.hub-wrap .chapter-head:first-child{ margin-top:6px; }
+</style>
+</head>
+<body style="--ch:98,214,255">
+<audio id="bgMusic" src="music.mp3" loop playsinline preload="none"></audio>
+<canvas id="fxCanvas"></canvas>
+<div id="flashOverlay"></div>
+
+<div class="pgbar">
+  <a class="back-btn" href="index.html"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a>
+  <span class="sp"></span>
+  <button id="soundBtn" title="صدا">🔊</button>
+  <button id="musicBtn" title="موسیقی">🎵</button>
+</div>
+
+<main>
+  <section class="concept" id="sec-planck">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۳</span>🌡️ فاجعه‌ی فرابنفش: چرا h لازم شد؟</h2></div>
+    <p class="concept-desc">فیزیکِ کلاسیک برای یک جسمِ داغ «انرژیِ بی‌نهایت» پیش‌بینی می‌کرد، که غیرممکن است؛ پلانک این مشکل را با یک ایده حل کرد: انرژی «بسته‌بسته» مبادله می‌شود.</p>
+    <details id="ucMore">
+      <summary>📖 توضیحِ کامل: مشکلِ کلاسیک، راه‌حلِ پلانک و کار با شبیه‌ساز <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
+      <div class="uc-wrap">
+        <div class="uc-card" style="--c:255,107,107"><div class="uc-h"><span class="uc-ic">⚠️</span>مشکلِ فیزیکِ کلاسیک</div><p>تابش از «مُدها» ساخته شده و در فیزیکِ کلاسیک انرژیِ گرمایی بین همه‌ی آن‌ها به‌طور مساوی تقسیم می‌شود و هر مُد سهمی برابرِ <b class="mono">kT</b> می‌گیرد. اما مُدهای پرفرکانس بی‌شمارند، پس انرژیِ کل در فرکانس‌های بالا بی‌نهایت می‌شد؛ چون ناسازگاری از ناحیه‌ی فرابنفش به بعد دیده می‌شد، اسمش را «فاجعه‌ی فرابنفش» گذاشتند.</p></div>
+        <div class="uc-card" style="--c:255,180,84"><div class="uc-h"><span class="uc-ic">🪜</span>راه‌حلِ پلانک</div><p>پلانک در ۱۹۰۰ فرض کرد اندازه‌ی هر بسته دقیقاً <b class="mono">hf</b> است، مثل پله‌های یک نردبان. در فرکانس‌های بالا این پله‌ها آن‌قدر درشت‌اند که <b class="mono">hf</b> خیلی بزرگ‌تر از <b class="mono">kT</b> می‌شود و جسمِ گرم نمی‌تواند آن‌ها را پر کند؛ سهمِ این مُدها به‌صورت نمایی ناچیز می‌شود و منحنی به‌جای بی‌نهایت شدن فرو می‌ریزد.</p></div>
+        <div class="uc-card" style="--c:98,214,255"><div class="uc-h"><span class="uc-ic">🎛️</span>با شبیه‌ساز چه کار کنم؟</div><p><b>h را عوض کن</b> (از صفر تا مقدار واقعی)، دما را بچرخان، و با اسلایدرِ فرکانس ستون‌های سبزِ پله‌ها را روی نمودار جابه‌جا کن. نردبانِ سمتِ راستِ نمودار، پله‌های همان فرکانس را نشان می‌دهد: هر پله یک بسته‌ی <b class="mono">hf</b> است و ستونِ نارنجی، انرژیِ گرمایی <b class="mono">kT</b> که جسم برای پر کردنِ پله‌ها دارد.</p></div>
+      </div>
+    </details>
+    <div class="demo" id="plDemo">
+      <div class="pl-hero" id="plHero"><span class="pl-h">h</span><span class="pl-eq">=</span><b class="pl-big" id="plHbig">—</b><span class="pl-sub" id="plHsub"></span></div>
+      <canvas class="demo-canvas" id="plCanvas" style="touch-action:pan-y;cursor:crosshair"></canvas>
+      <div class="row" style="margin-bottom:12px">
+        <button class="act fix" id="plAuto">🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن</button>
+        <button class="act ghost" id="plClassic">🕰️ پیش از پلانک (h=۰)</button>
+        <button class="act ghost" id="plReal">💡 ثابت پلانک</button>
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>h = ۰ (کلاسیک)</span><span id="plHv" class="mono">—</span><span>ثابت پلانک ✓</span></label>
+        <input type="range" id="plS" dir="ltr" min="0" max="100" step="1" value="0">
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>❄️ سردتر</span><span id="plTv" class="mono">—</span><span>داغ‌تر 🔥</span></label>
+        <input type="range" id="plT" dir="ltr" min="2500" max="7000" step="50" value="5000">
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>فرکانس کم (فروسرخ)</span><span id="plFv" class="mono">—</span><span>فرکانس زیاد (فرابنفش)</span></label>
+        <input type="range" id="plF" dir="ltr" min="50" max="1600" step="5" value="1250">
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="rl">نسبت به ثابت پلانک</div><div class="rv mono c-ent" id="plHval" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">قله‌ی طیف</div><div class="rv mono c-wave" id="plPeak" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">انرژی در ناحیه‌ی UV (نسبت به واقعیت)</div><div class="rv mono c-dead" id="plUV" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl" id="plPl">سهمِ یک مُد در فرکانسِ انتخابی</div><div class="rv mono c-collapse" id="plAvg" dir="ltr">—</div></div>
+      </div>
+      <div class="note-box" id="plVerdict"></div>
+      
+    </div>
+  
+    <style>
+      #pfBonus{margin-top:18px}
+      #pfBonus>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:13px 16px;border-radius:14px;border:1px solid var(--border);background:var(--panel);color:var(--ink);font-weight:800;font-size:14.5px;transition:border-color .18s ease,box-shadow .18s ease}
+      #pfBonus>summary::-webkit-details-marker{display:none}
+      #pfBonus>summary:hover{border-color:var(--collapse);box-shadow:0 4px 18px -6px rgba(255,180,84,.45)}
+      #pfBonus>summary small{font-weight:500;color:var(--muted);font-size:11.5px}
+      #pfBonus>summary .chev{margin-inline-start:auto;color:var(--collapse);transition:transform .25s ease}
+      #pfBonus[open]>summary .chev{transform:rotate(180deg)}
+      #pfBonus>.pfb-body{padding-top:14px}
+    </style>
+    <details id="pfBonus">
+      <summary>🔬 پلانک این عدد را چطور پیدا کرد؟ <small>(دانستنی)</small><span class="chev">▾</span></summary>
+      <div class="pfb-body">
+    <p class="concept-desc">پلانک h را از تئوری درنیاورد؛ از <b>داده‌ی آزمایش</b> درآورد. فرمولش یک «دکمه‌ی تنظیم» به اسم h داشت و باید آن را طوری می‌چرخاند که منحنی به نقطه‌های آزمایش بچسبد. <b>تو هم همین کار را بکن:</b> اسلایدر را بکش تا منحنیِ آبی از میانِ نقطه‌های سفید بگذرد. (داده‌ها شبیه‌سازی‌شده‌اند.)</p>
+    <div class="demo" id="pfDemo">
+      <canvas class="demo-canvas" id="pfCanvas" style="height:250px"></canvas>
+      <div class="row" style="font-size:11.5px;color:var(--muted);gap:6px 14px;margin-bottom:12px;direction:ltr;justify-content:center">
+        <span><b style="color:#fff">●</b> داده‌ی آزمایش</span><span><b style="color:#9fe6ff">━</b> منحنیِ پلانک با h تو</span><span><b style="color:#ff6b6b">╌</b> ریلی–جینز</span><span><b style="color:#ffb454">╌</b> وین</span><span><b style="color:#ff6b6b">|</b> خطا</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin:-4px 0 12px;text-align:center">ریلی–جینز فقط در فرکانس پایین درست است و وین فقط در فرکانس بالا؛ منحنیِ آبیِ پلانک هر دو را به هم وصل می‌کند.</div>
+      <div class="slider-group">
+        <label dir="ltr"><span>h کوچک‌تر</span><span id="pfHv" class="mono" style="color:var(--collapse);font-weight:800;font-size:14.5px">—</span><span>h بزرگ‌تر</span></label>
+        <input type="range" id="pfH" dir="ltr" min="1.5" max="14" step="0.01" value="3">
+      </div>
+      <div class="ds-cap" style="min-height:0">
+        <div style="display:flex;justify-content:space-between;font-size:12.5px"><span>هم‌خوانی با داده‌ها</span><b class="mono" id="pfM" dir="ltr">—</b></div>
+        <div style="height:9px;border-radius:6px;background:#1b1b2a;margin:6px 0 8px;overflow:hidden"><div id="pfBar" style="height:100%;width:0;border-radius:6px;transition:background .2s"></div></div>
+        <div id="pfHint">—</div>
+      </div>
+      <div class="row"><button class="act ghost" id="pfFit">🎯 خودش پیدا کند</button></div>
+      <div class="note-box" id="pfVerdict" style="display:none"></div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:12px">برای سادگی k را ثابت گرفته‌ایم؛ پلانک h و k را هم‌زمان پیدا کرد (روشش در «دانستنی» پایین).</div>
+      <style>
+        #pfMore{margin-top:16px}
+        #pfMore>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:#181826;color:var(--ink);font-weight:700;font-size:13.5px;transition:border-color .18s ease,box-shadow .18s ease}
+        #pfMore>summary::-webkit-details-marker{display:none}
+        #pfMore>summary:hover{border-color:var(--wave);box-shadow:0 4px 18px -6px rgba(98,214,255,.45)}
+        #pfMore>summary .chev{margin-inline-start:auto;color:var(--wave);transition:transform .25s ease}
+        #pfMore[open]>summary .chev{transform:rotate(180deg)}
+        #pfMore>summary small{font-weight:500;color:var(--muted);font-size:11.5px}
+      </style>
+      <details id="pfMore">
+        <summary>📚 دانستنی: فرمول‌ها و توضیحِ کامل <small>(برای کنجکاوها)</small><span class="chev">▾</span></summary>
+        <div id="pfFormula" style="direction:ltr;text-align:left;background:#0c0c14;border:1px solid var(--border);border-radius:12px;padding:14px 14px 12px;margin-top:10px;font-size:12.5px;line-height:1.7">
+          <style>
+            #pfFormula math{font-family:'STIX Two Math','Cambria Math','Latin Modern Math','Times New Roman',serif;font-size:1.55em;margin:0}
+            #pfFormula .pfl math{font-size:1.15em;margin:0 3px;color:var(--wave)}
+            #pfFormula .cap{color:var(--muted);font-size:11.5px;font-family:'Vazirmatn',sans-serif;direction:rtl;text-align:right;margin:14px 0 6px}
+            #pfFormula .cap:first-child{margin-top:0}
+            #pfFormula .fb{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:12px;padding:12px 8px;margin-bottom:8px;overflow-x:auto;text-align:center}
+            #pfFormula .fb math{display:inline-block}
+            #pfFormula .tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;direction:rtl;font:600 11.5px 'Vazirmatn',sans-serif}
+            #pfFormula .tags span{padding:2px 10px;border-radius:99px;border:1px solid currentColor}
+          </style>
+
+          <div class="cap">۱) قانونِ تابشِ پلانک (۱۹۰۰)</div>
+          <div class="fb">
+            <math display="block"><mrow>
+              <msub><mi>B</mi><mi>ν</mi></msub><mo>=</mo>
+              <mstyle style="color:#62d6ff"><mfrac><mrow><mn>2</mn><msup><mi>ν</mi><mn>2</mn></msup></mrow><msup><mi>c</mi><mn>2</mn></msup></mfrac></mstyle>
+              <mo>×</mo>
+              <mstyle style="color:#ffb454"><mrow><mi>h</mi><mi>ν</mi></mrow></mstyle>
+              <mo>×</mo>
+              <mstyle style="color:#c792ea"><mfrac><mn>1</mn><mrow><msup><mi>e</mi><mrow><mfrac><mrow><mi>h</mi><mi>ν</mi></mrow><mrow><mi>k</mi><mi>T</mi></mrow></mfrac></mrow></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mstyle>
+            </mrow></math>
+            <div class="tags"><span style="color:#62d6ff">تعداد مُدها</span><span style="color:#ffb454">انرژیِ هر بسته</span><span style="color:#c792ea">میانگینِ بسته‌ها در هر مُد</span></div>
+          </div>
+          <div class="cap">همان فرمول در شکلِ معروفش (دو تکه‌ی اول در هم ضرب شده‌اند)</div>
+          <div class="fb">
+            <math display="block" style="color:var(--wave)"><mrow>
+              <msub><mi>B</mi><mi>ν</mi></msub><mo>(</mo><mi>T</mi><mo>)</mo><mo>=</mo>
+              <mfrac><mrow><mn>2</mn><mi>h</mi><msup><mi>ν</mi><mn>3</mn></msup></mrow><msup><mi>c</mi><mn>2</mn></msup></mfrac>
+              <mo>⋅</mo>
+              <mfrac><mn>1</mn><mrow><msup><mi>e</mi><mrow><mi>h</mi><mi>ν</mi><mo>/</mo><mi>k</mi><mi>T</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow></mfrac>
+            </mrow></math>
+          </div>
+
+          <div class="cap">۲) دو حدِّ قدیمی که این فرمول بینشان پل می‌زند</div>
+          <div class="fb">
+            <math display="block" style="color:#ff6b6b"><mrow>
+              <mi>h</mi><mi>ν</mi><mo>≪</mo><mi>k</mi><mi>T</mi><mspace width="0.8em"></mspace><mo>⟹</mo><mspace width="0.8em"></mspace>
+              <msub><mi>B</mi><mi>ν</mi></msub><mo>≈</mo>
+              <mfrac><mrow><mn>2</mn><mi>k</mi><mi>T</mi><msup><mi>ν</mi><mn>2</mn></msup></mrow><msup><mi>c</mi><mn>2</mn></msup></mfrac>
+            </mrow></math>
+            <div class="tags"><span style="color:#ff6b6b">ریلی–جینز (فرکانس پایین)</span></div>
+          </div>
+          <div class="fb">
+            <math display="block" style="color:#ffb454"><mrow>
+              <mi>h</mi><mi>ν</mi><mo>≫</mo><mi>k</mi><mi>T</mi><mspace width="0.8em"></mspace><mo>⟹</mo><mspace width="0.8em"></mspace>
+              <msub><mi>B</mi><mi>ν</mi></msub><mo>≈</mo>
+              <mfrac><mrow><mn>2</mn><mi>h</mi><msup><mi>ν</mi><mn>3</mn></msup></mrow><msup><mi>c</mi><mn>2</mn></msup></mfrac>
+              <msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>h</mi><mi>ν</mi></mrow><mrow><mi>k</mi><mi>T</mi></mrow></mfrac></mrow></msup>
+            </mrow></math>
+            <div class="tags"><span style="color:#ffb454">وین (فرکانس بالا)</span></div>
+          </div>
+
+          <div class="cap">۳) دو عددِ اندازه‌گیری‌شده ← h و k (روشِ خودِ پلانک)</div>
+          <div class="fb">
+            <math display="block" style="color:var(--collapse)"><mrow>
+              <mi>b</mi><mo>=</mo><mfrac><mrow><mi>h</mi><mi>c</mi></mrow><mrow><mn>4.965</mn><mo>⁢</mo><mi>k</mi></mrow></mfrac>
+              <mspace width="2.2em"></mspace>
+              <mi>σ</mi><mo>=</mo><mfrac><mrow><mn>2</mn><msup><mi>π</mi><mn>5</mn></msup><msup><mi>k</mi><mn>4</mn></msup></mrow><mrow><mn>15</mn><msup><mi>c</mi><mn>2</mn></msup><msup><mi>h</mi><mn>3</mn></msup></mrow></mfrac>
+            </mrow></math>
+          </div>
+          <div class="fb">
+            <math display="block" style="color:var(--collapse)"><mrow>
+              <mi>k</mi><mo>=</mo><mfrac><mrow><mn>15</mn><mo>⋅</mo><msup><mn>4.965</mn><mn>3</mn></msup><mo>⋅</mo><msup><mi>b</mi><mn>3</mn></msup><mi>σ</mi></mrow><mrow><mn>2</mn><msup><mi>π</mi><mn>5</mn></msup><mi>c</mi></mrow></mfrac>
+              <mspace width="2.2em"></mspace>
+              <mi>h</mi><mo>=</mo><mfrac><mrow><mn>4.965</mn><mo>⋅</mo><mi>k</mi><mo>⋅</mo><mi>b</mi></mrow><mi>c</mi></mfrac>
+            </mrow></math>
+          </div>
+
+          <div class="pfl" style="direction:rtl;text-align:right;font-family:'Vazirmatn',sans-serif;font-size:12px;line-height:1.95;color:var(--muted);border-top:1px dashed var(--border);margin-top:10px;padding-top:8px">
+            <div><math><msub><mi>B</mi><mi>ν</mi></msub></math> <b style="color:var(--ink)">شدتِ تابش</b> در فرکانس <math><mi>ν</mi></math> · <math><mi>T</mi></math> <b style="color:var(--ink)">دمای جسم</b> (کلوین) · <math><mi>c</mi></math> <b style="color:var(--ink)">سرعت نور</b></div>
+            <div><math><mi>h</mi></math> <b style="color:var(--ink)">ثابت پلانک</b>: ارتفاعِ منحنی و (با k) جای قله را تعیین می‌کند · <math><mi>k</mi></math> <b style="color:var(--ink)">ثابت بولتزمن</b>: انرژیِ گرمایی هر دما (kT)</div>
+            <div><math><mi>b</mi></math> <b style="color:var(--ink)">ثابت جابه‌جاییِ وین</b> (<math><msub><mi>λ</mi><mtext>max</mtext></msub><mi>T</mi></math>، اندازه‌گیری‌شده ≈ ۲٫۸۹۸×۱۰<sup>−۳</sup> m·K) · <math><mi>σ</mi></math> <b style="color:var(--ink)">ثابت استفان–بولتزمن</b> (انرژیِ کلِ تابش، ≈ ۵٫۶۷×۱۰<sup>−۸</sup>)</div>
+            <div>با همین دو عدد: <b style="color:var(--ink)" dir="ltr">k ≈ ۱٫۳۸×۱۰<sup>−۲۳</sup> ، h ≈ ۶٫۶۲×۱۰<sup>−۳۴</sup></b>. پلانک با داده‌های ۱۹۰۰ به <b style="color:var(--ink)" dir="ltr">h ≈ ۶٫۵۵×۱۰<sup>−۳۴</sup></b> رسید؛ فقط حدود ۱٪ با مقدار امروز فاصله دارد.</div>
+          </div>
+        </div>
+      </details>
+    </div>
+  
+      </div>
+    </details>
+  </section>
+<footer class="credit">آزمایشگاه فیزیک کوانتوم تعاملی<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
+</main>
+
+<div class="back-bottom"><a class="back-btn" href="index.html"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a></div>
+<script>window.__inView=function(el){var o={v:true};if(el&&"IntersectionObserver" in window){try{new IntersectionObserver(function(e){o.v=e[e.length-1].isIntersecting;}).observe(el);}catch(_){}}return o;};</script>
+<script>
+(function(){
+  const faNums = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function toFa(n){ return String(n).split('').map(c => /[0-9]/.test(c) ? faNums[+c] : c).join(''); }
+  /* ================= JUICE UTILITIES ================= */
+  let soundOn = (function(){try{return localStorage.getItem('qlab_sound')!=='off';}catch(e){return true;}})();
+  const soundBtn = document.getElementById('soundBtn');
+  if(!soundOn){ soundBtn.textContent='🔇'; soundBtn.classList.add('off'); }
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn; try{localStorage.setItem('qlab_sound', soundOn?'on':'off');}catch(e){}
+    soundBtn.textContent = soundOn ? '🔊' : '🔇';
+    soundBtn.classList.toggle('off', !soundOn);
+  });
+
+  let actx = null;
+  function ctxReady(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return actx; }
+  function tone(freq, dur, type, peak){
+    if(!soundOn) return;
+    const ac = ctxReady(); if(!ac) return;
+    if(ac.state==='suspended') ac.resume();
+    const osc = ac.createOscillator(), gain = ac.createGain();
+    osc.type = type||'sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, ac.currentTime);
+    gain.gain.linearRampToValueAtTime(peak||0.12, ac.currentTime+0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+dur);
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.start(); osc.stop(ac.currentTime+dur+0.02);
+  }
+  function chime(base){ tone(base,0.16,'sine',0.11); setTimeout(()=>tone(base*1.5,0.22,'sine',0.09),60); }
+  function thud(){ tone(90,0.28,'sine',0.14); }
+
+  function flashScreen(color){
+    const el = document.getElementById('flashOverlay');
+    el.style.background = `radial-gradient(circle at 50% 30%, ${color}, transparent 70%)`;
+    el.classList.add('on'); el.style.opacity = '0.55';
+    requestAnimationFrame(()=>{ el.style.transition='opacity .5s ease'; el.style.opacity='0'; });
+    setTimeout(()=>{ el.classList.remove('on'); el.style.transition='opacity .09s ease-out'; }, 520);
+  }
+  function pulseDemo(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+  }
+
+  const fx = document.getElementById('fxCanvas');
+  const fxCtx = fx.getContext('2d');
+  function sizeFx(){ fx.width = innerWidth*devicePixelRatio; fx.height = innerHeight*devicePixelRatio; fxCtx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
+  sizeFx(); addEventListener('resize', sizeFx);
+  let particles = [];
+  function burst(x,y,color,count){
+    return; // particle-burst effect disabled
+  }
+  function burstAtEl(el, color, count){ const r = el.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height/2, color, count); }
+  (function fxLoop(){
+    if(!particles.length){ setTimeout(()=>requestAnimationFrame(fxLoop), 250); return; }
+    fxCtx.clearRect(0,0,innerWidth,innerHeight);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.12; p.vx*=0.985; p.life-=0.018;
+      fxCtx.globalAlpha = Math.max(p.life,0);
+      fxCtx.fillStyle = p.color;
+      fxCtx.beginPath(); fxCtx.arc(p.x,p.y,p.r,0,Math.PI*2); fxCtx.fill();
+    });
+    fxCtx.globalAlpha = 1;
+    particles = particles.filter(p=>p.life>0);
+    requestAnimationFrame(fxLoop);
+  })();
+
+  function bump(el){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); setTimeout(()=>el.classList.remove('bump'),220); }
+
+  (function(){
+    const cv = document.getElementById('pfCanvas'); if(!cv) return;
+    const g = cv.getContext('2d'), $ = id => document.getElementById(id), H = 250;
+    const c = 2.998e8, T = 1600, FM = 320e12, TH = 6.62607e-34, K = 1.380649e-23, YM = 1.3;
+    const fn = (x,d) => toFa(x.toFixed(d).replace('.','٫'));
+    const B = (f,h) => { const x = h*f/(K*T); return x>700 ? 0 : 2*h*f*f*f/(c*c)/Math.expm1(x); };
+    let pk = 0; for(let f=5e12; f<=FM; f+=2e12) pk = Math.max(pk, B(f,TH));
+    const N = v => v/pk;
+    let sd = 11; const rnd = () => (sd = (sd*16807)%2147483647)/2147483647;
+    const D = []; for(let i=0;i<15;i++){ const f = (20+20*i)*1e12; D.push([f, N(B(f,TH))*(1+(rnd()+rnd()+rnd()-1.5)*.03)]); }
+    const err = h => { let q = 0; for(const [f,y] of D) q += Math.pow(Math.log(Math.max(1e-6,N(B(f,h)))/y),2); return Math.sqrt(q/D.length); };
+    let hb = 0, eb = 1e9; for(let a=1.5; a<=14; a+=.01){ const e = err(a*1e-34); if(e<eb){ eb = e; hb = a*1e-34; } }
+    const dmax = Math.max(err(1.5e-34),err(14e-34))-eb;
+    let h = 3e-34, done = false, busy = false;
+    function draw(){
+      const w = cv.clientWidth; if(!w) return;
+      if(cv._w !== w){ const d = Math.max(2,devicePixelRatio||1); cv.width = w*d; cv.height = H*d; cv.style.height = H+'px'; cv._w = w; g.setTransform(d,0,0,d,0,0); g.direction = 'ltr'; }
+      const L = 12, R = w-12, Tp = 14, Bt = H-28, X = f => L+(R-L)*f/FM, Y = v => Bt-(Bt-Tp)*v/YM;
+      g.clearRect(0,0,w,H); g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillStyle = '#8b8ea3'; g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(L,Tp); g.lineTo(L,Bt); g.lineTo(R,Bt); g.stroke();
+      for(let t=0;t<=300;t+=50) g.fillText(toFa(t),X(t*1e12),Bt+14);
+      g.textAlign = 'right'; g.fillText('THz',R,Bt+25);
+      g.save(); g.beginPath(); g.rect(L,Tp-6,R-L,Bt-Tp+6); g.clip();
+      for(const [f,y] of D){ g.strokeStyle = 'rgba(255,107,107,.6)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(X(f),Y(y)); g.lineTo(X(f),Y(Math.min(N(B(f,h)),YM))); g.stroke(); }
+      const old = (fun,col) => { g.beginPath(); g.setLineDash([5,4]); g.strokeStyle = col; g.lineWidth = 1.6; for(let i=0;i<=200;i++){ const f = FM*i/200, v = N(fun(f)); i ? g.lineTo(X(f),Y(v)) : g.moveTo(X(f),Y(v)); } g.stroke(); g.setLineDash([]); };
+      old(f => 2*K*T*f*f/(c*c),'rgba(255,107,107,.8)');
+      old(f => 2*h*f*f*f/(c*c)*Math.exp(-Math.min(h*f/(K*T),700)),'rgba(255,180,84,.85)');
+      g.beginPath(); g.strokeStyle = '#9fe6ff'; g.lineWidth = 2.6; g.shadowColor = '#62d6ff'; g.shadowBlur = 8;
+      for(let i=0;i<=200;i++){ const f = FM*i/200, v = N(B(f,h)); i ? g.lineTo(X(f),Y(v)) : g.moveTo(X(f),Y(v)); } g.stroke(); g.shadowBlur = 0;
+      g.restore();
+      for(const [f,y] of D){ g.fillStyle = '#fff'; g.beginPath(); g.arc(X(f),Y(y),3.8,0,7); g.fill(); }
+    }
+    function update(){
+      const d = Math.max(0,err(h)-eb), ok = d<=.13, m = Math.max(0, ok ? 90+10*(1-d/.13) : 90*(1-Math.log(1+(d-.13)/.13)/Math.log(1+(dmax-.13)/.13)));
+      $('pfHv').innerHTML = 'h ≈ '+fn(h*1e34,2)+' ×۱۰<sup>−۳۴</sup>';
+      $('pfM').textContent = fn(m,0)+'٪'; $('pfBar').style.width = m+'%'; $('pfBar').style.background = ok ? '#62d6ff' : m>50 ? '#ffb454' : '#ff6b6b';
+      const up = err(h*1.06) < err(h/1.06);
+      $('pfHint').textContent = ok ? '✓ منطبق شد!' : (m<35 ? 'هنوز دور است. ' : 'نزدیک شدی. ')+'اسلایدر را کمی به سمتِ «h '+(up?'بزرگ‌تر':'کوچک‌تر')+'» ببر.';
+      const v = $('pfVerdict'); v.style.display = ok ? '' : 'none';
+      if(ok) v.innerHTML = '<b>🎉 h ≈ '+fn(h*1e34,2)+' ×۱۰<sup>−۳۴</sup> J·s</b><br>پلانک دقیقاً همین کار را کرد (با داده‌ی واقعیِ ۱۹۰۰) و به <b class="mono">۶٫۵۵×۱۰<sup>−۳۴</sup></b> رسید. مقدارِ امروز ۶٫۶۲۶×۱۰<sup>−۳۴</sup> است؛ فاصله از خطای اندازه‌گیری می‌آید. او هنوز نمی‌دانست چرا جواب می‌دهد؛ دلیلش همان «بسته‌های hf» است که در بخشِ بالا دیدی.';
+      if(ok && !done && typeof chime==='function'){ done = true; chime(520); if(typeof pulseDemo==='function') pulseDemo('pfDemo'); }
+      draw();
+    }
+    $('pfH').addEventListener('input', e => { h = +e.target.value*1e-34; update(); });
+    $('pfFit').addEventListener('click', () => {
+      if(busy) return; busy = true; const h0 = h; let t = 0;
+      const step = () => { t = Math.min(1,t+.035); const u = 1-Math.pow(1-t,3); h = h0+(hb-h0)*u; $('pfH').value = h*1e34; update(); if(t<1) requestAnimationFrame(step); else busy = false; };
+      requestAnimationFrame(step);
+    });
+    if('ResizeObserver' in window) new ResizeObserver(() => { cv._w = 0; draw(); }).observe(cv);
+    update();
+  })();
+  (function(){
+    const cv = document.getElementById('plCanvas'), g = cv.getContext('2d'), $ = id => document.getElementById(id);
+    const H = 270, clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+    const kB = 1.380649e-23, hP = 6.62607e-34, c = 2.998e8, FMAX = 1.6e15, UV0 = 7.5e14, VIS0 = 4e14, KPX = 38;
+    const supc = s => '<sup>'+String(s).replace('-','−').replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[+d])+'</sup>';
+    const fnum = (x,d) => toFa(x.toFixed(d).replace('.','٫'));
+    const sci = (x,d=1) => { if(!(x>0)) return '۰'; let e = Math.floor(Math.log10(x)), m = x/Math.pow(10,e); return fnum(m,d)+'×۱۰'+supc(e); };
+    let s = 0, T = 5000, fp = 1.25e15, auto = false, vis = true, dirty = true, tm = 0, down = false, lastSnd = 0, W = 0;
+    const A = () => Math.pow(s/100,2);                                   // ۰ → ثابت پلانک
+    const rj = (f,T) => 2*kB*T*f*f/(c*c);
+    const pl = (f,a,T) => { if(a < 1e-6) return rj(f,T); const h = hP*a, x = h*f/(kB*T); return x>600 ? 0 : 2*h*f*f*f/(c*c)/Math.expm1(x); };
+    let YM = 0; for(let f=1e13; f<=FMAX; f+=1e13) YM = Math.max(YM, pl(f,1,7000)); YM *= 1.25;
+    if('IntersectionObserver' in window) new IntersectionObserver(e => { vis = e[0].isIntersecting; }).observe(cv);
+    const PT = []; let wasReal = false, wasCl = true;
+    function lockFx(){ chime(520); setTimeout(() => tone(780,.2,'sine',.09),90); setTimeout(() => tone(1040,.3,'sine',.07),190); flashScreen('rgba(98,214,255,.55)'); pulseDemo('plDemo'); }
+
+    function tempRGB(K){ const t = K/100;
+      const r = t<=66 ? 255 : 329.7*Math.pow(t-60,-.1332), gg = t<=66 ? 99.47*Math.log(t)-161.1 : 288.1*Math.pow(t-60,-.0755),
+            b = t>=66 ? 255 : (t<=19 ? 0 : 138.5*Math.log(t-10)-305);
+      return 'rgb('+[r,gg,b].map(v => Math.round(clamp(v,0,255))).join(',')+')'; }
+    const heatRGB = K => { const u = (K-2500)/4500; return 'rgb('+Math.round(47+208*u)+','+Math.round(107-61*u)+','+Math.round(255-209*u)+')'; };
+
+    function update(a){
+      let fpk = 0, vpk = 0, cur = 0, real = 0;
+      for(let f=1e13; f<=FMAX; f+=4e12){ const v = pl(f,a,T); if(v>vpk){ vpk = v; fpk = f; }
+        if(f>=UV0){ cur += v; real += pl(f,1,T); } }
+      $('plPeak').textContent = fpk>FMAX*.97 ? 'بی‌پایان ↗' : fnum(c/fpk*1e9,0)+' nm';
+      const ratio = cur/real; $('plUV').innerHTML = '×'+(ratio>=1000 ? sci(ratio) : fnum(ratio, ratio<10?2:0));
+      const x = hP*a*fp/(kB*T), avg = a<1e-6 ? 1 : x/Math.expm1(x);
+      $('plPl').textContent = 'سهمِ یک مُد در f = '+fnum(fp/1e12,0)+' THz';
+      $('plAvg').textContent = 'کلاسیک ۱۰۰٪ ← پلانک '+fnum(avg*100,avg<.1?1:0)+'٪';
+      const isR = Math.abs(a-1)<1e-9, hv = isR ? '۶٫۶۲۶۰۷۰۱۵×۱۰'+supc(-34) : (a<1e-6 ? '۰' : sci(hP*a,3));
+      $('plHbig').innerHTML = hv+' <span class="pl-unit">m<sup>۲</sup> kg / s</span>'; $('plHv').innerHTML = 'h = '+hv; $('plHval').textContent = '× '+fnum(a, a<.1?3:2);
+      $('plHsub').textContent = a<.01 ? '⚠ h = ۰ ← دنیای کلاسیک و فاجعه‌ی فرابنفش' : isR ? '✓ ثابت پلانک — مقدار واقعیِ طبیعت؛ از ۲۰۱۹ دقیقاً همین عدد تعریف شده است' : fnum(a,a<.1?3:2)+' برابرِ h واقعی';
+      const hc = a<.01 ? '#ff6b6b' : isR ? '#62d6ff' : '#ffb454'; $('plHero').style.setProperty('--hc',hc);
+      $('plTv').textContent = fnum(T,0)+' K'; $('plFv').textContent = 'f = '+fnum(fp/1e12,0)+' THz';
+      $('plT').style.setProperty('--tc', heatRGB(T));
+      $('plVerdict').textContent = a<.01
+        ? 'h = ۰: دنیای کلاسیک. ستون‌های سبز پله ندارند، یعنی انرژی پیوسته است و هر مُد کاملاً kT می‌گیرد؛ چون مُدهای فرابنفش بی‌شمارند، انرژیِ کل بی‌نهایت می‌شود — «فاجعه‌ی فرابنفش».'
+        : a<.95
+        ? 'پله‌ی انرژیِ هر مُد hf است. اسلایدر فرکانس را به راست ببر: پله‌ها درشت‌تر می‌شوند و از kT (خط‌چین نارنجی) بالاتر می‌روند؛ دمای جسم دیگر نمی‌تواند آن‌ها را پر کند و منحنی فرو می‌ریزد.'
+        : 'ثابت پلانک (h واقعی): همان منحنیِ تجربه. در فرکانس‌های پایین پله‌ها ریزند و کلاسیک جواب می‌دهد؛ در فرابنفش اولین پله از kT بالاتر است. دما را بالا ببر: قله به فرکانس‌های بالاتر می‌رود و جسم از سرخ به سفید و آبی می‌گراید.';
+    }
+
+    let lvl = 0, ly = 0, lnext = 0;
+    /* ===== نردبانِ انرژیِ یک مُد — سمتِ راستِ نمودار، مثلِ بخشِ خورشید ===== */
+    function drawLadder(now,dt,a,PL,yt,yb){
+      const lx0 = PL+30, lx1 = lx0+40, cxm = (lx0+lx1)/2, top = yt+8, H0 = yb-top-4, x = hP*a*fp/(kB*T);
+      const S = a<1e-6 ? KPX : Math.min(KPX, H0/Math.max(x,1)), sp = S*x, cont = sp<2.4, Y = n => yb-n*sp;
+      const hu = fp<VIS0 ? 0 : fp>UV0 ? 275 : Math.round((fp-VIS0)/(UV0-VIS0)*270), lL = fp<VIS0 ? 52 : 62;
+      const ch = al => 'hsla('+hu+',100%,'+lL+'%,'+al+')', cs = 'hsl('+hu+',100%,'+lL+'%)';
+      const fnm = fp<VIS0 ? 'فروسرخ' : fp>UV0 ? 'فرابنفش' : hu<20 ? 'قرمز' : hu<45 ? 'نارنجی' : hu<75 ? 'زرد' : hu<165 ? 'سبز' : hu<200 ? 'فیروزه‌ای' : hu<255 ? 'آبی' : 'بنفش';
+      g.save(); g.textBaseline = 'middle';
+      g.strokeStyle = 'rgba(255,255,255,.1)'; g.lineWidth = 1; g.beginPath(); g.moveTo(PL-6,yt); g.lineTo(PL-6,yb+4); g.stroke();
+      g.font = '11px Vazirmatn, sans-serif'; g.textAlign = 'center'; g.fillStyle = '#8b8ea3'; g.fillText('نردبانِ انرژی',(PL+W)/2,10);
+      /* kT */
+      const kh = Math.max(3,S);
+      g.fillStyle = 'rgba(255,180,84,.85)'; g.fillRect(PL+4,yb-kh,12,kh);
+      g.fillStyle = '#ffb454'; g.font = '700 11px JetBrains Mono, monospace'; g.fillText('kT',PL+10,yb-kh-8);
+      g.setLineDash([4,3]); g.strokeStyle = 'rgba(255,180,84,.8)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(PL+16,yb-kh); g.lineTo(lx1+4,yb-kh); g.stroke(); g.setLineDash([]);
+      /* rails */
+      g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 2; g.lineCap = 'round'; g.beginPath(); g.moveTo(lx0-4,yb+6); g.lineTo(lx0-4,top-6); g.moveTo(lx1+4,yb+6); g.lineTo(lx1+4,top-6); g.stroke();
+      let nmax = 0;
+      if(cont){
+        const g2 = g.createLinearGradient(0,yb,0,top); g2.addColorStop(0,ch(.5)); g2.addColorStop(1,ch(.05));
+        g.fillStyle = g2; g.fillRect(lx0,top,lx1-lx0,yb-top);
+        g.fillStyle = cs; g.font = '600 10px Vazirmatn, sans-serif'; g.textAlign = 'center';
+        g.fillText(a<.01 ? 'بدونِ پله' : 'پله‌های ریز',cxm,top+14); g.fillText(a<.01 ? 'پیوسته' : 'پیوسته',cxm,top+27);
+      } else {
+        nmax = Math.floor((yb-top)/sp); const stride = Math.max(1,Math.ceil(14/sp));
+        g.font = '700 11px JetBrains Mono, monospace'; g.textAlign = 'left';
+        for(let n=0; n<=nmax && n<40; n++){
+          const occ = Math.exp(-n*x), y = Y(n);
+          g.strokeStyle = n ? ch(Math.max(.4,Math.min(1,occ*4)).toFixed(2)) : 'rgba(255,255,255,.3)'; g.lineWidth = 2.2;
+          g.beginPath(); g.moveTo(lx0,y); g.lineTo(lx1,y); g.stroke();
+          if(n===0 || (n%stride===0 && n/stride<=5)){ g.fillStyle = n ? cs : '#8b8ea3'; g.fillText(n===0?'۰':n===1?'hf':toFa(n)+'hf',lx1+8,y); }
+        }
+      }
+      /* the mode hops between steps (Boltzmann) */
+      if(now>lnext){ lnext = now+520+Math.random()*260; const u = Math.random();
+        lvl = cont ? -Math.log(1-u)*S : Math.min(nmax,Math.floor(-Math.log(1-u)/Math.max(x,1e-9)))*sp; }
+      const ty = yb-Math.min(lvl,yb-top-2); ly += (ty-ly)*Math.min(1,dt*11); if(!ly) ly = yb;
+      g.shadowColor = cs; g.shadowBlur = lvl>.5 && !cont ? 14 : 8; g.fillStyle = '#ffffff';
+      g.beginPath(); g.arc(cxm,ly-(cont?0:6),5.5,0,Math.PI*2); g.fill(); g.shadowBlur = 0;
+      /* captions */
+      g.textAlign = 'center'; g.fillStyle = '#fff'; g.font = '700 11px JetBrains Mono, monospace';
+      g.fillText(a<.01 ? 'hf = ۰' : 'hf = '+fnum(x,x<10?1:0)+' kT',(PL+W)/2,yb+18);
+      g.fillStyle = cs; g.font = '700 10.5px Vazirmatn, sans-serif'; g.fillText('نورِ '+fnm,(PL+W)/2,yb+33);
+      g.restore();
+    }
+
+    function frame(now){
+      requestAnimationFrame(frame);
+      const dt = Math.min(.05,(now-tm)/1000); tm = now;
+      if(auto){ s = Math.min(100, s+dt*28); $('plS').value = s; dirty = true; if(s>=100){ auto = false; $('plAuto').textContent = '🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن'; } }
+      { const hide = Math.abs(s-100)<.5; if($('plAuto').hidden !== hide) $('plAuto').hidden = hide; }
+      if(!vis) return;
+      W = cv.clientWidth; if(!W) return;
+      if(cv._w !== W){ const d = Math.max(2,devicePixelRatio||1); cv.width = W*d; cv.height = H*d; cv.style.height = H+'px'; cv._w = W; g.setTransform(d,0,0,d,0,0); g.direction = 'ltr'; }
+      const a = A(); if(dirty){ dirty = false; update(a); }
+      g.clearRect(0,0,W,H);
+      const LW = W<460 ? 100 : 124, PL = W-LW, ymax = YM, x0 = 10, x1 = PL-14, yt = 16, yb = H-46, X = f => x0+f/FMAX*(x1-x0), Y = v => yb-v/ymax*(yb-yt);
+      const u0 = VIS0/FMAX, u1 = UV0/FMAX, sg = g.createLinearGradient(x0,0,x1,0);
+      sg.addColorStop(0,'#1a0709'); sg.addColorStop(u0*.55,'#5a1414'); sg.addColorStop(u0,'#ff3b3b');
+      ['#ff9a2e','#ffe94d','#4dff6a','#3ec8ff','#4a5bff','#8a3bff'].forEach((c2,i) => sg.addColorStop(u0+(u1-u0)*(i+1)/6,c2));
+      sg.addColorStop(u1+(1-u1)*.35,'#4d2a96'); sg.addColorStop(1,'#140a26');
+      g.fillStyle = sg; g.fillRect(x0,yb+3,x1-x0,11);
+      g.strokeStyle = 'rgba(255,255,255,.55)'; g.lineWidth = 1.2; g.beginPath();
+      [VIS0,UV0].forEach(f => { g.moveTo(X(f),yb-4); g.lineTo(X(f),yb+17); }); g.stroke();
+      g.fillStyle = '#8b8ea3'; g.font = '11px Vazirmatn, sans-serif'; g.textAlign = 'center';
+      g.fillText('فروسرخ',(x0+X(VIS0))/2,yb+26); g.fillText('مرئی',(X(VIS0)+X(UV0))/2,yb+26);
+      g.fillStyle = '#b48cff'; g.fillText('فرابنفش (UV)',(X(UV0)+x1)/2,yb+26);
+      g.fillStyle = '#8b8ea3'; g.textAlign = 'right'; g.fillText('بسامد f ←',x1,yb+41);
+      g.textAlign = 'center'; g.font = (x1-x0<260 ? '9px' : '10px')+' JetBrains Mono, monospace'; g.fillText('۴۰۰ THz',X(VIS0),yb+41); g.fillText('۷۵۰ THz',X(UV0),yb+41);
+      g.strokeStyle = 'rgba(255,255,255,.3)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x0,yt); g.lineTo(x0,yb); g.lineTo(x1,yb); g.stroke();
+
+      /* ستون‌های پله‌های انرژی: فاصله‌ی پله‌ها = hf (به kT مقایسه می‌شود) */
+      const stack = (f,alpha,wd,hl) => {
+        const sp = KPX*hP*a*f/(kB*T), xa = X(f)-wd/2, xb = X(f)+wd/2; g.globalAlpha = alpha;
+        if(sp < 2.4){ const bg = g.createLinearGradient(0,yb,0,yt); bg.addColorStop(0,'rgba(126,224,138,.6)'); bg.addColorStop(1,'rgba(126,224,138,.12)'); g.fillStyle = bg; g.fillRect(xa,yt,wd,yb-yt); }
+        else { g.strokeStyle = '#7ee08a'; g.lineWidth = hl ? 2.4 : 1.5; if(hl){ g.shadowColor = '#7ee08a'; g.shadowBlur = 8; }
+          for(let n=0; yb-n*sp>=yt; n++){ g.globalAlpha = alpha*Math.max(.18,Math.exp(-n*sp/KPX))*(.85+.15*Math.sin(now/260+n)); g.beginPath(); g.moveTo(xa,yb-n*sp); g.lineTo(xb,yb-n*sp); g.stroke(); } g.shadowBlur = 0; }
+        g.globalAlpha = 1; };
+      stack(fp,1,48,true);
+
+      /* ناحیه‌ی مشکل: فاصله‌ی منحنیِ فعلی تا منحنیِ واقعی */
+      const exA = .25*Math.min(1,(1-a)*2.5), xsE = [], fOf = x => (x-x0)/(x1-x0)*FMAX; for(let x=x0; x<=x1; x+=2) xsE.push(x);
+      if(exA>.012){
+        g.beginPath(); xsE.forEach((x,i2) => { const yc = Math.max(yt,Y(pl(fOf(x),a,T))); i2 ? g.lineTo(x,yc) : g.moveTo(x,yc); });
+        for(let i2=xsE.length-1;i2>=0;i2--) g.lineTo(xsE[i2],Y(pl(fOf(xsE[i2]),1,T)));
+        g.closePath(); g.fillStyle = 'rgba(255,92,92,'+exA.toFixed(3)+')'; g.fill();
+      }
+      g.setLineDash([5,4]); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 1.5; g.beginPath();
+      xsE.forEach((x,i2) => { const yy = Y(pl(fOf(x),1,T)); i2 ? g.lineTo(x,yy) : g.moveTo(x,yy); }); g.stroke(); g.setLineDash([]);
+      { const lx = x1-8; g.save(); g.textAlign = 'right'; g.textBaseline = 'middle'; g.font = '700 11px Vazirmatn, sans-serif';
+        const t1 = 'خطای کلاسیک', t2 = 'منحنیِ واقعی', w1 = g.measureText(t1).width, w2 = g.measureText(t2).width;
+        g.fillStyle = '#ff6b6b'; g.fillText(t1,lx,yt+12); g.setLineDash([4,3]); g.strokeStyle = '#ff6b6b'; g.lineWidth = 1.8; g.beginPath(); g.moveTo(lx-w1-6,yt+12); g.lineTo(lx-w1-22,yt+12); g.stroke();
+        g.fillStyle = 'rgba(255,255,255,.85)'; g.fillText(t2,lx,yt+29); g.strokeStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.moveTo(lx-w2-6,yt+29); g.lineTo(lx-w2-22,yt+29); g.stroke(); g.setLineDash([]); g.restore(); }
+      let lastX = x0; const curve = fn => { g.beginPath(); g.moveTo(x0,yb);
+        for(let x=x0; x<=x1; x+=2){ const y = Y(fn((x-x0)/(x1-x0)*FMAX)); lastX = x; if(y<yt){ g.lineTo(x,yt); break; } g.lineTo(x,y); } };
+      g.setLineDash([6,4]); curve(f => rj(f,T)); g.strokeStyle = '#ff6b6b'; g.lineWidth = 1.8; g.stroke(); g.setLineDash([]);
+      curve(f => pl(f,a,T)); g.lineTo(lastX,yb); g.closePath(); g.fillStyle = 'rgba(98,214,255,.16)'; g.fill();
+      curve(f => pl(f,a,T)); g.strokeStyle = '#62d6ff'; g.lineWidth = 2.6; g.shadowColor = '#62d6ff'; g.shadowBlur = 8; g.stroke(); g.shadowBlur = 0;
+
+      const px = X(fp); g.strokeStyle = 'rgba(255,255,255,.55)'; g.lineWidth = 1; g.setLineDash([3,3]); g.beginPath(); g.moveTo(px,yt); g.lineTo(px,yb); g.stroke(); g.setLineDash([]);
+      g.beginPath(); g.arc(px,Math.max(yt,Y(pl(fp,a,T))),5,0,Math.PI*2); g.fillStyle = '#fff'; g.fill();
+
+      g.globalAlpha = 1;
+      if(a<.03){ const k = .5+.5*Math.sin(now/120), cr = Math.round(165+90*k), cg = Math.round(60+47*k), cb = Math.round(60+47*k);
+        const fs = Math.round(clamp((x1-x0)*.06,17,24)); g.save(); g.font = '800 '+fs+'px Vazirmatn, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.shadowColor = 'rgba(6,6,11,.95)'; g.shadowBlur = 7; g.fillStyle = 'rgb('+cr+','+cg+','+cb+')'; g.fillText('⚠ فاجعه‌ی فرابنفش!',(x0+x1)/2,(yt+yb)/2); g.restore(); }
+      $('plAuto').classList.toggle('need', a<.03 && !auto);
+      drawLadder(now,dt,a,PL,yt,yb);
+      const isReal = Math.abs(s-100)<.5; if(isReal && !wasReal) lockFx(); wasReal = isReal;
+      const isCl = a<.01; if(isCl && !wasCl) thud(); wasCl = isCl;
+    }
+    requestAnimationFrame(frame);
+
+    const snd = () => { const t = performance.now(); if(t-lastSnd>90){ lastSnd = t; tone(200+s*4+(T-2500)/20,.07,'triangle',.05); } };
+    const stopAuto = () => { auto = false; $('plAuto').textContent = '🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن'; };
+    $('plS').addEventListener('input', e => { stopAuto(); s = +e.target.value; if(Math.abs(s-100)<=2.5){ s = 100; e.target.value = 100; } dirty = true; snd(); });
+    $('plT').addEventListener('input', e => { T = +e.target.value; dirty = true; snd(); });
+    $('plF').addEventListener('input', e => { fp = +e.target.value*1e12; dirty = true; });
+    $('plClassic').addEventListener('click', () => { stopAuto(); s = 0; $('plS').value = 0; dirty = true; chime(260); });
+    $('plReal').addEventListener('click', () => { stopAuto(); s = 100; $('plS').value = 100; dirty = true; });
+    $('plAuto').addEventListener('click', () => { auto = !auto; if(auto){ if(s>=100) s = 0; chime(330); } $('plAuto').textContent = auto ? '⏸ توقف' : '🛠️ فاجعه‌ی فرابنفش را با ثابت پلانک درست کن'; });
+    const setF = e => { const r = cv.getBoundingClientRect(); const lw = r.width<460 ? 100 : 124; fp = clamp((e.clientX-r.left-10)/(r.width-20-lw-4)*FMAX, 5e13, FMAX); $('plF').value = Math.round(fp/1e12); dirty = true; };
+    cv.addEventListener('pointerdown', e => { down = true; setF(e); try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
+    cv.addEventListener('pointermove', e => { if(down) setF(e); });
+    cv.addEventListener('pointerup', () => { down = false; });
+  })();
+})();
+</script>
+<script>
+  /* background music: music.mp3 (same folder) */
+  (function(){
+    const btn = document.getElementById('musicBtn');
+    const audio = document.getElementById('bgMusic');
+    const VOL = 0.8;
+    let on = (function(){try{return localStorage.getItem('qlab_music')!=='off';}catch(e){return true;}})(), ready = true, playing = false, fadeT;
+    audio.volume = 0;
+    if(!on){ btn.classList.add('off'); btn.textContent='🔇'; }
+    try{ const t0=parseFloat(sessionStorage.getItem('qlab_music_t')||'0'); if(t0>0) audio.addEventListener('loadedmetadata',function(){ try{ audio.currentTime = t0 % (audio.duration||(t0+1)); }catch(e){} },{once:true}); }catch(e){}
+    addEventListener('pagehide',function(){ try{ sessionStorage.setItem('qlab_music_t', String(audio.currentTime||0)); }catch(e){} });
+
+    function fadeTo(v, ms, done){
+      clearInterval(fadeT);
+      const from = audio.volume, t0 = performance.now();
+      fadeT = setInterval(()=>{
+        const p = Math.min(1,(performance.now()-t0)/ms);
+        audio.volume = from + (v-from)*p;
+        if(p>=1){ clearInterval(fadeT); if(done) done(); }
+      }, 50);
+    }
+
+    function tryStart(){
+      if(!on || playing || !ready) return;
+      const pr = audio.play();
+      if(pr && pr.then) pr.then(()=>{ playing = true; fadeTo(VOL, 2000); }).catch(()=>{});
+      else { playing = true; fadeTo(VOL, 2000); }
+    }
+
+    tryStart();
+
+    btn.addEventListener('click', ()=>{
+      if(on && !playing){ tryStart(); return; }
+      on = !on; try{localStorage.setItem('qlab_music', on?'on':'off');}catch(e){}
+      btn.classList.toggle('off', !on);
+      btn.textContent = on ? '🎵' : '🔇';
+      if(on) tryStart(); else fadeTo(0, 500, ()=>{ audio.pause(); playing = false; });
+    });
+
+    const GESTURES = ['pointerdown','pointerup','touchend','keydown','click'];
+    const firstGesture = e=>{
+      if(e.target.closest && e.target.closest('#musicBtn')) return;
+      tryStart();
+      if(playing) GESTURES.forEach(ev=> document.removeEventListener(ev, firstGesture, true));
+    };
+    GESTURES.forEach(ev=> document.addEventListener(ev, firstGesture, true));
+
+    document.addEventListener('visibilitychange', ()=>{
+      if(!playing || !on) return;
+      if(document.hidden) audio.pause(); else audio.play().catch(()=>{});
+    });
+  })();
+</script>
+</body>
+</html>
