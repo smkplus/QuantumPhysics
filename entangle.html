@@ -37,13 +37,12 @@
   .qdef{ max-width:600px; margin:0 auto 16px; padding:14px 18px; text-align:right; font-size:14.5px; line-height:2; color:var(--ink);
     background:var(--panel2); border:1px solid var(--border); border-inline-start:3px solid var(--wave); border-radius:14px; }
   .qdef b{ color:var(--wave); }
-  #soundBtn,#musicBtn{
+  #soundBtn{
     position:absolute; top:16px; left:20px; width:38px; height:38px; border-radius:50%;
     background:var(--panel); border:1px solid var(--border); color:var(--muted); cursor:pointer;
     font-size:16px; display:flex; align-items:center; justify-content:center;
   }
-  #musicBtn{ left:66px; }
-  #soundBtn.off,#musicBtn.off{ opacity:.5; }
+  #soundBtn.off{ opacity:.5; }
 
   main{ max-width:720px; margin:0 auto; padding:6px 18px 70px; }
 
@@ -654,7 +653,7 @@
 .pgbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:8px; padding:10px 16px; max-width:720px; margin:0 auto;
   backdrop-filter:blur(14px); background:linear-gradient(180deg, rgba(10,10,18,.92), rgba(10,10,18,.6)); }
 .pgbar .sp{ flex:1; }
-.pgbar #soundBtn,.pgbar #musicBtn{ position:static; width:38px; height:38px; flex:0 0 auto; }
+.pgbar #soundBtn{ position:static; width:38px; height:38px; flex:0 0 auto; }
 .back-btn{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:13px; cursor:pointer; text-decoration:none;
   border:1px solid rgba(var(--ch,98,214,255),.45); background:rgba(var(--ch,98,214,255),.12); color:var(--ink);
   font-family:inherit; font-size:13.5px; font-weight:700; transition:transform .15s ease, background .2s ease; -webkit-tap-highlight-color:transparent; }
@@ -677,15 +676,13 @@
 </style>
 </head>
 <body style="--ch:126,224,138">
-<audio id="bgMusic" src="music.mp3" loop playsinline preload="none"></audio>
 <canvas id="fxCanvas"></canvas>
 <div id="flashOverlay"></div>
 
 <div class="pgbar">
-  <a class="back-btn" href="index.html?v=1792304467"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a>
+  <a class="back-btn" href="index.html?v=1792304644"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a>
   <span class="sp"></span>
   <button id="soundBtn" title="صدا">🔊</button>
-  <button id="musicBtn" title="موسیقی">🎵</button>
 </div>
 
 <main>
@@ -719,7 +716,7 @@
 <footer class="credit">آزمایشگاه فیزیک کوانتوم تعاملی<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
 </main>
 
-<div class="back-bottom"><a class="back-btn" href="index.html?v=1792304467"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a></div>
+<div class="back-bottom"><a class="back-btn" href="index.html?v=1792304644"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a></div>
 <script>window.__inView=function(el){var o={v:true};if(el&&"IntersectionObserver" in window){try{new IntersectionObserver(function(e){o.v=e[e.length-1].isIntersecting;}).observe(el);}catch(_){}}return o;};</script>
 <script>
 (function(){
@@ -891,58 +888,6 @@
   })();
 })();
 </script>
-<script>
-  /* background music: music.mp3 (same folder) */
-  (function(){
-    const btn = document.getElementById('musicBtn');
-    const audio = document.getElementById('bgMusic');
-    const VOL = 0.8;
-    let on = (function(){try{return localStorage.getItem('qlab_music')!=='off';}catch(e){return true;}})(), ready = true, playing = false, fadeT;
-    audio.volume = 0;
-    if(!on){ btn.classList.add('off'); btn.textContent='🔇'; }
-    try{ const t0=parseFloat(sessionStorage.getItem('qlab_music_t')||'0'); if(t0>0) audio.addEventListener('loadedmetadata',function(){ try{ audio.currentTime = t0 % (audio.duration||(t0+1)); }catch(e){} },{once:true}); }catch(e){}
-    addEventListener('pagehide',function(){ try{ sessionStorage.setItem('qlab_music_t', String(audio.currentTime||0)); }catch(e){} });
 
-    function fadeTo(v, ms, done){
-      clearInterval(fadeT);
-      const from = audio.volume, t0 = performance.now();
-      fadeT = setInterval(()=>{
-        const p = Math.min(1,(performance.now()-t0)/ms);
-        audio.volume = from + (v-from)*p;
-        if(p>=1){ clearInterval(fadeT); if(done) done(); }
-      }, 50);
-    }
-
-    function tryStart(){
-      if(!on || playing || !ready) return;
-      const pr = audio.play();
-      if(pr && pr.then) pr.then(()=>{ playing = true; fadeTo(VOL, 2000); }).catch(()=>{});
-      else { playing = true; fadeTo(VOL, 2000); }
-    }
-
-    tryStart();
-
-    btn.addEventListener('click', ()=>{
-      if(on && !playing){ tryStart(); return; }
-      on = !on; try{localStorage.setItem('qlab_music', on?'on':'off');}catch(e){}
-      btn.classList.toggle('off', !on);
-      btn.textContent = on ? '🎵' : '🔇';
-      if(on) tryStart(); else fadeTo(0, 500, ()=>{ audio.pause(); playing = false; });
-    });
-
-    const GESTURES = ['pointerdown','pointerup','touchend','keydown','click'];
-    const firstGesture = e=>{
-      if(e.target.closest && e.target.closest('#musicBtn')) return;
-      tryStart();
-      if(playing) GESTURES.forEach(ev=> document.removeEventListener(ev, firstGesture, true));
-    };
-    GESTURES.forEach(ev=> document.addEventListener(ev, firstGesture, true));
-
-    document.addEventListener('visibilitychange', ()=>{
-      if(!playing || !on) return;
-      if(document.hidden) audio.pause(); else audio.play().catch(()=>{});
-    });
-  })();
-</script>
 </body>
 </html>
