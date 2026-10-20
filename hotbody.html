@@ -827,7 +827,7 @@
 
   function drawStage(){
     const W = fit(stg,190); if(!W) return;
-    const H = 190, g = stg.getContext('2d'), L = look(T), cy0 = H*.5, th = 46, hx0 = W*.05, hx1 = W*.23, bx1 = W*.96;
+    const H = 190, g = stg.getContext('2d'), L = look(T), cy0 = H*.5, th = 46, hx0 = W*.04, hx1 = W*.28, bx1 = W*.96;
     g.clearRect(0,0,W,H);
     const bg = g.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#06060b'); bg.addColorStop(1,'#0c0c16'); g.fillStyle = bg; g.fillRect(0,0,W,H);
     if(L.t>0){
@@ -837,11 +837,16 @@
       g.fillStyle = hg; g.fillRect(-W,-H,W*2,H*2); g.restore();
     }
     const vg = (y0,y1,c0,c1) => { const m = g.createLinearGradient(0,y0,0,y1); m.addColorStop(0,c0); m.addColorStop(1,c1); return m; };
-    const gw = 5, gh = th*.2, gl = th*.85, gx0 = hx0+18;
-    g.fillStyle = vg(cy0-gh,cy0+gh,'#4b3c44','#1f1820'); rrect(g,gx0,cy0-gh,hx1-gw+2-gx0,gh*2,6); g.fill();
-    g.strokeStyle = 'rgba(0,0,0,.4)'; g.lineWidth = 2; g.beginPath(); for(let x=gx0+6; x<hx1-gw-8; x+=10){ g.moveTo(x,cy0-gh+1); g.lineTo(x+7,cy0+gh-1); } g.stroke();
-    const pg = g.createRadialGradient(hx0+5,cy0-4,1,hx0+8,cy0,12); pg.addColorStop(0,'#8a8a9c'); pg.addColorStop(1,'#25252f');
-    g.fillStyle = pg; g.beginPath(); g.arc(hx0+8,cy0,11,0,Math.PI*2); g.fill();
+    const gw = 7, gh = th*.3, gl = th*.85, gx0 = hx0+24, gx1 = hx1-gw, gm = (gx0+gx1)/2;
+    const grip = () => { g.beginPath(); g.moveTo(gx0,cy0-gh*.85); g.quadraticCurveTo(gm,cy0-gh*1.2,gx1,cy0-gh*.85); g.lineTo(gx1,cy0+gh*.85); g.quadraticCurveTo(gm,cy0+gh*1.2,gx0,cy0+gh*.85); g.closePath(); };
+    const lg = g.createLinearGradient(0,cy0-gh,0,cy0+gh); lg.addColorStop(0,'#8a6a56'); lg.addColorStop(.45,'#5a4234'); lg.addColorStop(1,'#2a1d17');
+    g.fillStyle = lg; grip(); g.fill();
+    g.save(); grip(); g.clip();
+    g.strokeStyle = 'rgba(0,0,0,.38)'; g.lineWidth = 2; g.beginPath(); for(let x=gx0-6; x<gx1; x+=9){ g.moveTo(x,cy0-gh*1.3); g.lineTo(x+9,cy0+gh*1.3); } g.stroke();
+    g.restore();
+    g.fillStyle = vg(cy0-gh,cy0+gh,'#9a9aaa','#30303b'); rrect(g,gx0-3,cy0-gh*.95,6,gh*1.9,2); g.fill(); rrect(g,gx1-3,cy0-gh*.95,6,gh*1.9,2); g.fill();
+    const pg = g.createRadialGradient(hx0+7,cy0-5,1,hx0+11,cy0,15); pg.addColorStop(0,'#c0c0d0'); pg.addColorStop(1,'#2c2c38');
+    g.fillStyle = pg; g.beginPath(); g.arc(hx0+11,cy0,13,0,Math.PI*2); g.fill();
 
     const bl = hx1, ts = bl+(bx1-bl)*.87, hb = th*.28, ht = th*.17, tc = ts+(bx1-ts)*.55;
     const blade = () => { g.beginPath(); g.moveTo(bl,cy0-hb); g.lineTo(ts,cy0-ht); g.quadraticCurveTo(tc,cy0-ht*.6,bx1,cy0); g.quadraticCurveTo(tc,cy0+ht*.6,ts,cy0+ht); g.lineTo(bl,cy0+hb); g.closePath(); };
@@ -857,9 +862,10 @@
     g.restore();
     g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1; blade(); g.stroke();
 
-    g.fillStyle = vg(cy0-gl,cy0+gl,'#6a6a7a','#20202a');
-    g.beginPath(); g.moveTo(hx1-gw,cy0-gh*1.3); g.quadraticCurveTo(hx1+gw*.8,cy0-gh*1.3,hx1+gw*1.5,cy0-gl); g.quadraticCurveTo(hx1+gw*.6,cy0-gl*.5,hx1+gw*.4,cy0-gh*.5);
-    g.lineTo(hx1+gw*.4,cy0+gh*.5); g.quadraticCurveTo(hx1+gw*.6,cy0+gl*.5,hx1+gw*1.5,cy0+gl); g.quadraticCurveTo(hx1+gw*.8,cy0+gh*1.3,hx1-gw,cy0+gh*1.3); g.closePath(); g.fill();
+    const gb = hx1-gw*.8, mg = g.createLinearGradient(gb,0,gb+gw*1.6,0);
+    mg.addColorStop(0,'#6a6a7a'); mg.addColorStop(.4,'#cfcfdc'); mg.addColorStop(1,'#3a3a46');
+    g.fillStyle = mg; rrect(g,gb,cy0-gl,gw*1.6,gl*2,gw*.8); g.fill();
+    [-1,1].forEach(s => { g.beginPath(); g.arc(gb+gw*.8,cy0+s*gl,gw*.85,0,Math.PI*2); g.fill(); });
   }
 
   const LMIN = 100, LMAX = 30000, lgA = Math.log10(LMIN), lgB = Math.log10(LMAX);
