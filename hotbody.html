@@ -827,7 +827,7 @@
 
   function drawStage(){
     const W = fit(stg,190); if(!W) return;
-    const H = 190, g = stg.getContext('2d'), L = look(T), cy0 = H*.5, th = 46, hx0 = W*.06, hx1 = W*.3, bx1 = W*.92;
+    const H = 190, g = stg.getContext('2d'), L = look(T), cy0 = H*.5, th = 46, hx0 = W*.05, hx1 = W*.23, bx1 = W*.96;
     g.clearRect(0,0,W,H);
     const bg = g.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#06060b'); bg.addColorStop(1,'#0c0c16'); g.fillStyle = bg; g.fillRect(0,0,W,H);
     if(L.t>0){
@@ -837,14 +837,14 @@
       g.fillStyle = hg; g.fillRect(-W,-H,W*2,H*2); g.restore();
     }
     const vg = (y0,y1,c0,c1) => { const m = g.createLinearGradient(0,y0,0,y1); m.addColorStop(0,c0); m.addColorStop(1,c1); return m; };
-    const gw = 7, gh = th*.24, gl = th*.8, gx0 = hx0+22;
+    const gw = 5, gh = th*.2, gl = th*.85, gx0 = hx0+18;
     g.fillStyle = vg(cy0-gh,cy0+gh,'#4b3c44','#1f1820'); rrect(g,gx0,cy0-gh,hx1-gw+2-gx0,gh*2,6); g.fill();
     g.strokeStyle = 'rgba(0,0,0,.4)'; g.lineWidth = 2; g.beginPath(); for(let x=gx0+6; x<hx1-gw-8; x+=10){ g.moveTo(x,cy0-gh+1); g.lineTo(x+7,cy0+gh-1); } g.stroke();
-    const pg = g.createRadialGradient(hx0+6,cy0-5,2,hx0+10,cy0,15); pg.addColorStop(0,'#8a8a9c'); pg.addColorStop(1,'#25252f');
-    g.fillStyle = pg; g.beginPath(); g.arc(hx0+10,cy0,14,0,Math.PI*2); g.fill();
+    const pg = g.createRadialGradient(hx0+5,cy0-4,1,hx0+8,cy0,12); pg.addColorStop(0,'#8a8a9c'); pg.addColorStop(1,'#25252f');
+    g.fillStyle = pg; g.beginPath(); g.arc(hx0+8,cy0,11,0,Math.PI*2); g.fill();
 
-    const bl = hx1, ts = bl+(bx1-bl)*.8, hb = th*.42, ht = th*.25, tc = ts+(bx1-ts)*.6;
-    const blade = () => { g.beginPath(); g.moveTo(bl,cy0-hb); g.lineTo(ts,cy0-ht); g.quadraticCurveTo(tc,cy0-ht*.8,bx1,cy0); g.quadraticCurveTo(tc,cy0+ht*.8,ts,cy0+ht); g.lineTo(bl,cy0+hb); g.closePath(); };
+    const bl = hx1, ts = bl+(bx1-bl)*.87, hb = th*.28, ht = th*.17, tc = ts+(bx1-ts)*.55;
+    const blade = () => { g.beginPath(); g.moveTo(bl,cy0-hb); g.lineTo(ts,cy0-ht); g.quadraticCurveTo(tc,cy0-ht*.6,bx1,cy0); g.quadraticCurveTo(tc,cy0+ht*.6,ts,cy0+ht); g.lineTo(bl,cy0+hb); g.closePath(); };
     g.save(); g.shadowColor = rgb(L.gl,.9*L.t); g.shadowBlur = L.t*(12+46*L.k);
     const dark = L.col.map(v => v*.72), rg = g.createLinearGradient(0,cy0-hb,0,cy0+hb);
     rg.addColorStop(0,rgb(dark)); rg.addColorStop(.38,rgb(mix(L.col,[255,255,255],.25-.17*L.t))); rg.addColorStop(1,rgb(dark));
@@ -852,14 +852,14 @@
     g.save(); blade(); g.clip();
     g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(bl,cy0-hb,bx1-bl,hb);
     g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(bl,cy0,bx1-bl,hb);
-    g.lineCap = 'round'; g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = 4; g.beginPath(); g.moveTo(bl+16,cy0); g.lineTo(ts-12,cy0); g.stroke();
-    g.strokeStyle = 'rgba(255,255,255,.28)'; g.lineWidth = 1; g.beginPath(); g.moveTo(bl+16,cy0+3); g.lineTo(ts-12,cy0+3); g.stroke();
+    g.lineCap = 'round'; g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = 3; g.beginPath(); g.moveTo(bl+14,cy0); g.lineTo(ts-40,cy0); g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,.28)'; g.lineWidth = 1; g.beginPath(); g.moveTo(bl+14,cy0+2.2); g.lineTo(ts-40,cy0+2.2); g.stroke();
     g.restore();
     g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1; blade(); g.stroke();
 
     g.fillStyle = vg(cy0-gl,cy0+gl,'#6a6a7a','#20202a');
-    g.beginPath(); g.moveTo(hx1-gw,cy0-gh*1.4); g.quadraticCurveTo(hx1+gw,cy0-gh*1.4,hx1+gw*2.2,cy0-gl); g.quadraticCurveTo(hx1+gw*1.1,cy0-gl*.55,hx1+gw,cy0-gh*.5);
-    g.lineTo(hx1+gw,cy0+gh*.5); g.quadraticCurveTo(hx1+gw*1.1,cy0+gl*.55,hx1+gw*2.2,cy0+gl); g.quadraticCurveTo(hx1+gw,cy0+gh*1.4,hx1-gw,cy0+gh*1.4); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(hx1-gw,cy0-gh*1.3); g.quadraticCurveTo(hx1+gw*.8,cy0-gh*1.3,hx1+gw*1.5,cy0-gl); g.quadraticCurveTo(hx1+gw*.6,cy0-gl*.5,hx1+gw*.4,cy0-gh*.5);
+    g.lineTo(hx1+gw*.4,cy0+gh*.5); g.quadraticCurveTo(hx1+gw*.6,cy0+gl*.5,hx1+gw*1.5,cy0+gl); g.quadraticCurveTo(hx1+gw*.8,cy0+gh*1.3,hx1-gw,cy0+gh*1.3); g.closePath(); g.fill();
   }
 
   const LMIN = 100, LMAX = 30000, lgA = Math.log10(LMIN), lgB = Math.log10(LMAX);
