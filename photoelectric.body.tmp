@@ -1,0 +1,75 @@
+<title>💡 اثر فوتوالکتریک: نور چطور الکترون می‌کَند؟ | آزمایشگاه فیزیک کوانتوم</title>
+<main>
+  <section class="concept" id="sec-pe">
+    <div class="concept-head"><h2><span class="sec-no" dir="ltr">۱</span>💡 اثر فوتوالکتریک: نور چطور الکترون می‌کَند؟</h2></div>
+    <p class="concept-desc">وقتی نور به یک فلز می‌تابد، گاهی الکترون‌هایش را بیرون می‌اندازد. عجیب این است که نتیجه به رنگِ نور (بسامدش) بستگی دارد، نه به پرنوری‌اش. فلز، بسامد و شدت را عوض کن و ببین کِی الکترون آزاد می‌شود.</p>
+    <style>
+      #peF,#peI,#peV{ height:7px; }
+      #peF::-webkit-slider-thumb{ width:20px; height:20px; border:2px solid #0a0a12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+      #peF::-moz-range-thumb{ width:16px; height:16px; border:2px solid #0a0a12; background:var(--tc,#fff); box-shadow:0 0 12px var(--tc,#fff); }
+      #peI{ background:linear-gradient(90deg,#241d0e,#7a5a14 45%,#ffcf4a); }
+      #peI::-webkit-slider-thumb{ width:18px; height:18px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+      #peI::-moz-range-thumb{ width:14px; height:14px; border:2px solid #0b0b12; background:#ffcf4a; box-shadow:0 0 12px rgba(255,207,74,.9); }
+      #peV{ background:linear-gradient(90deg,#14212b,#1d4f6b 50%,#62d6ff); }
+      #peDemo .pl-big{ font-size:clamp(22px,6.6vw,34px); }
+    </style>
+    <details id="ucMore">
+      <summary>📖 توضیحِ کامل: چه دیدند، چرا موج جواب نمی‌داد و اینشتین چه گفت <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
+      <div class="uc-wrap">
+        <div class="uc-card" style="--c:98,214,255"><div class="uc-h"><span class="uc-ic">🔬</span>چه دیدند؟</div><p>هرتس در ۱۸۸۷ دید نورِ فرابنفش پریدنِ جرقه را آسان‌تر می‌کند. بعدتر معلوم شد نور از سطحِ فلز الکترون می‌کَند. آزمایشِ استاندارد یک لوله‌ی خلأ است: نور به یک صفحه‌ی فلزی (نورگیر) می‌خورد و الکترون‌های آزادشده به صفحه‌ی مقابل (جمع‌کننده) می‌رسند و جریان می‌سازند.</p></div>
+        <div class="uc-card" style="--c:255,107,107"><div class="uc-h"><span class="uc-ic">🤯</span>سه معمایی که موج حل نمی‌کرد</div><p>۱) نورِ پرنورتر انرژیِ بیشتری دارد، پس باید الکترونِ تندتر بدهد؛ ولی سرعتِ الکترون‌ها به شدت بستگی ندارد. ۲) زیرِ یک بسامدِ مشخص هیچ الکترونی نمی‌آید، هرقدر نور پرنور باشد. ۳) نورِ ضعیف باید مدتی انرژی جمع می‌کرد تا الکترونی بپرد، ولی الکترون‌ها تقریباً بی‌درنگ بیرون می‌آیند.</p></div>
+        <div class="uc-card" style="--c:255,180,84"><div class="uc-h"><span class="uc-ic">💡</span>پاسخِ اینشتین (۱۹۰۵)</div><p>نور از بسته‌های جدا (فوتون) ساخته شده و انرژیِ هر بسته <b class="mono" dir="ltr">E = hf</b> است. هر فوتون فقط به یک الکترون می‌رسد: اگر انرژی‌اش از «تابع کار» W (کمترین انرژیِ کندنِ الکترون از آن فلز) کمتر باشد، کاری از پیش نمی‌برد؛ وگرنه الکترون را می‌کَند و باقی‌مانده انرژی‌اش می‌شود انرژیِ جنبشی: <b class="mono" dir="ltr">Eₖ = hf − W</b>. شدت فقط تعدادِ فوتون‌ها (و پس تعدادِ الکترون‌ها) را عوض می‌کند. نوبل ۱۹۲۱ برای همین بود.</p></div>
+        <div class="uc-card" style="--c:199,146,234"><div class="uc-h"><span class="uc-ic">🧪</span>ولتاژِ توقف و آزمایشِ میلیکان</div><p>اگر بینِ دو صفحه ولتاژی بگذاریم که الکترون‌ها را عقب برگرداند، وقتی ولتاژ به <b class="mono" dir="ltr">V₀ = Eₖ/e</b> برسد جریان صفر می‌شود. میلیکان V₀ را برای بسامدهای مختلف اندازه گرفت؛ خط‌ها راست درآمدند و شیبشان همان ثابتِ پلانک h بود. او می‌خواست ایده‌ی فوتون را رد کند، ولی آزمایشش آن را تأیید کرد.</p></div>
+        <div class="uc-card" style="--c:126,224,138"><div class="uc-h"><span class="uc-ic">🎛️</span>با شبیه‌ساز چه کار کنم؟</div><p>فلز را عوض کن و اسلایدرِ بسامد را بکش: وقتی از آستانه رد شوی الکترون‌ها از صفحه‌ی چپ می‌پرند. شدت را بالا ببر و ببین فقط تعدادشان زیاد می‌شود. ولتاژِ مانع را بالا ببر تا جریان قطع شود. نمودارِ پایین رابطه‌ی Eₖ و f را برای همه‌ی فلزها نشان می‌دهد؛ دو دکمه‌ی «آزمایش» هم دو معمایِ اصلی را برایت اجرا می‌کنند.</p></div>
+      </div>
+    </details>
+    <div class="demo" id="peDemo">
+      <div class="pl-hero" id="peHero"><b class="pl-big" id="peBig">—</b><span class="pl-sub" id="peSub"></span></div>
+      <canvas class="demo-canvas" id="peStage" style="height:262px"></canvas>
+      <div class="ds-chips" id="peMetals">
+        <button class="app-chip" data-m="0"><span style="color:#f2c46d">●</span> سزیم · ۲٫۱۴ eV</button>
+        <button class="app-chip" data-m="1"><span style="color:#ff9f6b">●</span> سدیم · ۲٫۳۶ eV</button>
+        <button class="app-chip" data-m="2"><span style="color:#9fb8c9">●</span> روی · ۴٫۳۳ eV</button>
+        <button class="app-chip" data-m="3"><span style="color:#e08a5a">●</span> مس · ۴٫۶۵ eV</button>
+        <button class="app-chip" data-m="4"><span style="color:#c9ccd8">●</span> پلاتین · ۵٫۶۵ eV</button>
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>🔴 بسامدِ کم</span><span id="peFv" class="mono">—</span><span>بسامدِ زیاد 🟣</span></label>
+        <input type="range" id="peF" dir="ltr" min="0" max="1000" step="1" value="294">
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>🔅 کم‌نور</span><span id="peIv" class="mono">—</span><span>پرنور 🔆</span></label>
+        <input type="range" id="peI" dir="ltr" min="1" max="100" step="1" value="50">
+      </div>
+      <div class="slider-group">
+        <label dir="ltr"><span>۰ V</span><span id="peVv" class="mono">—</span><span>ولتاژِ مانعِ بیشتر</span></label>
+        <input type="range" id="peV" dir="ltr" min="0" max="80" step="1" value="0">
+      </div>
+      <div class="ds-chips" id="peExp">
+        <button class="app-chip" data-p="red">🔴 آزمایش ۱: قرمزِ بسیار پرنور</button>
+        <button class="app-chip" data-p="uv">🟣 آزمایش ۲: فرابنفشِ ضعیف</button>
+        <button class="app-chip" data-p="thr">🎯 درست روی آستانه</button>
+      </div>
+      <canvas class="demo-canvas" id="peGraph" style="height:262px"></canvas>
+      <div class="row" style="margin-bottom:12px">
+        <button class="act" id="peDouble">✖️۲ شدتِ نور را بیشتر کن</button>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="rl">انرژیِ هر فوتون (hf)</div><div class="rv mono c-wave" id="peEph" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">تابعِ کارِ فلز (W)</div><div class="rv mono c-collapse" id="peW" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">بیشینه‌ی انرژیِ جنبشیِ الکترون</div><div class="rv mono c-ent" id="peEk" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">بیشینه‌ی سرعتِ الکترون</div><div class="rv mono c-alive" id="peVel" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">ولتاژِ توقف (V₀)</div><div class="rv mono c-wave" id="peV0" dir="ltr">—</div></div>
+        <div class="readout"><div class="rl">جریانِ نسبی (۱۰۰٪ = شدتِ کامل و بدونِ ولتاژ)</div><div class="rv mono c-collapse" id="peCur" dir="ltr">—</div></div>
+      </div>
+      <div class="note-box" id="peNote"></div>
+    </div>
+    <div class="note-box" style="margin-top:16px;border-inline-start-color:var(--entangle)">
+      <b>گره‌ی ماجرا:</b> فوتونِ اینشتین همان «بسته‌ی انرژیِ» پلانک است، اما اگر نور ذره است، پس چرا پراش و تداخل هم می‌کند؟ این پرسش به دوگانگیِ موج–ذره می‌رسد.
+      <div class="row" style="margin-top:10px"><a class="back-btn" style="--ch:199,146,234" href="duality.html?v=1792306058">🎯 ذره یا موج؟ <span class="ar" aria-hidden="true">←</span></a></div>
+    </div>
+  </section>
+<footer class="credit">آزمایشگاه فیزیک کوانتوم تعاملی<div class="credit-card"><div class="cc-row"><span class="cc-by">کاری از</span><span class="cc-name">سید مرتضی کمالی</span></div><div class="cc-row cc-thanks"><span class="cc-by2">با تشکر از</span><span class="cc-name">رعنا خاوری</span><span class="cc-by2">و استاد</span><span class="cc-name">مهدیس منصوری</span></div></div></footer>
+</main>
+
+<div class="back-bottom"><a class="back-btn" href="index.html?v=1792306058"><span class="ar" aria-hidden="true">→</span> بازگشت به فهرست</a></div>
