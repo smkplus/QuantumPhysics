@@ -720,6 +720,71 @@
       #peV::-moz-range-thumb{ width:16px; height:16px; border:2px solid #0a0a12; background:var(--vc,#fff); box-shadow:0 0 12px var(--vc,#fff); }
       .pe-cap{ font-size:12.5px; font-weight:700; color:var(--ink); margin:14px 0 8px; }
       #peDemo .pl-big{ font-size:clamp(22px,6.6vw,34px); }
+
+      /* experiment picker with prev / next */
+      .pe-expnav{ display:flex; align-items:stretch; gap:8px; flex:1 1 260px; }
+      .pe-expnav #peExp{ flex:1 1 auto; }
+      .pe-nav{ flex:0 0 auto; width:46px; padding:0; font-size:19px; line-height:1; }
+      .pe-nav:disabled{ opacity:.3; }
+
+      /* collapsible part of the story card */
+      .pe-more{ margin-top:10px; }
+      .pe-more > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px; font-size:13px; font-weight:800; color:rgb(var(--sc,98,214,255)); background:rgba(var(--sc,98,214,255),.1); border:1px solid rgba(var(--sc,98,214,255),.35); -webkit-tap-highlight-color:transparent; }
+      .pe-more > summary::-webkit-details-marker{ display:none; }
+      .pe-more > summary:hover{ background:rgba(var(--sc,98,214,255),.18); }
+      .pe-more > summary .chev{ margin-inline-start:auto; transition:transform .25s ease; }
+      .pe-more[open] > summary .chev{ transform:rotate(180deg); }
+      .pe-more[open] > summary{ margin-bottom:10px; }
+      .pe-more > summary:focus-visible{ outline:2px solid var(--wave); outline-offset:2px; }
+
+      /* run / manual status pill + legend */
+      .pe-modebar{ display:flex; justify-content:center; margin:0 0 10px; }
+      .pe-mode{ display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; padding:5px 14px; border-radius:999px; border:1px solid var(--border); background:#0c0c14; color:var(--muted); transition:color .25s ease, border-color .25s ease, background .25s ease; }
+      .pe-mode i{ flex:none; width:8px; height:8px; border-radius:50%; background:currentColor; }
+      .pe-mode.run{ color:var(--alive); border-color:rgba(126,224,138,.5); background:rgba(126,224,138,.07); }
+      .pe-mode.run i{ animation:peBlink 1.1s ease-in-out infinite; }
+      .pe-mode.done{ color:var(--wave); border-color:rgba(98,214,255,.5); background:rgba(98,214,255,.07); }
+      .pe-mode.manual{ color:var(--collapse); border-color:rgba(255,180,84,.45); background:rgba(255,180,84,.06); }
+      @keyframes peBlink{ 0%,100%{ opacity:1; } 50%{ opacity:.25; } }
+      .pe-legend{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 14px; margin:-2px 0 14px; font-size:11.5px; color:var(--muted); }
+      .pe-legend span{ display:inline-flex; align-items:center; gap:6px; }
+      .pe-legend i{ flex:none; display:inline-block; }
+      .pe-legend .lg-ph{ width:18px; height:0; border-top:2px solid #8fe8ff; border-radius:2px; box-shadow:0 0 6px #62d6ff; }
+      .pe-legend .lg-el{ width:11px; height:11px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff,#8fe8ff 45%,rgba(98,214,255,.3)); box-shadow:0 0 8px rgba(98,214,255,.8); }
+      .pe-legend .lg-bk{ width:11px; height:11px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff,#8fe8ff 45%,rgba(98,214,255,.3)); opacity:.45; }
+      .pe-legend .lg-sp{ width:11px; height:11px; border-radius:50%; border:2px solid rgba(255,160,70,.9); }
+
+      /* helper markers on the sliders (jump to threshold / V0) */
+      .pe-track{ --tw:20px; position:relative; padding-bottom:38px; margin-bottom:-2px; }
+      .pe-track.nomark{ padding-bottom:0; }
+      .pe-track input[type=range]{ display:block; }
+      .pe-mark{ position:absolute; top:17px; left:calc(var(--tw)/2 + (100% - var(--tw))*var(--p,0)); transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:2px; min-height:32px; padding:0 8px; cursor:pointer; background:none; border:0; font-family:'Vazirmatn',sans-serif; font-size:11.5px; font-weight:700; color:var(--mk,var(--wave)); -webkit-tap-highlight-color:transparent; transition:opacity .2s ease; }
+      .pe-mark i{ width:2px; height:9px; margin-top:-10px; border-radius:1px; background:currentColor; box-shadow:0 0 8px currentColor; }
+      .pe-mark b{ white-space:nowrap; font-weight:700; padding:3px 9px; border-radius:999px; border:1px solid currentColor; background:rgba(255,255,255,.04); transition:background .2s ease, transform .15s cubic-bezier(.34,1.56,.64,1); }
+      .pe-mark:hover b{ background:rgba(255,255,255,.14); transform:translateY(-1px); }
+      .pe-mark:active b{ transform:scale(.94); }
+      .pe-mark[hidden]{ display:none; }
+      .pe-mark:focus-visible{ outline:2px solid var(--wave); outline-offset:1px; border-radius:10px; }
+      #peDemo input[type=range]:focus-visible{ outline:2px solid var(--wave); outline-offset:7px; border-radius:4px; }
+      #peDemo button:focus-visible{ outline:2px solid var(--wave); outline-offset:2px; }
+
+      /* interactive graphs */
+      #peIV,#peGraph{ cursor:ew-resize; touch-action:pan-y; user-select:none; -webkit-user-select:none; }
+      .pe-cap small{ font-weight:500; color:var(--muted); font-size:11.5px; }
+      .pe-cap.ctl{ margin-top:4px; }
+
+      /* bigger touch targets on phones / tablets */
+      @media (pointer:coarse){
+        .pe-track{ --tw:28px; }
+        #peDemo input[type=range]{ height:9px; }
+        #peDemo input[type=range]::-webkit-slider-thumb{ width:28px; height:28px; }
+        #peDemo input[type=range]::-moz-range-thumb{ width:24px; height:24px; }
+        .pe-nav{ width:52px; }
+        .pe-mark{ min-height:40px; }
+      }
+      @media (prefers-reduced-motion:reduce){
+        *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+      }
     </style>
     <details id="ucMore">
       <summary>📖 توضیحِ کامل: چه دیدند، چرا موج جواب نمی‌داد و اینشتین چه گفت <small>(بخوان یا رد شو)</small><span class="chev">▾</span></summary>
